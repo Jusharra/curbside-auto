@@ -89,7 +89,7 @@ function renderCityPage(city, site, allCities, services, config) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Roadside Assistance, Mobile Mechanic & Windshield Repair in ${cityFull} | ${site.brandName}</title>
+<title>Roadside & Windshield Repair in ${cityFull} | ${site.brandName}</title>
 <meta name="description" content="Need roadside assistance, a mobile mechanic, or mobile windshield repair near you in ${cityFull}? ${site.brandName} dispatches a vetted local pro to your exact location, 24/7.">
 <meta property="og:title" content="${site.brandName} ${cityFull} \u2014 Roadside Assistance, Mobile Repair & Windshield, Dispatched to You">
 <meta property="og:description" content="24/7 roadside assistance, mobile mechanic, and mobile windshield repair in ${cityFull} \u2014 one dispatch line.">
