@@ -9,7 +9,7 @@ function renderHomePage(cities, site) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${site.brandName} \u2014 Roadside Assistance & Windshield Repair</title>
+<title>24 Hour Roadside Assistance & Windshield Repair Service</title>
 <meta name="description" content="${site.brandName} dispatches vetted local pros for 24/7 roadside assistance, mobile mechanic service, and mobile windshield repair. Pick your city to get started.">
 <meta name="theme-color" content="#14171C">
 <link rel="canonical" href="https://curbsideauto.com/">
