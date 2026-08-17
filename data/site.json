@@ -1,5 +1,7 @@
 {
-  "brandName": "CURBSIDE",
+  "brandName": "Shay's Curbside Auto",
+  "logoMain": "Shay's Curbside ",
+  "logoAccent": "Auto",
   "tagline": "We come to you.",
   "offers": [
     {
@@ -38,7 +40,7 @@
   "faq": [
     {
       "q": "Is there roadside assistance near me that doesn't require a membership?",
-      "a": "Yes — CURBSIDE dispatches a vetted local pro in {cityName} for one-time roadside calls with flat, upfront pricing. No membership or annual plan required."
+      "a": "Yes — {brandName} dispatches a vetted local pro in {cityName} for one-time roadside calls with flat, upfront pricing. No membership or annual plan required."
     },
     {
       "q": "Do you have a mobile mechanic near me who can do more than a jump start?",
@@ -46,7 +48,7 @@
     },
     {
       "q": "Can I get windshield repair near me without driving to a shop?",
-      "a": "Yes — CURBSIDE's mobile windshield repair comes to your home or office in {cityName}. Most chip repairs and many replacements are completed in under an hour on-site."
+      "a": "Yes — {brandName}'s mobile windshield repair comes to your home or office in {cityName}. Most chip repairs and many replacements are completed in under an hour on-site."
     },
     {
       "q": "Does mobile windshield repair work with insurance?",

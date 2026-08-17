@@ -10,7 +10,7 @@
     "h1": "24-Hour Emergency Roadside Assistance in <em>{cityName}</em>",
     "metaTitle": "24-Hour Emergency Roadside Assistance in {cityFull} | {brandName}",
     "metaDescription": "Stranded in {cityFull}? {brandName} dispatches 24-hour emergency roadside assistance to your exact location — jump starts, flat tires, lockouts, fuel delivery. No membership, flat pricing.",
-    "intro": "Breakdown at 2 AM or gridlock at rush hour — CURBSIDE dispatches a vetted local pro to your exact location in {cityName}, any hour, any day. No membership, no annual fee, no call-center hold music.",
+    "intro": "Breakdown at 2 AM or gridlock at rush hour — {brandName} dispatches a vetted local pro to your exact location in {cityName}, any hour, any day. No membership, no annual fee, no call-center hold music.",
     "benefits": [
       "Live dispatch 24 hours a day, 365 days a year — including holidays",
       "Vetted local techs sent to your GPS location, not a call queue",
@@ -23,7 +23,7 @@
     "faq": [
       {
         "q": "Is 24 hour roadside assistance near me available without a membership?",
-        "a": "Yes. CURBSIDE dispatches a vetted local pro in {cityName} for one-time roadside calls, any hour, with flat upfront pricing and no membership required."
+        "a": "Yes. {brandName} dispatches a vetted local pro in {cityName} for one-time roadside calls, any hour, with flat upfront pricing and no membership required."
       },
       {
         "q": "What counts as an emergency roadside call?",
@@ -46,7 +46,7 @@
     "h1": "Mobile Mechanic <em>Near You</em> in {cityName}",
     "metaTitle": "Mobile Mechanic Near Me in {cityFull} — On-Site Diagnostics & Repair | {brandName}",
     "metaDescription": "Need a mobile mechanic near you in {cityFull}? {brandName} sends a vetted tech to diagnose and repair your vehicle on-site — no tow, no shop drop-off, flat pricing.",
-    "intro": "Skip the shop drop-off. A CURBSIDE mobile mechanic comes to your home, office, or roadside in {cityName} to diagnose the problem and fix it on the spot, whenever that's possible.",
+    "intro": "Skip the shop drop-off. A {brandName} mobile mechanic comes to your home, office, or roadside in {cityName} to diagnose the problem and fix it on the spot, whenever that's possible.",
     "benefits": [
       "On-site diagnostics from an experienced, vetted tech",
       "Most common repairs completed without a tow or shop visit",
@@ -82,7 +82,7 @@
     "h1": "Jump Start & Battery Service in {cityName}",
     "metaTitle": "Jump Start Service Near Me in {cityFull} — Battery Service | {brandName}",
     "metaDescription": "Dead battery in {cityFull}? {brandName} dispatches a tech for a jump start or on-site battery replacement — flat pricing, no membership, available 24/7.",
-    "intro": "Dead battery? CURBSIDE sends a tech straight to your car in {cityName} for a jump start — and if the battery's the real problem, they can test and replace it on the spot.",
+    "intro": "Dead battery? {brandName} sends a tech straight to your car in {cityName} for a jump start — and if the battery's the real problem, they can test and replace it on the spot.",
     "benefits": [
       "Jump start dispatched to your exact location, day or night",
       "Free battery test to confirm it's the battery and not something else",
@@ -103,7 +103,7 @@
       },
       {
         "q": "Is jump start service near me available at night?",
-        "a": "Yes — CURBSIDE dispatches 24 hours a day in {cityName}, including overnight and holidays."
+        "a": "Yes — {brandName} dispatches 24 hours a day in {cityName}, including overnight and holidays."
       }
     ]
   },
@@ -118,7 +118,7 @@
     "h1": "Flat Tire Change & Repair in {cityName}",
     "metaTitle": "Flat Tire Change Near Me in {cityFull} | {brandName}",
     "metaDescription": "Flat tire in {cityFull}? {brandName} dispatches a tech to swap on your spare or patch the tire on-site — no tow needed, flat upfront pricing.",
-    "intro": "Flat on the shoulder or in your driveway — a CURBSIDE tech comes to you in {cityName} to swap on your spare or patch the tire, so you're not stuck waiting for a tow.",
+    "intro": "Flat on the shoulder or in your driveway — a {brandName} tech comes to you in {cityName} to swap on your spare or patch the tire, so you're not stuck waiting for a tow.",
     "benefits": [
       "Spare tire swap or on-site repair, whichever gets you moving faster",
       "Tech brings the tools — you don't need a working jack or lug wrench",
@@ -154,7 +154,7 @@
     "h1": "Car Lockout Service in {cityName}",
     "metaTitle": "Car Lockout Service Near Me in {cityFull} | {brandName}",
     "metaDescription": "Locked out in {cityFull}? {brandName} dispatches a tech with non-destructive entry tools to get you back into your car — flat pricing, available 24/7.",
-    "intro": "Locked your keys in the car? A CURBSIDE tech comes to you in {cityName} with the tools to get you back in without damaging your vehicle.",
+    "intro": "Locked your keys in the car? A {brandName} tech comes to you in {cityName} with the tools to get you back in without damaging your vehicle.",
     "benefits": [
       "Non-destructive entry — no broken windows or damaged locks",
       "Works on most makes and models, including newer keyless systems",
@@ -175,7 +175,7 @@
       },
       {
         "q": "Is car lockout service near me available late at night?",
-        "a": "Yes — CURBSIDE dispatches 24/7 in {cityName}, including overnight."
+        "a": "Yes — {brandName} dispatches 24/7 in {cityName}, including overnight."
       }
     ]
   },
@@ -190,7 +190,7 @@
     "h1": "Emergency Fuel Delivery in {cityName}",
     "metaTitle": "Emergency Fuel Delivery Near Me in {cityFull} | {brandName}",
     "metaDescription": "Ran out of gas in {cityFull}? {brandName} delivers fuel straight to your vehicle wherever you're stopped — flat pricing, dispatched to your GPS location.",
-    "intro": "Ran out of gas in {cityName}? CURBSIDE brings fuel straight to your vehicle so you can get back on the road without waiting for a tow to the nearest station.",
+    "intro": "Ran out of gas in {cityName}? {brandName} brings fuel straight to your vehicle so you can get back on the road without waiting for a tow to the nearest station.",
     "benefits": [
       "Fuel delivered directly to your vehicle, wherever you're stopped",
       "Enough to get you safely to the nearest station",
@@ -226,7 +226,7 @@
     "h1": "Mobile Brake Repair in {cityName}",
     "metaTitle": "Mobile Brake Repair Near Me in {cityFull} | {brandName}",
     "metaDescription": "Grinding or soft brakes in {cityFull}? {brandName} dispatches a mobile mechanic to inspect and repair your brakes on-site — flat pricing, straight answers.",
-    "intro": "Grinding, squealing, or a soft pedal — a CURBSIDE mobile mechanic inspects and repairs your brakes on-site in {cityName}, so a brake problem doesn't turn into a tow.",
+    "intro": "Grinding, squealing, or a soft pedal — a {brandName} mobile mechanic inspects and repairs your brakes on-site in {cityName}, so a brake problem doesn't turn into a tow.",
     "benefits": [
       "On-site brake inspection from a vetted, experienced tech",
       "Pad, rotor, and brake line repair completed at your location where safe",
@@ -262,7 +262,7 @@
     "h1": "24/7 Mobile Auto Repair in {cityName}",
     "metaTitle": "24/7 Mobile Auto Repair in {cityFull} | {brandName}",
     "metaDescription": "Need mobile auto repair in {cityFull} any hour? {brandName} dispatches a vetted tech around the clock — diagnostics, common repairs, flat pricing.",
-    "intro": "Whatever's wrong, whenever it happens — CURBSIDE dispatches a mobile auto repair tech to your location in {cityName} around the clock, so a breakdown doesn't have to wait for business hours.",
+    "intro": "Whatever's wrong, whenever it happens — {brandName} dispatches a mobile auto repair tech to your location in {cityName} around the clock, so a breakdown doesn't have to wait for business hours.",
     "benefits": [
       "Live dispatch 24 hours a day, every day, including holidays",
       "One call covers diagnostics, common repairs, and roadside issues alike",
@@ -275,7 +275,7 @@
     "faq": [
       {
         "q": "Is mobile auto repair really available 24/7 in {cityName}?",
-        "a": "Yes. CURBSIDE's dispatch line runs around the clock, including nights, weekends, and holidays."
+        "a": "Yes. {brandName}'s dispatch line runs around the clock, including nights, weekends, and holidays."
       },
       {
         "q": "What kinds of repairs can be done at 2 AM?",
@@ -298,7 +298,7 @@
     "h1": "Windshield Chip Repair in {cityName}",
     "metaTitle": "Windshield Chip Repair Near Me in {cityFull} | {brandName}",
     "metaDescription": "Windshield chip in {cityFull}? {brandName} repairs it on-site at your home or office, usually in under an hour — stops it from spreading, insurance-friendly.",
-    "intro": "A small chip today is a spreading crack tomorrow. CURBSIDE sends a tech to your home or office in {cityName} to repair the chip on-site, usually in under an hour.",
+    "intro": "A small chip today is a spreading crack tomorrow. {brandName} sends a tech to your home or office in {cityName} to repair the chip on-site, usually in under an hour.",
     "benefits": [
       "On-site resin repair — no drive to a glass shop",
       "Most chip repairs completed in under an hour",
@@ -334,7 +334,7 @@
     "h1": "Windshield Replacement in {cityName}",
     "metaTitle": "Windshield Replacement Near Me in {cityFull} | {brandName}",
     "metaDescription": "Need windshield replacement in {cityFull}? {brandName} dispatches a tech to your home or office — no shop visit, insurance billing help, flat pricing.",
-    "intro": "Crack too big to repair? CURBSIDE dispatches a tech to replace your windshield at your home or office in {cityName} — no drive to a shop, no waiting room.",
+    "intro": "Crack too big to repair? {brandName} dispatches a tech to replace your windshield at your home or office in {cityName} — no drive to a shop, no waiting room.",
     "benefits": [
       "Full windshield replacement done on-site",
       "Quality glass and proper safety-standard installation",
@@ -370,7 +370,7 @@
     "h1": "Mobile Auto Glass Repair in {cityName}",
     "metaTitle": "Mobile Auto Glass Repair in {cityFull} — Side & Rear Windows | {brandName}",
     "metaDescription": "Broken side or rear window in {cityFull}? {brandName} dispatches a tech to repair or replace it on-site — not just windshields, the whole car.",
-    "intro": "Broken side or rear window? CURBSIDE dispatches a tech to your location in {cityName} to repair or replace it on-site — not just windshields, the whole car.",
+    "intro": "Broken side or rear window? {brandName} dispatches a tech to your location in {cityName} to repair or replace it on-site — not just windshields, the whole car.",
     "benefits": [
       "Side and rear window repair and replacement, not just windshields",
       "On-site service at your home, office, or curbside",
@@ -383,7 +383,7 @@
     "faq": [
       {
         "q": "Do you fix side and rear windows, not just windshields?",
-        "a": "Yes. CURBSIDE's mobile auto glass service in {cityName} covers side windows, rear windows, and windshields."
+        "a": "Yes. {brandName}'s mobile auto glass service in {cityName} covers side windows, rear windows, and windshields."
       },
       {
         "q": "What if my window is completely shattered?",
@@ -406,7 +406,7 @@
     "h1": "Insurance-Billed Windshield Service in {cityName}",
     "metaTitle": "Insurance-Billed Windshield Service in {cityFull} | {brandName}",
     "metaDescription": "Filing a windshield claim in {cityFull}? {brandName} dispatches a tech and helps coordinate billing directly with your insurer — on-site repair or replacement.",
-    "intro": "Filing a windshield claim shouldn't mean extra paperwork on top of a cracked windshield. CURBSIDE dispatches a tech to your location in {cityName} and helps coordinate billing directly with your insurer.",
+    "intro": "Filing a windshield claim shouldn't mean extra paperwork on top of a cracked windshield. {brandName} dispatches a tech to your location in {cityName} and helps coordinate billing directly with your insurer.",
     "benefits": [
       "We help coordinate billing directly with your insurance provider",
       "On-site repair or replacement — no separate trip to a glass shop",

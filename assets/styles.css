@@ -197,6 +197,36 @@
     border:1px solid var(--amber-dim); padding:6px 10px; border-radius:20px;
   }
 
+  /* ---------- maps ---------- */
+  .map-section{ padding:0 0 70px; }
+  .map-embed{
+    width:100%; border:1px solid var(--panel-line); border-radius:6px;
+    background:var(--panel); overflow:hidden;
+  }
+  .map-fallback{
+    display:flex; align-items:center; justify-content:center; height:100%;
+    color:var(--ink-faint); font-size:13px; text-align:center; padding:20px;
+  }
+  .map-note{ color:var(--ink-faint); font-size:12.5px; margin-top:12px; }
+
+  /* ---------- location cards ---------- */
+  .location-grid{ display:grid; grid-template-columns:repeat(2, 1fr); gap:22px; }
+  @media (max-width:760px){ .location-grid{ grid-template-columns:1fr; } }
+  .location-card{
+    background:var(--panel); border:1px solid var(--panel-line); border-radius:6px;
+    padding:26px; display:flex; flex-direction:column; gap:10px;
+  }
+  .location-card h3{ font-size:22px; }
+  .location-card .region{ color:var(--ink-dim); font-size:14px; }
+  .location-card .radius{
+    font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--amber);
+    border:1px solid var(--amber-dim); padding:5px 10px; border-radius:20px;
+    display:inline-block; width:fit-content;
+  }
+  .location-card .contact{ font-size:14px; color:var(--ink-dim); }
+  .location-card .contact a:hover{ color:var(--amber); }
+  .location-card .location-links{ display:flex; gap:10px; margin-top:8px; flex-wrap:wrap; }
+
   /* ---------- faq ---------- */
   .faq{ padding:60px 0; }
   .faq-item{

@@ -26,7 +26,10 @@ function renderHomePage(cities, site) {
 
 <header>
   <div class="nav wrap">
-    <div class="logo">${site.brandName.slice(0, -4)}<span>${site.brandName.slice(-4)}</span></div>
+    <a class="logo" href="/">${site.logoMain}<span>${site.logoAccent}</span></a>
+    <nav class="nav-links">
+      <a href="/locations/">Locations</a>
+    </nav>
   </div>
 </header>
 

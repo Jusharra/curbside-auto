@@ -1,4 +1,4 @@
-# CURBSIDE — Multi-City Site
+# Shay's Curbside Auto — Multi-City Site
 
 This is a small, zero-dependency site generator. One template, one data file per city — add a city by editing data, not by touching HTML.
 
@@ -6,16 +6,19 @@ This is a small, zero-dependency site generator. One template, one data file per
 
 ```
 data/
-  site.json      ← brand name, offer copy, FAQ (shared across every city)
-  cities.json    ← one entry per city — THIS is the file you edit to add a city
-  services.json  ← one entry per service — edit this to add/change a service (SEO landing page)
+  site.json         ← brand name, offer copy, FAQ (shared across every city)
+  cities.json       ← one entry per city — THIS is the file you edit to add a city
+  services.json     ← one entry per service — edit this to add/change a service (SEO landing page)
+  config.json       ← Google Maps API key (see "Locations page & Google Maps" below)
 templates/
-  city-page.js    ← the template every city hub page is built from
-  home-page.js    ← the hub page listing all live cities
-  service-page.js ← the template every city+service SEO page is built from
+  city-page.js       ← the template every city hub page is built from
+  home-page.js       ← the hub page listing all live cities
+  service-page.js    ← the template every city+service SEO page is built from
+  locations-page.js  ← the site-wide /locations/ page: network map + a card per city
 assets/
   styles.css     ← shared design, used by every page
   main.js        ← shared behavior (form prefill, footer year)
+  maps.js        ← Google Maps rendering (dark-themed coverage circles + markers)
 build.js         ← reads the data, writes finished pages into dist/
 dist/            ← generated output (not committed — Netlify builds this automatically)
 ```
@@ -36,12 +39,18 @@ dist/            ← generated output (not committed — Netlify builds this aut
   "phoneTel": "+15595550100",
   "email": "dispatch@curbsideauto.com",
   "live": true,
-  "launchNote": "Now serving Madera, CA"
+  "launchNote": "Now serving Madera, CA",
+  "lat": 36.9613,
+  "lng": -120.0607,
+  "serviceRadiusMiles": 30,
+  "stateCode": "US-CA"
 }
 ```
 
+`lat`/`lng`/`serviceRadiusMiles` are what drive that city's coverage map and `geo`/`ICBM` meta tags — look up the city's coordinates (e.g. search "[city name] coordinates") and set a radius that reflects how far your techs actually cover. Omit these three fields and the city still builds fine, it just skips the map and geo meta tags for that page.
+
 3. `git add -A && git commit -m "Add Madera" && git push`.
-4. Netlify rebuilds automatically. Madera now has its own page at `curbsideauto.com/madera-ca/`, its own SEO title/meta/schema, and shows up as a link on the homepage and on every other live city's page.
+4. Netlify rebuilds automatically. Madera now has its own page at `curbsideauto.com/madera-ca/`, its own SEO title/meta/schema, its own entry on `/locations/`, and shows up as a link on the homepage and on every other live city's page.
 
 **To hold a city back without deleting it** (e.g. you're recruiting providers there but not ready for customers yet), set `"live": false` — the build script skips it, but the entry stays in the file for whenever you flip it on.
 
@@ -68,6 +77,28 @@ The city hub page (`city-page.js`) also links out to every service under its mat
 3. `node build.js` to preview, then commit and push. The service automatically gets a page for every live city, no template edits needed.
 4. Set `"live": false` to hold a service back without deleting it.
 
+## Locations page & Google Maps
+
+There's a site-wide `/locations/` page (linked from the nav on every page as **Locations**) built for local/Google Business Profile SEO:
+
+- A dark-themed **network map** (Google Maps JS API) showing every live city as a marker with a shaded circle for its coverage radius
+- A **coverage card per city** — phone, email, region, radius, and links to that city's hub and services
+- `ItemList` → `LocalBusiness` JSON-LD schema for every city, each with a `serviceArea` `GeoCircle` (the correct schema.org pattern for a **service-area business** — dispatched techs, no public storefront — which is what this business is set up as here)
+
+Every city hub page also gets its own single-city coverage map + `geo.region` / `geo.placename` / `geo.position` / `ICBM` meta tags and a `serviceArea` block merged into its existing `LocalBusiness` schema. Service pages get the geo meta tags and schema too (no live map, to keep those pages fast — they link to `/locations/` instead).
+
+### Setting up your Google Maps API key
+
+1. In [Google Cloud Console](https://console.cloud.google.com/), enable the **Maps JavaScript API** and create an API key.
+2. **Restrict the key** to your domain (HTTP referrers: `curbsideauto.com/*`, `*.netlify.app/*` if you preview on a Netlify subdomain first) — this is what makes it safe to have the key visible in your site's HTML.
+3. Open `data/config.json` and replace the placeholder:
+
+```json
+{ "googleMapsApiKey": "YOUR_GOOGLE_MAPS_API_KEY" }
+```
+
+4. `node build.js` and reload — the maps render immediately, no other changes needed. Until you add a real key, the map sections show Google's own "didn't load correctly" placeholder instead of breaking the page.
+
 ## Editing shared copy (offers, FAQ, brand name)
 
 Everything that's the same across every city lives in `data/site.json` — the two offer tickets (Roadside/Mechanic and Windshield), their bold promise / value stack / risk reversal, and the FAQ. Edit it once, every city page picks it up on the next build. Use `{cityName}` anywhere in that copy and the build will swap in the real city name automatically (see how the existing entries do it).
@@ -76,7 +107,9 @@ Everything that's the same across every city lives in `data/site.json` — the t
 
 - Real phone number(s) in `data/cities.json` (currently a placeholder per city).
 - Real email in `data/cities.json`.
-- Domain in the `canonical` links inside `templates/city-page.js` and `templates/home-page.js` (currently `curbsideauto.com` as a placeholder).
+- Domain in the `canonical` links inside `templates/city-page.js`, `templates/service-page.js`, `templates/locations-page.js`, and `templates/home-page.js` (currently `curbsideauto.com` as a placeholder).
+- Real Google Maps API key in `data/config.json` (see "Locations page & Google Maps" above) — maps won't render on any page until this is a real, domain-restricted key.
+- Double-check `lat`/`lng`/`serviceRadiusMiles` per city in `data/cities.json` reflect where you actually dispatch.
 
 ## Local build (to preview before pushing)
 
@@ -103,5 +136,8 @@ The request form on every city page uses **Netlify Forms** (`data-netlify="true"
 ## SEO notes
 
 - Each city page gets its own `<title>`, meta description, canonical URL, and JSON-LD `LocalBusiness` + `FAQPage` schema — Google indexes each city separately, matching the "one page per city" structure from your programmatic SEO notes.
+- Every service gets its own page per city (`/{city}/{service}/`) with unique title/meta/keywords, `Service` + `FAQPage` + `BreadcrumbList` schema — see "Service pages" above.
+- Every city and service page carries `geo.region`/`geo.placename`/`geo.position`/`ICBM` meta tags and a `serviceArea` `GeoCircle` in its schema — local-SEO signals that tie the page to a real place and dispatch radius, matching how Google Business Profile treats a service-area business.
+- The `/locations/` page ties the whole network together: one interactive coverage map plus `ItemList`/`LocalBusiness` schema for every city, all cross-linked from the nav on every page.
 - Live cities automatically cross-link to each other (footer note on the hero of each city page: "Also serving: ...") — this is the internal linking your SEO doc calls for, and it updates itself as you add cities, no manual link-building required.
 - The homepage lists every live city and links out to each one.

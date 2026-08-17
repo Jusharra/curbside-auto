@@ -9,6 +9,10 @@
     "phoneTel": "+15595550100",
     "email": "dispatch@curbsideauto.com",
     "live": true,
-    "launchNote": "Now serving Visalia, CA"
+    "launchNote": "Now serving Visalia, CA",
+    "lat": 36.3302,
+    "lng": -119.2921,
+    "serviceRadiusMiles": 30,
+    "stateCode": "US-CA"
   }
 ]

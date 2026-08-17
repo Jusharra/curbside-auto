@@ -15,6 +15,16 @@ function fill(str, ctx) {
     .replace(/\{brandName\}/g, ctx.brandName);
 }
 
+function renderServiceAreaSchema(city) {
+  if (typeof city.lat !== 'number' || typeof city.lng !== 'number') return '';
+  return `,
+  "serviceArea": {
+    "@type": "GeoCircle",
+    "geoMidpoint": { "@type": "GeoCoordinates", "latitude": ${city.lat}, "longitude": ${city.lng} },
+    "geoRadius": "${Math.round((city.serviceRadiusMiles || 25) * 1609.34)}"
+  }`;
+}
+
 function renderServiceSchema(service, site, city, ctx) {
   return `{
   "@context": "https://schema.org",
@@ -22,7 +32,7 @@ function renderServiceSchema(service, site, city, ctx) {
   "serviceType": "${fill(service.name, ctx)}",
   "name": "${fill(service.name, ctx)} in ${ctx.cityFull}",
   "description": "${fill(service.intro, ctx)}",
-  "areaServed": "${ctx.cityFull}",
+  "areaServed": "${ctx.cityFull}"${renderServiceAreaSchema(city)},
   "provider": {
     "@type": "LocalBusiness",
     "name": "${site.brandName}",
@@ -96,7 +106,11 @@ function renderServicePage(service, city, site, allServices, allCities) {
 <meta property="og:description" content="${fill(service.metaDescription, ctx)}">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#14171C">
-<link rel="canonical" href="https://curbsideauto.com/${city.slug}/${service.slug}/">
+${typeof city.lat === 'number' ? `<meta name="geo.region" content="${city.stateCode || ('US-' + city.stateAbbr)}">
+<meta name="geo.placename" content="${ctx.cityFull}">
+<meta name="geo.position" content="${city.lat};${city.lng}">
+<meta name="ICBM" content="${city.lat}, ${city.lng}">
+` : ''}<link rel="canonical" href="https://curbsideauto.com/${city.slug}/${service.slug}/">
 <link rel="stylesheet" href="/assets/styles.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -119,9 +133,10 @@ ${renderBreadcrumbSchema(service, city, ctx)}
 
 <header>
   <div class="nav wrap">
-    <div class="logo">${site.brandName.slice(0, -4)}<span>${site.brandName.slice(-4)}</span></div>
+    <a class="logo" href="/">${site.logoMain}<span>${site.logoAccent}</span></a>
     <nav class="nav-links">
       <a href="/${city.slug}/">${ctx.cityFull} Hub</a>
+      <a href="/locations/">Locations</a>
       <a href="#faq">FAQ</a>
       <a href="#request">Request Help</a>
     </nav>
@@ -205,11 +220,12 @@ ${relatedTags ? `<div class="stripe-rule"></div>
     <div class="coverage-box">
       <div>
         <h3>More ${categoryLabel} in ${ctx.cityName}</h3>
-        <p>One dispatch line covers the whole category — here's everything else CURBSIDE handles in ${ctx.cityName}.</p>
+        <p>One dispatch line covers the whole category — here's everything else ${site.brandName} handles in ${ctx.cityName}.</p>
       </div>
       <div class="coverage-tags">
 ${relatedTags}
         <a class="tag" href="/${city.slug}/">All ${ctx.cityName} Services</a>
+        <a class="tag" href="/locations/">\u{1F4CD} Coverage Map</a>
       </div>
     </div>
   </div>

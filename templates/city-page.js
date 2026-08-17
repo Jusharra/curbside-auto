@@ -1,8 +1,10 @@
 // Renders one full HTML page for a single city.
-// Every {cityName} token in the shared copy gets swapped for the real city name.
+// Every {cityName}/{brandName} token in the shared copy gets swapped for the real values.
 
-function fill(str, city) {
-  return str.replace(/\{cityName\}/g, city.cityName);
+function fill(str, city, site) {
+  return str
+    .replace(/\{cityName\}/g, city.cityName)
+    .replace(/\{brandName\}/g, site ? site.brandName : '');
 }
 
 function renderOfferSchema(site, city) {
@@ -10,8 +12,8 @@ function renderOfferSchema(site, city) {
       "@type": "Offer",
       "itemOffered": {
         "@type": "Service",
-        "name": "${fill(o.title, city)}",
-        "description": "${fill(o.promise, city)}"
+        "name": "${fill(o.title, city, site)}",
+        "description": "${fill(o.promise, city, site)}"
       }
     }`).join(',\n');
 }
@@ -20,7 +22,7 @@ function renderFaqSchema(site, city) {
   return site.faq.map(f => `    {
       "@type": "Question",
       "name": "${f.q}",
-      "acceptedAnswer": { "@type": "Answer", "text": "${fill(f.a, city)}" }
+      "acceptedAnswer": { "@type": "Answer", "text": "${fill(f.a, city, site)}" }
     }`).join(',\n');
 }
 
@@ -34,12 +36,12 @@ ${links}
         </div>`;
 }
 
-function renderTicket(o, city, services) {
+function renderTicket(o, city, services, site) {
   const stackHtml = o.stack.map(s => `          <li>${s}</li>`).join('\n');
   return `      <div class="ticket" id="${o.id}">
         <div class="ticket-num">TICKET NO. ${o.ticketNo} / ${o.label}</div>
-        <h3>${fill(o.title, city)}</h3>
-        <p class="promise">${fill(o.promise, city)}</p>
+        <h3>${fill(o.title, city, site)}</h3>
+        <p class="promise">${fill(o.promise, city, site)}</p>
         <hr class="divider">
         <ul class="stack">
 ${stackHtml}
@@ -52,10 +54,10 @@ ${stackHtml}
       </div>`;
 }
 
-function renderFaqItem(f, city) {
+function renderFaqItem(f, city, site) {
   return `    <div class="faq-item">
       <h3>${f.q}</h3>
-      <p>${fill(f.a, city)}</p>
+      <p>${fill(f.a, city, site)}</p>
     </div>`;
 }
 
@@ -63,12 +65,24 @@ function renderNavLinks(site) {
   return site.offers.map(o => `      <a href="#${o.id}">${o.label === 'RESCUE + REPAIR' ? 'Roadside & Repair' : 'Windshield'}</a>`).join('\n');
 }
 
-function renderCityPage(city, site, allCities, services) {
+function renderServiceAreaSchema(city) {
+  if (typeof city.lat !== 'number' || typeof city.lng !== 'number') return '';
+  return `,
+  "serviceArea": {
+    "@type": "GeoCircle",
+    "geoMidpoint": { "@type": "GeoCoordinates", "latitude": ${city.lat}, "longitude": ${city.lng} },
+    "geoRadius": "${Math.round((city.serviceRadiusMiles || 25) * 1609.34)}"
+  }`;
+}
+
+function renderCityPage(city, site, allCities, services, config) {
   const cityFull = `${city.cityName}, ${city.stateAbbr}`;
   const otherCities = allCities.filter(c => c.slug !== city.slug && c.live);
   const otherCityLinks = otherCities.length
     ? `\n    <p style="margin-top:14px; font-size:13px; color:var(--ink-faint);">Also serving: ${otherCities.map(c => `<a href="/${c.slug}/" style="color:var(--ink-dim); text-decoration:underline;">${c.cityName}, ${c.stateAbbr}</a>`).join(', ')}</p>`
     : '';
+  const hasGeo = typeof city.lat === 'number' && typeof city.lng === 'number';
+  const apiKey = (config && config.googleMapsApiKey) || '';
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -81,18 +95,22 @@ function renderCityPage(city, site, allCities, services) {
 <meta property="og:description" content="24/7 roadside assistance, mobile mechanic, and mobile windshield repair in ${cityFull} \u2014 one dispatch line.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#14171C">
-<link rel="canonical" href="https://curbsideauto.com/${city.slug}/">
+${hasGeo ? `<meta name="geo.region" content="${city.stateCode || ('US-' + city.stateAbbr)}">
+<meta name="geo.placename" content="${cityFull}">
+<meta name="geo.position" content="${city.lat};${city.lng}">
+<meta name="ICBM" content="${city.lat}, ${city.lng}">
+` : ''}<link rel="canonical" href="https://curbsideauto.com/${city.slug}/">
 <link rel="stylesheet" href="/assets/styles.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+${hasGeo ? '<link rel="preconnect" href="https://maps.googleapis.com">\n' : ''}<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "${site.brandName}",
   "description": "On-demand dispatch for 24/7 roadside assistance, mobile mechanic, and mobile windshield repair in ${cityFull}.",
-  "areaServed": "${cityFull}",
+  "areaServed": "${cityFull}"${renderServiceAreaSchema(city)},
   "makesOffer": [
 ${renderOfferSchema(site, city)}
   ]
@@ -116,9 +134,10 @@ ${renderFaqSchema(site, city)}
 
 <header>
   <div class="nav wrap">
-    <div class="logo">${site.brandName.slice(0, -4)}<span>${site.brandName.slice(-4)}</span></div>
+    <a class="logo" href="/">${site.logoMain}<span>${site.logoAccent}</span></a>
     <nav class="nav-links">
 ${renderNavLinks(site)}
+      <a href="/locations/">Locations</a>
       <a href="#faq">FAQ</a>
       <a href="#request">Request Help</a>
     </nav>
@@ -152,11 +171,26 @@ ${renderNavLinks(site)}
     </div>
 
     <div class="ticket-grid">
-${site.offers.map(o => renderTicket(o, city, services)).join('\n\n')}
+${site.offers.map(o => renderTicket(o, city, services, site)).join('\n\n')}
     </div>
   </div>
 </section>
 
+${hasGeo ? `<div class="stripe-rule"></div>
+
+<section class="map-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Coverage Area</div>
+      <h2>Where we dispatch around ${city.cityName}</h2>
+    </div>
+    <div id="city-map" class="map-embed" style="height:360px;" data-single-map data-lat="${city.lat}" data-lng="${city.lng}" data-radius-miles="${city.serviceRadiusMiles || 25}" data-city-label="${cityFull}">
+      <div class="map-fallback">Map loading — <a href="https://www.google.com/maps/search/?api=1&query=${city.lat},${city.lng}" target="_blank" rel="noopener">view ${cityFull} on Google Maps</a></div>
+    </div>
+    <p class="map-note">Shaded area shows our approximate ${city.serviceRadiusMiles || 25}-mile dispatch radius around ${city.cityName} — exact coverage can vary by tech availability. See every city we serve on the <a href="/locations/" style="color:var(--ink-dim); text-decoration:underline;">Locations page</a>.</p>
+  </div>
+</section>
+` : ''}
 <section class="how">
   <div class="wrap">
     <div class="section-head">
@@ -191,7 +225,7 @@ ${site.offers.map(o => renderTicket(o, city, services)).join('\n\n')}
       <div class="eyebrow">Common Questions</div>
       <h2>Before you call</h2>
     </div>
-${site.faq.map(f => renderFaqItem(f, city)).join('\n')}
+${site.faq.map(f => renderFaqItem(f, city, site)).join('\n')}
   </div>
 </section>
 
@@ -246,7 +280,9 @@ ${site.offers.map(o => `            <option>${o.requestValue}</option>`).join('\
 </footer>
 
 <script src="/assets/main.js"></script>
-
+${hasGeo ? `<script src="/assets/maps.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initCurbsideMaps&loading=async" async defer></script>
+` : ''}
 </body>
 </html>
 `;
