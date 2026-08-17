@@ -1,0 +1,56 @@
+{
+  "brandName": "CURBSIDE",
+  "tagline": "We come to you.",
+  "offers": [
+    {
+      "id": "roadside",
+      "ticketNo": "01",
+      "label": "RESCUE + REPAIR",
+      "title": "Roadside Assistance Near Me & Mobile Mechanic",
+      "promise": "24-hour roadside assistance and mobile mechanic service — jump start, flat tire, lockout, fuel delivery, or a real mechanic if it's more than a quick fix. Serving {cityName} day or night.",
+      "stack": [
+        "Vetted local techs dispatched to your GPS location",
+        "Covers jump-starts, tire changes, lockouts, fuel delivery",
+        "On-site diagnosis and mobile repair if it's more than a quick fix",
+        "Flat, upfront pricing before anyone rolls out"
+      ],
+      "risk": "No tech dispatched toward you within 30 minutes? The call-out is free.",
+      "callCta": "Call — Free If We're Late",
+      "requestValue": "24/7 Roadside Rescue & Mobile Repair"
+    },
+    {
+      "id": "windshield",
+      "ticketNo": "02",
+      "label": "WINDSHIELD",
+      "title": "Mobile Windshield Repair Near Me",
+      "promise": "Windshield repair and auto glass repair near you, without the drive to a shop. A tech comes to your home or office in {cityName} and fixes the chip or crack while you keep your day moving.",
+      "stack": [
+        "Chip repair or full replacement, done on-site",
+        "Most jobs handled in under an hour",
+        "We help coordinate insurance billing where applicable",
+        "Techs come to you — home, office, or curbside"
+      ],
+      "risk": "Not right the first time? We send someone back at no charge.",
+      "callCta": "Call — Fixed Right, Guaranteed",
+      "requestValue": "Mobile Windshield Repair"
+    }
+  ],
+  "faq": [
+    {
+      "q": "Is there roadside assistance near me that doesn't require a membership?",
+      "a": "Yes — CURBSIDE dispatches a vetted local pro in {cityName} for one-time roadside calls with flat, upfront pricing. No membership or annual plan required."
+    },
+    {
+      "q": "Do you have a mobile mechanic near me who can do more than a jump start?",
+      "a": "Yes. If your issue is more than a quick fix, the dispatched tech can diagnose and complete on-site mobile repair, or advise on next steps, without a shop drop-off."
+    },
+    {
+      "q": "Can I get windshield repair near me without driving to a shop?",
+      "a": "Yes — CURBSIDE's mobile windshield repair comes to your home or office in {cityName}. Most chip repairs and many replacements are completed in under an hour on-site."
+    },
+    {
+      "q": "Does mobile windshield repair work with insurance?",
+      "a": "In most cases, yes. Let dispatch know you're filing through insurance when you request service, and the dispatched provider can help coordinate billing."
+    }
+  ]
+}

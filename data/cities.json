@@ -1,0 +1,14 @@
+[
+  {
+    "slug": "visalia-ca",
+    "cityName": "Visalia",
+    "stateAbbr": "CA",
+    "stateFull": "California",
+    "region": "the Central Valley",
+    "phoneDisplay": "(559) 555-0100",
+    "phoneTel": "+15595550100",
+    "email": "dispatch@curbsideauto.com",
+    "live": true,
+    "launchNote": "Now serving Visalia, CA"
+  }
+]
