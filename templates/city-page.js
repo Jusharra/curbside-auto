@@ -24,7 +24,17 @@ function renderFaqSchema(site, city) {
     }`).join(',\n');
 }
 
-function renderTicket(o, city, index) {
+function renderServiceLinks(o, city, services) {
+  const matches = (services || []).filter(s => s.live && s.category === o.id);
+  if (!matches.length) return '';
+  const links = matches.map(s => `          <a href="/${city.slug}/${s.slug}/">${s.name}</a>`).join('\n');
+  return `
+        <div class="service-links">
+${links}
+        </div>`;
+}
+
+function renderTicket(o, city, services) {
   const stackHtml = o.stack.map(s => `          <li>${s}</li>`).join('\n');
   return `      <div class="ticket" id="${o.id}">
         <div class="ticket-num">TICKET NO. ${o.ticketNo} / ${o.label}</div>
@@ -38,7 +48,7 @@ ${stackHtml}
         <div class="ticket-ctas">
           <a class="ticket-cta call" href="tel:${city.phoneTel}">\u{1F4DE} ${o.callCta}</a>
           <a class="ticket-cta request" href="#request" data-service="${o.requestValue}">Request Online \u2192</a>
-        </div>
+        </div>${renderServiceLinks(o, city, services)}
       </div>`;
 }
 
@@ -53,7 +63,7 @@ function renderNavLinks(site) {
   return site.offers.map(o => `      <a href="#${o.id}">${o.label === 'RESCUE + REPAIR' ? 'Roadside & Repair' : 'Windshield'}</a>`).join('\n');
 }
 
-function renderCityPage(city, site, allCities) {
+function renderCityPage(city, site, allCities, services) {
   const cityFull = `${city.cityName}, ${city.stateAbbr}`;
   const otherCities = allCities.filter(c => c.slug !== city.slug && c.live);
   const otherCityLinks = otherCities.length
@@ -142,7 +152,7 @@ ${renderNavLinks(site)}
     </div>
 
     <div class="ticket-grid">
-${site.offers.map(o => renderTicket(o, city)).join('\n\n')}
+${site.offers.map(o => renderTicket(o, city, services)).join('\n\n')}
     </div>
   </div>
 </section>

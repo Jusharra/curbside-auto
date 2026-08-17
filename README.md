@@ -8,9 +8,11 @@ This is a small, zero-dependency site generator. One template, one data file per
 data/
   site.json      ← brand name, offer copy, FAQ (shared across every city)
   cities.json    ← one entry per city — THIS is the file you edit to add a city
+  services.json  ← one entry per service — edit this to add/change a service (SEO landing page)
 templates/
-  city-page.js   ← the template every city page is built from
-  home-page.js   ← the hub page listing all live cities
+  city-page.js    ← the template every city hub page is built from
+  home-page.js    ← the hub page listing all live cities
+  service-page.js ← the template every city+service SEO page is built from
 assets/
   styles.css     ← shared design, used by every page
   main.js        ← shared behavior (form prefill, footer year)
@@ -44,6 +46,27 @@ dist/            ← generated output (not committed — Netlify builds this aut
 **To hold a city back without deleting it** (e.g. you're recruiting providers there but not ready for customers yet), set `"live": false` — the build script skips it, but the entry stays in the file for whenever you flip it on.
 
 **Different phone number per city?** Just give that city's entry a different `phoneDisplay`/`phoneTel` — the template already reads it per-city, nothing else to change.
+
+## Service pages (for GBP / local SEO ranking)
+
+Every service in `data/services.json` gets its own dedicated, deep-linked SEO page for **every live city**, at `curbsideauto.com/{city-slug}/{service-slug}/` — e.g. `/visalia-ca/flat-tire-change-repair/`. This is the standard programmatic-SEO pattern for ranking well in local/Google Business Profile search: a tightly-targeted page per city per service, instead of one page trying to rank for everything.
+
+Each service page automatically gets:
+- Its own `<title>`, meta description, `<meta name="keywords">`, and canonical URL
+- `Service`, `FAQPage`, and `BreadcrumbList` JSON-LD schema
+- A keyword-targeted H1 and intro, a value-stack/benefits list, a risk-reversal guarantee, and two CTAs (call + request form)
+- Service-specific FAQ (unique copy per service — avoids thin/duplicate content across pages)
+- Cross-links to every other live service in the same category ("More Roadside Assistance & Mobile Mechanic in {city}") and back to the city hub — internal linking that strengthens the whole cluster
+- A request form prefilled with that service
+
+The city hub page (`city-page.js`) also links out to every service under its matching offer ticket, so the hub, the service pages, and the sibling services all interlink.
+
+### Adding a new service
+
+1. Open `data/services.json` and copy an existing entry in the right `category` (`"roadside"` or `"windshield"`).
+2. Fill in: `slug`, `name`, `primaryKeyword` / `secondaryKeywords`, `eyebrow`, `h1`, `metaTitle`, `metaDescription`, `intro`, `benefits`, `risk`, `callCta`, `requestValue`, and 3 `faq` items. Use `{cityName}`, `{cityNameUpper}`, `{cityFull}`, and `{brandName}` anywhere — the build swaps in the real values per city.
+3. `node build.js` to preview, then commit and push. The service automatically gets a page for every live city, no template edits needed.
+4. Set `"live": false` to hold a service back without deleting it.
 
 ## Editing shared copy (offers, FAQ, brand name)
 

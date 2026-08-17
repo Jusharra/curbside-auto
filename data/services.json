@@ -1,0 +1,434 @@
+[
+  {
+    "slug": "24-hour-emergency-roadside-assistance",
+    "category": "roadside",
+    "live": true,
+    "name": "24-Hour Emergency Roadside Assistance",
+    "primaryKeyword": "24 hour roadside assistance near me",
+    "secondaryKeywords": ["emergency roadside assistance", "roadside assistance no membership"],
+    "eyebrow": "24-HOUR EMERGENCY ROADSIDE ASSISTANCE — DISPATCHED NOW IN {cityNameUpper}",
+    "h1": "24-Hour Emergency Roadside Assistance in <em>{cityName}</em>",
+    "metaTitle": "24-Hour Emergency Roadside Assistance in {cityFull} | {brandName}",
+    "metaDescription": "Stranded in {cityFull}? {brandName} dispatches 24-hour emergency roadside assistance to your exact location — jump starts, flat tires, lockouts, fuel delivery. No membership, flat pricing.",
+    "intro": "Breakdown at 2 AM or gridlock at rush hour — CURBSIDE dispatches a vetted local pro to your exact location in {cityName}, any hour, any day. No membership, no annual fee, no call-center hold music.",
+    "benefits": [
+      "Live dispatch 24 hours a day, 365 days a year — including holidays",
+      "Vetted local techs sent to your GPS location, not a call queue",
+      "Covers jump-starts, flat tires, lockouts, fuel delivery, and more under one call",
+      "Flat, upfront pricing quoted before anyone rolls out"
+    ],
+    "risk": "No tech dispatched toward you within 30 minutes? The call-out is free.",
+    "callCta": "Call — 24-Hour Dispatch",
+    "requestValue": "24-Hour Emergency Roadside Assistance",
+    "faq": [
+      {
+        "q": "Is 24 hour roadside assistance near me available without a membership?",
+        "a": "Yes. CURBSIDE dispatches a vetted local pro in {cityName} for one-time roadside calls, any hour, with flat upfront pricing and no membership required."
+      },
+      {
+        "q": "What counts as an emergency roadside call?",
+        "a": "Anything that leaves you stranded — dead battery, flat tire, lockout, empty tank, or a vehicle that won't start. Call and tell dispatch what's going on; they'll send the right tech."
+      },
+      {
+        "q": "How fast can someone reach me in {cityName}?",
+        "a": "Dispatch aims to get a tech en route within 30 minutes. If that doesn't happen, the call-out is free."
+      }
+    ]
+  },
+  {
+    "slug": "mobile-mechanic-diagnostics-repair",
+    "category": "roadside",
+    "live": true,
+    "name": "Mobile Mechanic — On-Site Diagnostics & Repair",
+    "primaryKeyword": "mobile mechanic near me",
+    "secondaryKeywords": ["mobile mechanic on-site diagnostics", "mobile auto repair mechanic"],
+    "eyebrow": "MOBILE MECHANIC — ON-SITE DIAGNOSTICS & REPAIR IN {cityNameUpper}",
+    "h1": "Mobile Mechanic <em>Near You</em> in {cityName}",
+    "metaTitle": "Mobile Mechanic Near Me in {cityFull} — On-Site Diagnostics & Repair | {brandName}",
+    "metaDescription": "Need a mobile mechanic near you in {cityFull}? {brandName} sends a vetted tech to diagnose and repair your vehicle on-site — no tow, no shop drop-off, flat pricing.",
+    "intro": "Skip the shop drop-off. A CURBSIDE mobile mechanic comes to your home, office, or roadside in {cityName} to diagnose the problem and fix it on the spot, whenever that's possible.",
+    "benefits": [
+      "On-site diagnostics from an experienced, vetted tech",
+      "Most common repairs completed without a tow or shop visit",
+      "Straight answers on what's wrong and what it costs before work starts",
+      "Same dispatch line as roadside rescue — one call covers both"
+    ],
+    "risk": "No tech dispatched toward you within 30 minutes? The call-out is free.",
+    "callCta": "Call — Mobile Mechanic Dispatched",
+    "requestValue": "Mobile Mechanic — On-Site Diagnostics & Repair",
+    "faq": [
+      {
+        "q": "Can a mobile mechanic near me actually fix my car, or just diagnose it?",
+        "a": "Both. The dispatched tech diagnoses the issue on-site in {cityName} and completes the repair on the spot when it's safe and practical to do so."
+      },
+      {
+        "q": "What repairs can a mobile mechanic handle without a shop?",
+        "a": "Batteries, alternators, starters, belts, brakes, and many other common repairs. If a job genuinely needs a shop lift, the tech will tell you upfront."
+      },
+      {
+        "q": "Do I need an appointment for mobile mechanic service in {cityName}?",
+        "a": "No. Call the dispatch line and a vetted local tech is sent to your location — most requests are handled same-day."
+      }
+    ]
+  },
+  {
+    "slug": "jump-start-battery-service",
+    "category": "roadside",
+    "live": true,
+    "name": "Jump Start / Battery Service",
+    "primaryKeyword": "jump start service near me",
+    "secondaryKeywords": ["mobile battery service", "car battery replacement near me"],
+    "eyebrow": "JUMP START & BATTERY SERVICE — DISPATCHED IN {cityNameUpper}",
+    "h1": "Jump Start & Battery Service in {cityName}",
+    "metaTitle": "Jump Start Service Near Me in {cityFull} — Battery Service | {brandName}",
+    "metaDescription": "Dead battery in {cityFull}? {brandName} dispatches a tech for a jump start or on-site battery replacement — flat pricing, no membership, available 24/7.",
+    "intro": "Dead battery? CURBSIDE sends a tech straight to your car in {cityName} for a jump start — and if the battery's the real problem, they can test and replace it on the spot.",
+    "benefits": [
+      "Jump start dispatched to your exact location, day or night",
+      "Free battery test to confirm it's the battery and not something else",
+      "On-site battery replacement available if a jump won't hold",
+      "Flat, upfront pricing before anyone rolls out"
+    ],
+    "risk": "No tech dispatched toward you within 30 minutes? The call-out is free.",
+    "callCta": "Call — Jump Start Dispatched Now",
+    "requestValue": "Jump Start / Battery Service",
+    "faq": [
+      {
+        "q": "How do I know if I need a jump start or a new battery?",
+        "a": "The dispatched tech in {cityName} runs a quick battery test on-site — if it's just drained, you get a jump; if it's failing, you can get it replaced right there."
+      },
+      {
+        "q": "Can you replace my battery on the spot?",
+        "a": "Yes. If testing shows the battery needs replacing, the tech can install a new one on-site instead of just sending you off with a temporary jump."
+      },
+      {
+        "q": "Is jump start service near me available at night?",
+        "a": "Yes — CURBSIDE dispatches 24 hours a day in {cityName}, including overnight and holidays."
+      }
+    ]
+  },
+  {
+    "slug": "flat-tire-change-repair",
+    "category": "roadside",
+    "live": true,
+    "name": "Flat Tire Change & Repair",
+    "primaryKeyword": "flat tire change near me",
+    "secondaryKeywords": ["flat tire repair near me", "mobile tire change"],
+    "eyebrow": "FLAT TIRE CHANGE & REPAIR — DISPATCHED IN {cityNameUpper}",
+    "h1": "Flat Tire Change & Repair in {cityName}",
+    "metaTitle": "Flat Tire Change Near Me in {cityFull} | {brandName}",
+    "metaDescription": "Flat tire in {cityFull}? {brandName} dispatches a tech to swap on your spare or patch the tire on-site — no tow needed, flat upfront pricing.",
+    "intro": "Flat on the shoulder or in your driveway — a CURBSIDE tech comes to you in {cityName} to swap on your spare or patch the tire, so you're not stuck waiting for a tow.",
+    "benefits": [
+      "Spare tire swap or on-site repair, whichever gets you moving faster",
+      "Tech brings the tools — you don't need a working jack or lug wrench",
+      "Works roadside, in a parking lot, or at your home or office",
+      "Flat, upfront pricing before anyone rolls out"
+    ],
+    "risk": "No tech dispatched toward you within 30 minutes? The call-out is free.",
+    "callCta": "Call — Flat Tire Help Dispatched",
+    "requestValue": "Flat Tire Change & Repair",
+    "faq": [
+      {
+        "q": "Can you patch my tire or do I need a new one?",
+        "a": "If the damage is repairable, the tech patches it on-site in {cityName}. If it's not safe to repair, they'll swap on your spare and advise on replacement."
+      },
+      {
+        "q": "What if I don't have a spare tire?",
+        "a": "Let dispatch know when you call — they'll advise your best option, including repair on-site or arranging a replacement tire."
+      },
+      {
+        "q": "Do you come to flat tires on the freeway?",
+        "a": "Yes, as long as it's safe to work on. Give dispatch your exact location, including mile marker or cross streets, when you call."
+      }
+    ]
+  },
+  {
+    "slug": "car-lockout-service",
+    "category": "roadside",
+    "live": true,
+    "name": "Lockout Service",
+    "primaryKeyword": "car lockout service near me",
+    "secondaryKeywords": ["locked keys in car", "car unlock service near me"],
+    "eyebrow": "CAR LOCKOUT SERVICE — DISPATCHED IN {cityNameUpper}",
+    "h1": "Car Lockout Service in {cityName}",
+    "metaTitle": "Car Lockout Service Near Me in {cityFull} | {brandName}",
+    "metaDescription": "Locked out in {cityFull}? {brandName} dispatches a tech with non-destructive entry tools to get you back into your car — flat pricing, available 24/7.",
+    "intro": "Locked your keys in the car? A CURBSIDE tech comes to you in {cityName} with the tools to get you back in without damaging your vehicle.",
+    "benefits": [
+      "Non-destructive entry — no broken windows or damaged locks",
+      "Works on most makes and models, including newer keyless systems",
+      "Dispatched to your exact location — home, work, or parking lot",
+      "Flat, upfront pricing before anyone rolls out"
+    ],
+    "risk": "No tech dispatched toward you within 30 minutes? The call-out is free.",
+    "callCta": "Call — Lockout Help Dispatched",
+    "requestValue": "Lockout Service",
+    "faq": [
+      {
+        "q": "Will you damage my car to get it unlocked?",
+        "a": "No. The dispatched tech in {cityName} uses non-destructive entry tools designed to get you back in without damaging locks, windows, or trim."
+      },
+      {
+        "q": "What if my keys are locked inside and I have no spare?",
+        "a": "Tell dispatch when you call — the tech can usually still get you back in. If a new key needs to be cut, they'll advise your best next step."
+      },
+      {
+        "q": "Is car lockout service near me available late at night?",
+        "a": "Yes — CURBSIDE dispatches 24/7 in {cityName}, including overnight."
+      }
+    ]
+  },
+  {
+    "slug": "emergency-fuel-delivery",
+    "category": "roadside",
+    "live": true,
+    "name": "Emergency Fuel Delivery",
+    "primaryKeyword": "emergency fuel delivery near me",
+    "secondaryKeywords": ["out of gas near me", "mobile fuel delivery"],
+    "eyebrow": "EMERGENCY FUEL DELIVERY — DISPATCHED IN {cityNameUpper}",
+    "h1": "Emergency Fuel Delivery in {cityName}",
+    "metaTitle": "Emergency Fuel Delivery Near Me in {cityFull} | {brandName}",
+    "metaDescription": "Ran out of gas in {cityFull}? {brandName} delivers fuel straight to your vehicle wherever you're stopped — flat pricing, dispatched to your GPS location.",
+    "intro": "Ran out of gas in {cityName}? CURBSIDE brings fuel straight to your vehicle so you can get back on the road without waiting for a tow to the nearest station.",
+    "benefits": [
+      "Fuel delivered directly to your vehicle, wherever you're stopped",
+      "Enough to get you safely to the nearest station",
+      "Dispatched to your GPS location — no need to know the nearest address",
+      "Flat, upfront pricing before anyone rolls out"
+    ],
+    "risk": "No tech dispatched toward you within 30 minutes? The call-out is free.",
+    "callCta": "Call — Fuel Delivery Dispatched",
+    "requestValue": "Emergency Fuel Delivery",
+    "faq": [
+      {
+        "q": "How much fuel do you bring?",
+        "a": "Enough to safely get your vehicle to the nearest gas station in {cityName} — the tech can advise on topping off further once you're there."
+      },
+      {
+        "q": "What if I'm stuck on the freeway shoulder?",
+        "a": "Give dispatch your exact location, including direction of travel and mile marker. The tech comes straight to you."
+      },
+      {
+        "q": "Do you deliver diesel as well as gas?",
+        "a": "Let dispatch know your fuel type when you call so the right tech and fuel are sent."
+      }
+    ]
+  },
+  {
+    "slug": "mobile-brake-repair",
+    "category": "roadside",
+    "live": true,
+    "name": "Mobile Brake Repair",
+    "primaryKeyword": "mobile brake repair near me",
+    "secondaryKeywords": ["brake pad replacement near me", "brake repair on-site"],
+    "eyebrow": "MOBILE BRAKE REPAIR — DISPATCHED IN {cityNameUpper}",
+    "h1": "Mobile Brake Repair in {cityName}",
+    "metaTitle": "Mobile Brake Repair Near Me in {cityFull} | {brandName}",
+    "metaDescription": "Grinding or soft brakes in {cityFull}? {brandName} dispatches a mobile mechanic to inspect and repair your brakes on-site — flat pricing, straight answers.",
+    "intro": "Grinding, squealing, or a soft pedal — a CURBSIDE mobile mechanic inspects and repairs your brakes on-site in {cityName}, so a brake problem doesn't turn into a tow.",
+    "benefits": [
+      "On-site brake inspection from a vetted, experienced tech",
+      "Pad, rotor, and brake line repair completed at your location where safe",
+      "Straight talk on what's worn and what's urgent before any work starts",
+      "Flat, upfront pricing before anyone rolls out"
+    ],
+    "risk": "No tech dispatched toward you within 30 minutes? The call-out is free.",
+    "callCta": "Call — Mobile Brake Repair Dispatched",
+    "requestValue": "Mobile Brake Repair",
+    "faq": [
+      {
+        "q": "Is it safe to drive with grinding or squealing brakes?",
+        "a": "Don't risk it. Call dispatch and a tech will inspect your brakes on-site in {cityName} and tell you plainly whether it's safe to keep driving."
+      },
+      {
+        "q": "Can brake pads and rotors really be replaced outside a shop?",
+        "a": "Yes, in most cases. The mobile mechanic brings the parts and tools needed to complete pad and rotor work at your location."
+      },
+      {
+        "q": "What if my brake issue needs a full shop lift?",
+        "a": "The tech will tell you upfront if that's the case and advise your best next step — no guesswork, no surprise bill."
+      }
+    ]
+  },
+  {
+    "slug": "247-mobile-auto-repair",
+    "category": "roadside",
+    "live": true,
+    "name": "24/7 Mobile Auto Repair",
+    "primaryKeyword": "24/7 mobile auto repair near me",
+    "secondaryKeywords": ["mobile auto repair near me", "late night car repair"],
+    "eyebrow": "24/7 MOBILE AUTO REPAIR — DISPATCHED IN {cityNameUpper}",
+    "h1": "24/7 Mobile Auto Repair in {cityName}",
+    "metaTitle": "24/7 Mobile Auto Repair in {cityFull} | {brandName}",
+    "metaDescription": "Need mobile auto repair in {cityFull} any hour? {brandName} dispatches a vetted tech around the clock — diagnostics, common repairs, flat pricing.",
+    "intro": "Whatever's wrong, whenever it happens — CURBSIDE dispatches a mobile auto repair tech to your location in {cityName} around the clock, so a breakdown doesn't have to wait for business hours.",
+    "benefits": [
+      "Live dispatch 24 hours a day, every day, including holidays",
+      "One call covers diagnostics, common repairs, and roadside issues alike",
+      "Vetted local techs sent to your exact location, not a shop queue",
+      "Flat, upfront pricing before anyone rolls out"
+    ],
+    "risk": "No tech dispatched toward you within 30 minutes? The call-out is free.",
+    "callCta": "Call — 24/7 Repair Dispatched",
+    "requestValue": "24/7 Mobile Auto Repair",
+    "faq": [
+      {
+        "q": "Is mobile auto repair really available 24/7 in {cityName}?",
+        "a": "Yes. CURBSIDE's dispatch line runs around the clock, including nights, weekends, and holidays."
+      },
+      {
+        "q": "What kinds of repairs can be done at 2 AM?",
+        "a": "Most common repairs and all standard roadside issues. If a job needs shop equipment, the tech will say so and help you plan next steps."
+      },
+      {
+        "q": "Do late-night calls cost more?",
+        "a": "No. Pricing is flat and upfront regardless of the hour — quoted before anyone rolls out."
+      }
+    ]
+  },
+  {
+    "slug": "windshield-chip-repair",
+    "category": "windshield",
+    "live": true,
+    "name": "Windshield Chip Repair",
+    "primaryKeyword": "windshield chip repair near me",
+    "secondaryKeywords": ["rock chip repair", "windshield crack repair near me"],
+    "eyebrow": "WINDSHIELD CHIP REPAIR — DISPATCHED IN {cityNameUpper}",
+    "h1": "Windshield Chip Repair in {cityName}",
+    "metaTitle": "Windshield Chip Repair Near Me in {cityFull} | {brandName}",
+    "metaDescription": "Windshield chip in {cityFull}? {brandName} repairs it on-site at your home or office, usually in under an hour — stops it from spreading, insurance-friendly.",
+    "intro": "A small chip today is a spreading crack tomorrow. CURBSIDE sends a tech to your home or office in {cityName} to repair the chip on-site, usually in under an hour.",
+    "benefits": [
+      "On-site resin repair — no drive to a glass shop",
+      "Most chip repairs completed in under an hour",
+      "Stops the chip from spreading into a full crack",
+      "We help coordinate insurance billing where applicable"
+    ],
+    "risk": "Not right the first time? We send someone back at no charge.",
+    "callCta": "Call — Chip Repair Dispatched",
+    "requestValue": "Windshield Chip Repair",
+    "faq": [
+      {
+        "q": "Is it worth repairing a small windshield chip?",
+        "a": "Yes — repairing a chip early in {cityName} is faster and cheaper than waiting for it to spread into a crack that needs full replacement."
+      },
+      {
+        "q": "How long does chip repair take?",
+        "a": "Most chip repairs are completed on-site in under an hour, so you can keep your day moving."
+      },
+      {
+        "q": "Will the chip repair be invisible?",
+        "a": "Repair significantly reduces visibility of the chip and stops it from spreading, though some faint mark can remain depending on size and location."
+      }
+    ]
+  },
+  {
+    "slug": "windshield-replacement",
+    "category": "windshield",
+    "live": true,
+    "name": "Windshield Replacement",
+    "primaryKeyword": "windshield replacement near me",
+    "secondaryKeywords": ["mobile windshield replacement", "auto glass replacement near me"],
+    "eyebrow": "WINDSHIELD REPLACEMENT — DISPATCHED IN {cityNameUpper}",
+    "h1": "Windshield Replacement in {cityName}",
+    "metaTitle": "Windshield Replacement Near Me in {cityFull} | {brandName}",
+    "metaDescription": "Need windshield replacement in {cityFull}? {brandName} dispatches a tech to your home or office — no shop visit, insurance billing help, flat pricing.",
+    "intro": "Crack too big to repair? CURBSIDE dispatches a tech to replace your windshield at your home or office in {cityName} — no drive to a shop, no waiting room.",
+    "benefits": [
+      "Full windshield replacement done on-site",
+      "Quality glass and proper safety-standard installation",
+      "We help coordinate insurance billing where applicable",
+      "Techs come to you — home, office, or curbside"
+    ],
+    "risk": "Not right the first time? We send someone back at no charge.",
+    "callCta": "Call — Windshield Replacement Dispatched",
+    "requestValue": "Windshield Replacement",
+    "faq": [
+      {
+        "q": "Can a windshield really be replaced outside of a shop?",
+        "a": "Yes. The dispatched tech brings the glass and tools needed to complete a full replacement at your home or office in {cityName}, to proper safety standards."
+      },
+      {
+        "q": "How long does mobile windshield replacement take?",
+        "a": "Most replacements are completed in under an hour on-site, though cure time for the adhesive may affect when it's safe to drive."
+      },
+      {
+        "q": "Does insurance cover windshield replacement?",
+        "a": "In most cases, yes. Let dispatch know you're filing through insurance when you request service, and the provider can help coordinate billing."
+      }
+    ]
+  },
+  {
+    "slug": "mobile-auto-glass-repair",
+    "category": "windshield",
+    "live": true,
+    "name": "Mobile Auto Glass Repair (Side & Rear Windows)",
+    "primaryKeyword": "mobile auto glass repair near me",
+    "secondaryKeywords": ["side window replacement near me", "rear window repair"],
+    "eyebrow": "MOBILE AUTO GLASS REPAIR — SIDE & REAR WINDOWS IN {cityNameUpper}",
+    "h1": "Mobile Auto Glass Repair in {cityName}",
+    "metaTitle": "Mobile Auto Glass Repair in {cityFull} — Side & Rear Windows | {brandName}",
+    "metaDescription": "Broken side or rear window in {cityFull}? {brandName} dispatches a tech to repair or replace it on-site — not just windshields, the whole car.",
+    "intro": "Broken side or rear window? CURBSIDE dispatches a tech to your location in {cityName} to repair or replace it on-site — not just windshields, the whole car.",
+    "benefits": [
+      "Side and rear window repair and replacement, not just windshields",
+      "On-site service at your home, office, or curbside",
+      "Broken glass cleared and secured safely if you're not ready for full replacement yet",
+      "We help coordinate insurance billing where applicable"
+    ],
+    "risk": "Not right the first time? We send someone back at no charge.",
+    "callCta": "Call — Auto Glass Repair Dispatched",
+    "requestValue": "Mobile Auto Glass Repair (Side & Rear Windows)",
+    "faq": [
+      {
+        "q": "Do you fix side and rear windows, not just windshields?",
+        "a": "Yes. CURBSIDE's mobile auto glass service in {cityName} covers side windows, rear windows, and windshields."
+      },
+      {
+        "q": "What if my window is completely shattered?",
+        "a": "The tech can clear and secure the opening on-site and arrange full replacement, so your vehicle is safe to drive in the meantime."
+      },
+      {
+        "q": "Is auto glass repair covered by insurance?",
+        "a": "Often, yes. Tell dispatch you're filing through insurance when you request service and the provider can help coordinate billing."
+      }
+    ]
+  },
+  {
+    "slug": "insurance-billed-windshield-service",
+    "category": "windshield",
+    "live": true,
+    "name": "Insurance-Billed Windshield Service",
+    "primaryKeyword": "windshield repair insurance near me",
+    "secondaryKeywords": ["insurance billed windshield replacement", "windshield claim near me"],
+    "eyebrow": "INSURANCE-BILLED WINDSHIELD SERVICE IN {cityNameUpper}",
+    "h1": "Insurance-Billed Windshield Service in {cityName}",
+    "metaTitle": "Insurance-Billed Windshield Service in {cityFull} | {brandName}",
+    "metaDescription": "Filing a windshield claim in {cityFull}? {brandName} dispatches a tech and helps coordinate billing directly with your insurer — on-site repair or replacement.",
+    "intro": "Filing a windshield claim shouldn't mean extra paperwork on top of a cracked windshield. CURBSIDE dispatches a tech to your location in {cityName} and helps coordinate billing directly with your insurer.",
+    "benefits": [
+      "We help coordinate billing directly with your insurance provider",
+      "On-site repair or replacement — no separate trip to a glass shop",
+      "Straight answers on what your policy is likely to cover before work starts",
+      "Same vetted techs, same on-site service, simpler paperwork"
+    ],
+    "risk": "Not right the first time? We send someone back at no charge.",
+    "callCta": "Call — Insurance Windshield Service",
+    "requestValue": "Insurance-Billed Windshield Service",
+    "faq": [
+      {
+        "q": "How does insurance billing work for windshield repair?",
+        "a": "Let dispatch know you're filing a claim when you request service in {cityName}. The provider can help coordinate billing directly with your insurer."
+      },
+      {
+        "q": "Will I have to pay anything upfront?",
+        "a": "That depends on your policy and deductible — dispatch and the provider will walk you through what to expect before work starts."
+      },
+      {
+        "q": "Does this work for both chip repair and full replacement claims?",
+        "a": "Yes, insurance coordination is available for both chip repair and full windshield replacement service."
+      }
+    ]
+  }
+]
