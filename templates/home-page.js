@@ -1,7 +1,7 @@
-// Renders the global Cities directory: / — lists every publicly live city
-// with a network coverage map. This absorbed the multi-city map that used
-// to live at the old global /locations/ URL (now retired — "Locations" is
-// per-city intra-city areas; this page is "Cities", the inter-city index).
+// Renders the global Cities directory: / — lists every publicly live city.
+// The old global /locations/ URL is retired — "Locations" is now per-city
+// intra-city areas (with its own keyless map embed); this page is "Cities",
+// the inter-city index.
 
 const { icon } = require('./partials');
 
@@ -39,7 +39,11 @@ ${items}
 function renderCityCard(c) {
   const cityFull = `${c.cityName}, ${c.stateAbbr}`;
   const hasGeo = typeof c.lat === 'number';
+  const mapQuery = encodeURIComponent(cityFull);
   return `      <div class="location-card">
+        <div class="map-embed" style="height:160px;">
+          <iframe src="https://www.google.com/maps?q=${mapQuery}&output=embed" title="Map of ${cityFull}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
         <h3>${cityFull}</h3>
         <p class="region">${c.region}</p>
         ${hasGeo ? `<span class="radius">~${c.serviceRadiusMiles || 25} mi coverage radius</span>` : ''}
@@ -51,11 +55,8 @@ function renderCityCard(c) {
       </div>`;
 }
 
-function renderHomePage(cities, site, config) {
+function renderHomePage(cities, site) {
   const liveCities = cities;
-  const geoCities = liveCities.filter(c => typeof c.lat === 'number' && typeof c.lng === 'number');
-  const apiKey = (config && config.googleMapsApiKey) || '';
-  const cityScript = geoCities.map(c => `{ name: ${JSON.stringify(c.cityName + ', ' + c.stateAbbr)}, lat: ${c.lat}, lng: ${c.lng}, radiusMiles: ${c.serviceRadiusMiles || 25} }`).join(', ');
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -69,7 +70,7 @@ function renderHomePage(cities, site, config) {
 <link rel="stylesheet" href="/assets/styles.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-${geoCities.length ? '<link rel="preconnect" href="https://maps.googleapis.com">\n' : ''}<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 ${renderCityListSchema(liveCities, site)}
 </script>
@@ -103,21 +104,6 @@ ${renderCityListSchema(liveCities, site)}
 
 <div class="stripe-rule"></div>
 
-${geoCities.length ? `<section class="map-section" style="padding-top:60px;">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Network Map</div>
-      <h2>Every city, one map</h2>
-    </div>
-    <div id="network-map" class="map-embed" style="height:420px;">
-      <div class="map-fallback">Map loading — <a href="https://www.google.com/maps/search/?api=1&query=${geoCities[0].lat},${geoCities[0].lng}" target="_blank" rel="noopener">view on Google Maps</a></div>
-    </div>
-    <p class="map-note">Shaded circles show each city's approximate dispatch radius.</p>
-  </div>
-</section>
-
-<div class="stripe-rule"></div>
-` : ''}
 <section class="offers" id="cities">
   <div class="wrap">
     <div class="section-head">
@@ -138,10 +124,7 @@ ${liveCities.map(renderCityCard).join('\n')}
 </footer>
 
 <script src="/assets/main.js"></script>
-${geoCities.length ? `<script>window.NETWORK_CITIES = [${cityScript}];</script>
-<script src="/assets/maps.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initCurbsideMaps&loading=async" async defer></script>
-` : ''}
+
 </body>
 </html>
 `;

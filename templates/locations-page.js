@@ -1,6 +1,7 @@
 // Renders the intra-city coverage-areas page: /{city.slug}/locations/
-// Lists the neighborhoods/corridors this city's dispatch covers, plus the
-// single-city Google Maps coverage-radius embed (relocated here from Home).
+// Lists the neighborhoods/corridors this city's dispatch covers, plus a
+// keyless Google Maps embed (the free `maps.google.com/?output=embed`
+// iframe — no API key, no Cloud Console setup, no billing account).
 
 const { icon, renderHeader, renderFooter } = require('./partials');
 
@@ -24,10 +25,10 @@ function renderAreaCard(area) {
       </div>`;
 }
 
-function renderLocationsPage(city, site, publiclyLiveCities, config) {
+function renderLocationsPage(city, site, publiclyLiveCities) {
   const cityFull = `${city.cityName}, ${city.stateAbbr}`;
   const hasGeo = typeof city.lat === 'number' && typeof city.lng === 'number';
-  const apiKey = (config && config.googleMapsApiKey) || '';
+  const mapQuery = encodeURIComponent(cityFull);
   const areas = city.areas || [];
 
   return `<!DOCTYPE html>
@@ -46,7 +47,7 @@ ${hasGeo ? `<meta name="geo.region" content="${city.stateCode || ('US-' + city.s
 <link rel="stylesheet" href="/assets/styles.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-${hasGeo ? '<link rel="preconnect" href="https://maps.googleapis.com">\n' : ''}<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -83,10 +84,10 @@ ${hasGeo ? `<section class="map-section" style="padding-top:60px;">
       <div class="eyebrow">Coverage Map</div>
       <h2>~${city.serviceRadiusMiles || 25}-mile dispatch radius</h2>
     </div>
-    <div id="city-map" class="map-embed" style="height:360px;" data-single-map data-lat="${city.lat}" data-lng="${city.lng}" data-radius-miles="${city.serviceRadiusMiles || 25}" data-city-label="${cityFull}">
-      <div class="map-fallback">Map loading — <a href="https://www.google.com/maps/search/?api=1&query=${city.lat},${city.lng}" target="_blank" rel="noopener">view ${cityFull} on Google Maps</a></div>
+    <div class="map-embed" style="height:360px;">
+      <iframe src="https://www.google.com/maps?q=${mapQuery}&output=embed" title="Map of ${cityFull}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
-    <p class="map-note">Shaded area shows our approximate dispatch radius around ${city.cityName} — exact coverage can vary by tech availability.</p>
+    <p class="map-note">Map centered on ${city.cityName} — we dispatch to an approximate ${city.serviceRadiusMiles || 25}-mile radius around it, exact coverage can vary by tech availability.</p>
   </div>
 </section>
 
@@ -107,9 +108,7 @@ ${areas.map(renderAreaCard).join('\n')}
 ${renderFooter(city, site, publiclyLiveCities)}
 
 <script src="/assets/main.js"></script>
-${hasGeo ? `<script src="/assets/maps.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initCurbsideMaps&loading=async" async defer></script>
-` : ''}
+
 </body>
 </html>
 `;

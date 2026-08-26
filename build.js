@@ -52,7 +52,6 @@ function build() {
   const site = readJson('data/site.json');
   const cities = readJson('data/cities.json');
   const services = readJson('data/services.json');
-  const config = readJson('data/config.json');
 
   const liveServices = services.filter(s => s.live);
   const required = requiredCategories(liveServices);
@@ -74,7 +73,7 @@ function build() {
   copyDir(path.join(ROOT, 'assets'), path.join(DIST, 'assets'));
 
   // Global Cities directory
-  fs.writeFileSync(path.join(DIST, 'index.html'), renderHomePage(publiclyLiveCities, site, config));
+  fs.writeFileSync(path.join(DIST, 'index.html'), renderHomePage(publiclyLiveCities, site));
 
   // Five pages per city (Home/Services/Locations/About/Contact), plus one
   // deep SEO page per live service within that city. `publiclyLiveCities`
@@ -85,9 +84,9 @@ function build() {
   for (const city of publiclyLiveCities) {
     const cityDir = path.join(DIST, city.slug);
 
-    writePage(cityDir, renderCityPage(city, site, publiclyLiveCities, liveServices, config));
+    writePage(cityDir, renderCityPage(city, site, publiclyLiveCities, liveServices));
     writePage(path.join(cityDir, 'services'), renderServicesPage(city, site, liveServices, publiclyLiveCities));
-    writePage(path.join(cityDir, 'locations'), renderLocationsPage(city, site, publiclyLiveCities, config));
+    writePage(path.join(cityDir, 'locations'), renderLocationsPage(city, site, publiclyLiveCities));
     writePage(path.join(cityDir, 'about'), renderAboutPage(city, site, publiclyLiveCities));
     writePage(path.join(cityDir, 'contact'), renderContactPage(city, site, liveServices, publiclyLiveCities));
     builtCities++;
@@ -104,9 +103,6 @@ function build() {
   }
 
   console.log(`Built ${builtCities} live city page(s) (Home/Services/Locations/About/Contact), ${builtServices} service page(s), + the global Cities directory into dist/`);
-  if (config.googleMapsApiKey === 'YOUR_GOOGLE_MAPS_API_KEY') {
-    console.log('  ⚠ data/config.json still has the placeholder Google Maps API key — maps will not render until you add a real one.');
-  }
   for (const city of cities) {
     const live = publiclyLiveCities.includes(city);
     console.log(`  ${live ? '✓' : '○'} ${city.cityName}, ${city.stateAbbr} → ${live ? `/${city.slug}/` : '(not live)'}`);

@@ -56,6 +56,23 @@
       "risk": "Not right the first time? We send someone back at no charge.",
       "callCta": "Call — Fixed Right, Guaranteed",
       "requestValue": "Mobile Windshield Repair"
+    },
+    {
+      "id": "carb",
+      "ticketNo": "03",
+      "label": "CARB TEST",
+      "categoryName": "CARB Testing & Fleet Compliance",
+      "title": "Mobile CARB Testing for Fleets & Trucks",
+      "promise": "On-site CARB Clean Truck Check testing for your fleet in {cityName} — OBD or smoke opacity testing at your yard, so your trucks stay on the road instead of sitting in a test line.",
+      "stack": [
+        "OBD testing for 2013-and-newer engines, smoke opacity testing for older diesels",
+        "Testing done at your yard or depot — no driving trucks to a test-only station",
+        "Covers single trucks or full fleets",
+        "Help staying ahead of California's periodic testing requirements"
+      ],
+      "risk": "Test doesn't go as expected? We'll walk you through what's next before we leave your yard.",
+      "callCta": "Call — Schedule Testing",
+      "requestValue": "Mobile CARB Testing for Fleets & Trucks"
     }
   ],
   "faq": [

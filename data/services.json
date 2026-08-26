@@ -478,5 +478,46 @@
       }
     ],
     "icon": "shield"
+  },
+  {
+    "slug": "mobile-carb-testing",
+    "category": "carb",
+    "live": true,
+    "name": "Mobile CARB Testing for Fleets & Trucks",
+    "icon": "clipboard",
+    "primaryKeyword": "mobile CARB testing near me",
+    "secondaryKeywords": [
+      "CARB Clean Truck Check testing",
+      "mobile fleet emissions testing California",
+      "CARB smoke opacity test for trucks"
+    ],
+    "eyebrow": "MOBILE CARB TESTING — DISPATCHED IN {cityNameUpper}",
+    "h1": "Mobile CARB Testing for <em>Fleets & Trucks</em> in {cityName}",
+    "metaTitle": "Mobile CARB Testing for Fleets & Trucks in {cityFull} | {brandName}",
+    "metaDescription": "Need CARB Clean Truck Check testing in {cityFull}? {brandName} dispatches a mobile tester to your fleet yard — OBD or smoke opacity testing, no driving trucks to a station.",
+    "intro": "California's Clean Truck Check program requires most heavy-duty trucks and fleet vehicles to pass periodic emissions testing. {brandName} brings the test to your yard in {cityName}, so your trucks stay on the road instead of sitting in a test line.",
+    "benefits": [
+      "On-site OBD testing for 2013-and-newer engines, or smoke opacity testing for older diesels",
+      "Testing done at your yard or depot — no driving trucks to a test-only station",
+      "Covers single trucks and full fleets",
+      "Help staying ahead of California's periodic reporting requirements"
+    ],
+    "risk": "Test doesn't go as expected? We'll walk you through what's next before we leave your yard.",
+    "callCta": "Call — Schedule Testing",
+    "requestValue": "Mobile CARB Testing for Fleets & Trucks",
+    "faq": [
+      {
+        "q": "What is CARB Clean Truck Check testing?",
+        "a": "It's California's periodic emissions testing program for heavy-duty trucks and fleet vehicles operating in the state. Most diesel and heavy-duty vehicles need to pass it on a regular schedule to stay in compliance."
+      },
+      {
+        "q": "Do you test at my yard, or do I have to bring my trucks somewhere?",
+        "a": "{brandName} dispatches a mobile tester directly to your fleet yard or depot in {cityName} — your trucks don't need to leave the lot."
+      },
+      {
+        "q": "What kind of test does my truck need?",
+        "a": "Newer engines (generally 2013 and later) are tested through the onboard diagnostics (OBD) port; older diesel engines are tested with a smoke opacity test. Tell dispatch your fleet's vehicle years when you call and we'll bring the right equipment."
+      }
+    ]
   }
 ]

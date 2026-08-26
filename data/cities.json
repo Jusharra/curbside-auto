@@ -16,7 +16,8 @@
     "stateCode": "US-CA",
     "categoriesConfirmed": {
       "roadside": true,
-      "windshield": true
+      "windshield": true,
+      "carb": true
     },
     "areas": [
       {

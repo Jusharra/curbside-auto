@@ -72,7 +72,7 @@ function heroIllustration() {
   </div>`;
 }
 
-function renderCityPage(city, site, allCities, services, config) {
+function renderCityPage(city, site, allCities, services) {
   const cityFull = `${city.cityName}, ${city.stateAbbr}`;
   const hasGeo = typeof city.lat === 'number' && typeof city.lng === 'number';
 

@@ -40,7 +40,8 @@ const ICON_PATHS = {
   tag: '<path d="M3 11.5V5a1 1 0 0 1 1-1h6.5a1 1 0 0 1 .7.3l9 9a1 1 0 0 1 0 1.4l-6.5 6.5a1 1 0 0 1-1.4 0l-9-9a1 1 0 0 1-.3-.7Z"/><circle cx="8" cy="8" r="1.5" fill="currentColor" stroke="none"/>',
   beacon: '<circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="10"/>',
   pin: '<path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/>',
-  menu: '<path d="M4 7h16M4 12h16M4 17h16"/>'
+  menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
+  clipboard: '<rect x="5" y="4" width="14" height="17" rx="2"/><rect x="9" y="2.5" width="6" height="3.5" rx="1"/><path d="M9 12.5l2 2 4-4.5"/>'
 };
 
 function icon(name, cls) {
