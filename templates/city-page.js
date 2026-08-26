@@ -1,11 +1,8 @@
-// Renders one full HTML page for a single city.
-// Every {cityName}/{brandName} token in the shared copy gets swapped for the real values.
+// Renders the Home page for a single city: /{city.slug}/
+// Split hero (headline + embedded quick-request form), trust badges,
+// a 2-card category preview linking to /services/, FAQ, and a contact teaser.
 
-function fill(str, city, site) {
-  return str
-    .replace(/\{cityName\}/g, city.cityName)
-    .replace(/\{brandName\}/g, site ? site.brandName : '');
-}
+const { fill, renderServiceAreaSchema, icon, renderServiceSelect, renderHeader, renderFooter } = require('./partials');
 
 function renderOfferSchema(site, city) {
   return site.offers.map(o => `    {
@@ -26,34 +23,6 @@ function renderFaqSchema(site, city) {
     }`).join(',\n');
 }
 
-function renderServiceLinks(o, city, services) {
-  const matches = (services || []).filter(s => s.live && s.category === o.id);
-  if (!matches.length) return '';
-  const links = matches.map(s => `          <a href="/${city.slug}/${s.slug}/">${s.name}</a>`).join('\n');
-  return `
-        <div class="service-links">
-${links}
-        </div>`;
-}
-
-function renderTicket(o, city, services, site) {
-  const stackHtml = o.stack.map(s => `          <li>${s}</li>`).join('\n');
-  return `      <div class="ticket" id="${o.id}">
-        <div class="ticket-num">TICKET NO. ${o.ticketNo} / ${o.label}</div>
-        <h3>${fill(o.title, city, site)}</h3>
-        <p class="promise">${fill(o.promise, city, site)}</p>
-        <hr class="divider">
-        <ul class="stack">
-${stackHtml}
-        </ul>
-        <div class="risk"><b>Risk reversal:</b> ${o.risk}</div>
-        <div class="ticket-ctas">
-          <a class="ticket-cta call" href="tel:${city.phoneTel}">\u{1F4DE} ${o.callCta}</a>
-          <a class="ticket-cta request" href="#request" data-service="${o.requestValue}">Request Online \u2192</a>
-        </div>${renderServiceLinks(o, city, services)}
-      </div>`;
-}
-
 function renderFaqItem(f, city, site) {
   return `    <div class="faq-item">
       <h3>${f.q}</h3>
@@ -61,28 +30,51 @@ function renderFaqItem(f, city, site) {
     </div>`;
 }
 
-function renderNavLinks(site) {
-  return site.offers.map(o => `      <a href="#${o.id}">${o.label === 'RESCUE + REPAIR' ? 'Roadside & Repair' : 'Windshield'}</a>`).join('\n');
+const TRUST_ICONS = ['shield', 'tag', 'wrench'];
+
+function renderTrustBadges(site) {
+  return site.trustBadges.map((b, i) =>
+    `      <div class="badge">${icon(TRUST_ICONS[i % TRUST_ICONS.length])}<span>${b}</span></div>`
+  ).join('\n');
 }
 
-function renderServiceAreaSchema(city) {
-  if (typeof city.lat !== 'number' || typeof city.lng !== 'number') return '';
-  return `,
-  "serviceArea": {
-    "@type": "GeoCircle",
-    "geoMidpoint": { "@type": "GeoCoordinates", "latitude": ${city.lat}, "longitude": ${city.lng} },
-    "geoRadius": "${Math.round((city.serviceRadiusMiles || 25) * 1609.34)}"
-  }`;
+function renderCategoryPreview(site, city) {
+  return site.offers.map(o => `      <div class="location-card">
+        <h3>${o.categoryName}</h3>
+        <p class="region">${fill(o.promise, city, site)}</p>
+        <div class="location-links">
+          <a class="ticket-cta request" href="/${city.slug}/services/#${o.id}">Explore ${o.categoryName} →</a>
+        </div>
+      </div>`).join('\n');
+}
+
+function heroIllustration() {
+  return `<div class="hero-illustration" aria-hidden="true">
+    <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="beaconGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#F5B301" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#F5B301" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="900" cy="220" r="260" fill="url(#beaconGlow)"/>
+      <g stroke="#2A3038" stroke-width="2" fill="none" opacity="0.7">
+        <circle cx="900" cy="220" r="60"/>
+        <circle cx="900" cy="220" r="110"/>
+        <circle cx="900" cy="220" r="165"/>
+      </g>
+      <g stroke="#2A3038" stroke-width="2" fill="none" opacity="0.6">
+        <path d="M-100 700 L520 220 L1300 700"/>
+        <path d="M-100 700 L520 320 L1300 700"/>
+        <path d="M-100 700 L520 420 L1300 700"/>
+      </g>
+    </svg>
+  </div>`;
 }
 
 function renderCityPage(city, site, allCities, services, config) {
   const cityFull = `${city.cityName}, ${city.stateAbbr}`;
-  const otherCities = allCities.filter(c => c.slug !== city.slug && c.live);
-  const otherCityLinks = otherCities.length
-    ? `\n    <p style="margin-top:14px; font-size:13px; color:var(--ink-faint);">Also serving: ${otherCities.map(c => `<a href="/${c.slug}/" style="color:var(--ink-dim); text-decoration:underline;">${c.cityName}, ${c.stateAbbr}</a>`).join(', ')}</p>`
-    : '';
   const hasGeo = typeof city.lat === 'number' && typeof city.lng === 'number';
-  const apiKey = (config && config.googleMapsApiKey) || '';
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -91,8 +83,8 @@ function renderCityPage(city, site, allCities, services, config) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Roadside & Windshield Repair in ${cityFull}</title>
 <meta name="description" content="Need roadside assistance, a mobile mechanic, or mobile windshield repair near you in ${cityFull}? ${site.brandName} dispatches a vetted local pro to your exact location, 24/7.">
-<meta property="og:title" content="${site.brandName} ${cityFull} \u2014 Roadside Assistance, Mobile Repair & Windshield, Dispatched to You">
-<meta property="og:description" content="24/7 roadside assistance, mobile mechanic, and mobile windshield repair in ${cityFull} \u2014 one dispatch line.">
+<meta property="og:title" content="${site.brandName} ${cityFull} — Roadside Assistance, Mobile Repair & Windshield, Dispatched to You">
+<meta property="og:description" content="24/7 roadside assistance, mobile mechanic, and mobile windshield repair in ${cityFull} — one dispatch line.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#14171C">
 ${hasGeo ? `<meta name="geo.region" content="${city.stateCode || ('US-' + city.stateAbbr)}">
@@ -103,7 +95,7 @@ ${hasGeo ? `<meta name="geo.region" content="${city.stateCode || ('US-' + city.s
 <link rel="stylesheet" href="/assets/styles.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-${hasGeo ? '<link rel="preconnect" href="https://maps.googleapis.com">\n' : ''}<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -129,35 +121,65 @@ ${renderFaqSchema(site, city)}
 <body>
 
 <div class="status-bar">
-  <span class="dot"></span><span class="mono">DISPATCH LINE OPEN \u2014 ${cityFull.toUpperCase()}</span>
+  <span class="dot"></span><span class="mono">DISPATCH LINE OPEN — ${cityFull.toUpperCase()}</span>
 </div>
 
-<header>
-  <div class="nav wrap">
-    <a class="logo" href="/">${site.logoMain}<span>${site.logoAccent}</span></a>
-    <nav class="nav-links">
-${renderNavLinks(site)}
-      <a href="/locations/">Locations</a>
-      <a href="#faq">FAQ</a>
-      <a href="#request">Request Help</a>
-    </nav>
-    <a class="call-btn" href="tel:${city.phoneTel}">Call Now</a>
-  </div>
-</header>
+${renderHeader('home', city, site)}
 
 <section class="hero">
+  ${heroIllustration()}
   <div class="wrap">
-    <div class="hero-eyebrow">// ROADSIDE ASSISTANCE NEAR ME \u2014 DISPATCHED 24/7 IN ${city.cityName.toUpperCase()}</div>
-    <h1>Stranded doesn't<br>mean <em>stuck.</em></h1>
-    <p>Search no further than one call: a vetted local mobile mechanic or windshield repair pro headed your way, anywhere in ${cityFull}.</p>
-    <div class="hero-ctas">
-      <a class="btn-primary" href="tel:${city.phoneTel}">\u{1F4DE} Call Now \u2014 Free If We're Late</a>
-      <a class="btn-ghost" href="#request">See Both Offers \u2193</a>
+    <div class="hero-split">
+      <div>
+        <div class="hero-eyebrow">${icon('beacon')} 24/7 EMERGENCY DISPATCH • ${city.cityName.toUpperCase()}, ${city.stateAbbr}</div>
+        <h1>Stranded doesn't<br>mean <em>stuck.</em></h1>
+        <p>Search no further than one call: a vetted local mobile mechanic or windshield repair pro headed your way, anywhere in ${cityFull}.</p>
+        <div class="hero-ctas">
+          <a class="btn-primary" href="tel:${city.phoneTel}">${icon('phone')}Call Now — Free If We're Late</a>
+          <a class="btn-ghost" href="/${city.slug}/services/">See All Services</a>
+        </div>
+        <div class="trust-badges">
+${renderTrustBadges(site)}
+        </div>
+      </div>
+      <div class="hero-form-card">
+        <div class="hero-eyebrow">${icon('beacon')} EMERGENCY DISPATCH</div>
+        <h2>Get Roadside Help Now</h2>
+        <p class="avg-response">Tell us where you are in ${city.cityName} — dispatch responds fast.</p>
+        <form name="quick-request-${city.slug}" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="quick-request-${city.slug}">
+          <input type="hidden" name="city" value="${cityFull}">
+          <p style="display:none">
+            <label>Don't fill this out: <input name="bot-field"></label>
+          </p>
+          <div class="row2">
+            <div>
+              <label for="hero-name">Name</label>
+              <input type="text" id="hero-name" name="name" placeholder="Name" required>
+            </div>
+            <div>
+              <label for="hero-phone">Phone</label>
+              <input type="tel" id="hero-phone" name="phone" placeholder="Phone Number" required>
+            </div>
+          </div>
+          <div>
+            <label for="hero-location">Location</label>
+            <input type="text" id="hero-location" name="location" placeholder="Your Location" required>
+          </div>
+          <div>
+            <label for="service">Service Needed</label>
+            <select id="service" name="service" required>
+${renderServiceSelect(services, site)}
+            </select>
+          </div>
+          <div>
+            <label for="hero-details">Description</label>
+            <textarea id="hero-details" name="details" placeholder="Describe the issue (optional)"></textarea>
+          </div>
+          <button class="submit-btn" type="submit">${icon('phone')}Request Help</button>
+        </form>
+      </div>
     </div>
-    <div class="marker-strip">
-      <div class="marker"><div class="num">MM 01</div><div class="label">Roadside Rescue &amp; Mobile Repair</div></div>
-      <div class="marker"><div class="num">MM 02</div><div class="label">Mobile Windshield Repair</div></div>
-    </div>${otherCityLinks}
   </div>
 </section>
 
@@ -166,53 +188,11 @@ ${renderNavLinks(site)}
 <section class="offers" id="offers">
   <div class="wrap">
     <div class="section-head">
-      <div class="eyebrow">The Offers</div>
+      <div class="eyebrow">What We Handle</div>
       <h2>Two ways we get to you in ${city.cityName}</h2>
     </div>
-
-    <div class="ticket-grid">
-${site.offers.map(o => renderTicket(o, city, services, site)).join('\n\n')}
-    </div>
-  </div>
-</section>
-
-${hasGeo ? `<div class="stripe-rule"></div>
-
-<section class="map-section">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Coverage Area</div>
-      <h2>Where we dispatch around ${city.cityName}</h2>
-    </div>
-    <div id="city-map" class="map-embed" style="height:360px;" data-single-map data-lat="${city.lat}" data-lng="${city.lng}" data-radius-miles="${city.serviceRadiusMiles || 25}" data-city-label="${cityFull}">
-      <div class="map-fallback">Map loading — <a href="https://www.google.com/maps/search/?api=1&query=${city.lat},${city.lng}" target="_blank" rel="noopener">view ${cityFull} on Google Maps</a></div>
-    </div>
-    <p class="map-note">Shaded area shows our approximate ${city.serviceRadiusMiles || 25}-mile dispatch radius around ${city.cityName} — exact coverage can vary by tech availability. See every city we serve on the <a href="/locations/" style="color:var(--ink-dim); text-decoration:underline;">Locations page</a>.</p>
-  </div>
-</section>
-` : ''}
-<section class="how">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">How It Works</div>
-      <h2>Three steps, no shop visit</h2>
-    </div>
-    <div class="how-grid">
-      <div class="how-step">
-        <div class="step-num mono">01</div>
-        <h3>Tell us what's wrong</h3>
-        <p>Call, text, or fill out the form below with your location and what's going on.</p>
-      </div>
-      <div class="how-step">
-        <div class="step-num mono">02</div>
-        <h3>We dispatch a local pro</h3>
-        <p>You get matched with a vetted independent tech already near you in ${city.cityName} \u2014 not a call center queue.</p>
-      </div>
-      <div class="how-step">
-        <div class="step-num mono">03</div>
-        <h3>Help shows up</h3>
-        <p>Flat, upfront pricing. No shop drop-off, no waiting room, no surprise fees.</p>
-      </div>
+    <div class="location-grid">
+${renderCategoryPreview(site, city)}
     </div>
   </div>
 </section>
@@ -229,60 +209,24 @@ ${site.faq.map(f => renderFaqItem(f, city, site)).join('\n')}
   </div>
 </section>
 
-<section class="request" id="request">
+<section class="coverage">
   <div class="wrap">
-    <div class="request-box">
-      <h2>Request Service</h2>
-      <p>Tell us where you are in ${city.cityName} and what you need \u2014 dispatch will text you back with an ETA and price.</p>
-      <form name="service-request-${city.slug}" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-        <input type="hidden" name="form-name" value="service-request-${city.slug}">
-        <input type="hidden" name="city" value="${cityFull}">
-        <p style="display:none">
-          <label>Don't fill this out: <input name="bot-field"></label>
-        </p>
-        <div class="row2">
-          <div>
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" required>
-          </div>
-          <div>
-            <label for="phone">Phone</label>
-            <input type="tel" id="phone" name="phone" required>
-          </div>
-        </div>
-        <div>
-          <label for="service">What do you need</label>
-          <select id="service" name="service" required>
-            <option value="">Select a service</option>
-${site.offers.map(o => `            <option>${o.requestValue}</option>`).join('\n')}
-            <option>Not sure \u2014 help me figure it out</option>
-          </select>
-        </div>
-        <div>
-          <label for="location">Your location in ${city.cityName}</label>
-          <input type="text" id="location" name="location" placeholder="Address, cross streets, or freeway/mile marker" required>
-        </div>
-        <div>
-          <label for="details">Anything dispatch should know</label>
-          <input type="text" id="details" name="details" placeholder="Vehicle, what happened, best callback time">
-        </div>
-        <button class="submit-btn" type="submit">Send Request \u2192</button>
-      </form>
+    <div class="coverage-box">
+      <div>
+        <h3>Need something more specific?</h3>
+        <p>Full request form, click-to-call, and email — the fastest way to reach dispatch directly.</p>
+      </div>
+      <div class="coverage-tags">
+        <a class="btn-primary" href="/${city.slug}/contact/">${icon('phone')}Go to Contact</a>
+      </div>
     </div>
   </div>
 </section>
 
-<footer>
-  <div class="wrap" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; width:100%;">
-    <span>\u00A9 <span id="year"></span> ${site.brandName}. Independent dispatch network \u2014 providers are independently owned and operated.</span>
-    <span><a href="tel:${city.phoneTel}">${city.phoneDisplay}</a> &nbsp;\u00B7&nbsp; <a href="mailto:${city.email}">${city.email}</a></span>
-  </div>
-</footer>
+${renderFooter(city, site, allCities)}
 
 <script src="/assets/main.js"></script>
-${hasGeo ? `<script src="/assets/maps.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initCurbsideMaps&loading=async" async defer></script>
-` : ''}
+
 </body>
 </html>
 `;

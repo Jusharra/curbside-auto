@@ -13,6 +13,32 @@
     "lat": 36.3302,
     "lng": -119.2921,
     "serviceRadiusMiles": 30,
-    "stateCode": "US-CA"
+    "stateCode": "US-CA",
+    "categoriesConfirmed": {
+      "roadside": true,
+      "windshield": true
+    },
+    "areas": [
+      {
+        "name": "East Visalia / Farmersville Border",
+        "description": "Regularly dispatched corridor along the eastern edge of Visalia toward Farmersville."
+      },
+      {
+        "name": "Southwest Visalia",
+        "description": "Covers the residential and retail corridors on the southwest side of the city."
+      },
+      {
+        "name": "Northwest Visalia (Riggin & Akers Corridor)",
+        "description": "Includes the Riggin Avenue and Akers Street corridor and surrounding neighborhoods."
+      },
+      {
+        "name": "Airport Industrial Corridor",
+        "description": "Covers the industrial and commercial area surrounding the Visalia Municipal Airport."
+      },
+      {
+        "name": "Downtown Visalia",
+        "description": "Full coverage of the downtown core, including nearby residential streets."
+      }
+    ]
   }
 ]

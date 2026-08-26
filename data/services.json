@@ -5,7 +5,10 @@
     "live": true,
     "name": "24-Hour Emergency Roadside Assistance",
     "primaryKeyword": "24 hour roadside assistance near me",
-    "secondaryKeywords": ["emergency roadside assistance", "roadside assistance no membership"],
+    "secondaryKeywords": [
+      "emergency roadside assistance",
+      "roadside assistance no membership"
+    ],
     "eyebrow": "24-HOUR EMERGENCY ROADSIDE ASSISTANCE — DISPATCHED NOW IN {cityNameUpper}",
     "h1": "24-Hour Emergency Roadside Assistance in <em>{cityName}</em>",
     "metaTitle": "24-Hour Emergency Roadside Assistance in {cityFull} | {brandName}",
@@ -33,7 +36,8 @@
         "q": "How fast can someone reach me in {cityName}?",
         "a": "Dispatch aims to get a tech en route within 30 minutes. If that doesn't happen, the call-out is free."
       }
-    ]
+    ],
+    "icon": "siren"
   },
   {
     "slug": "mobile-mechanic-diagnostics-repair",
@@ -41,7 +45,10 @@
     "live": true,
     "name": "Mobile Mechanic — On-Site Diagnostics & Repair",
     "primaryKeyword": "mobile mechanic near me",
-    "secondaryKeywords": ["mobile mechanic on-site diagnostics", "mobile auto repair mechanic"],
+    "secondaryKeywords": [
+      "mobile mechanic on-site diagnostics",
+      "mobile auto repair mechanic"
+    ],
     "eyebrow": "MOBILE MECHANIC — ON-SITE DIAGNOSTICS & REPAIR IN {cityNameUpper}",
     "h1": "Mobile Mechanic <em>Near You</em> in {cityName}",
     "metaTitle": "Mobile Mechanic Near Me in {cityFull} — On-Site Diagnostics & Repair | {brandName}",
@@ -69,7 +76,8 @@
         "q": "Do I need an appointment for mobile mechanic service in {cityName}?",
         "a": "No. Call the dispatch line and a vetted local tech is sent to your location — most requests are handled same-day."
       }
-    ]
+    ],
+    "icon": "wrench"
   },
   {
     "slug": "jump-start-battery-service",
@@ -77,7 +85,10 @@
     "live": true,
     "name": "Jump Start / Battery Service",
     "primaryKeyword": "jump start service near me",
-    "secondaryKeywords": ["mobile battery service", "car battery replacement near me"],
+    "secondaryKeywords": [
+      "mobile battery service",
+      "car battery replacement near me"
+    ],
     "eyebrow": "JUMP START & BATTERY SERVICE — DISPATCHED IN {cityNameUpper}",
     "h1": "Jump Start & Battery Service in {cityName}",
     "metaTitle": "Jump Start Service Near Me in {cityFull} — Battery Service | {brandName}",
@@ -105,7 +116,8 @@
         "q": "Is jump start service near me available at night?",
         "a": "Yes — {brandName} dispatches 24 hours a day in {cityName}, including overnight and holidays."
       }
-    ]
+    ],
+    "icon": "battery"
   },
   {
     "slug": "flat-tire-change-repair",
@@ -113,7 +125,10 @@
     "live": true,
     "name": "Flat Tire Change & Repair",
     "primaryKeyword": "flat tire change near me",
-    "secondaryKeywords": ["flat tire repair near me", "mobile tire change"],
+    "secondaryKeywords": [
+      "flat tire repair near me",
+      "mobile tire change"
+    ],
     "eyebrow": "FLAT TIRE CHANGE & REPAIR — DISPATCHED IN {cityNameUpper}",
     "h1": "Flat Tire Change & Repair in {cityName}",
     "metaTitle": "Flat Tire Change Near Me in {cityFull} | {brandName}",
@@ -141,7 +156,8 @@
         "q": "Do you come to flat tires on the freeway?",
         "a": "Yes, as long as it's safe to work on. Give dispatch your exact location, including mile marker or cross streets, when you call."
       }
-    ]
+    ],
+    "icon": "tire"
   },
   {
     "slug": "car-lockout-service",
@@ -149,7 +165,10 @@
     "live": true,
     "name": "Lockout Service",
     "primaryKeyword": "car lockout service near me",
-    "secondaryKeywords": ["locked keys in car", "car unlock service near me"],
+    "secondaryKeywords": [
+      "locked keys in car",
+      "car unlock service near me"
+    ],
     "eyebrow": "CAR LOCKOUT SERVICE — DISPATCHED IN {cityNameUpper}",
     "h1": "Car Lockout Service in {cityName}",
     "metaTitle": "Car Lockout Service Near Me in {cityFull} | {brandName}",
@@ -177,7 +196,8 @@
         "q": "Is car lockout service near me available late at night?",
         "a": "Yes — {brandName} dispatches 24/7 in {cityName}, including overnight."
       }
-    ]
+    ],
+    "icon": "key"
   },
   {
     "slug": "emergency-fuel-delivery",
@@ -185,7 +205,10 @@
     "live": true,
     "name": "Emergency Fuel Delivery",
     "primaryKeyword": "emergency fuel delivery near me",
-    "secondaryKeywords": ["out of gas near me", "mobile fuel delivery"],
+    "secondaryKeywords": [
+      "out of gas near me",
+      "mobile fuel delivery"
+    ],
     "eyebrow": "EMERGENCY FUEL DELIVERY — DISPATCHED IN {cityNameUpper}",
     "h1": "Emergency Fuel Delivery in {cityName}",
     "metaTitle": "Emergency Fuel Delivery Near Me in {cityFull} | {brandName}",
@@ -213,7 +236,8 @@
         "q": "Do you deliver diesel as well as gas?",
         "a": "Let dispatch know your fuel type when you call so the right tech and fuel are sent."
       }
-    ]
+    ],
+    "icon": "fuel"
   },
   {
     "slug": "mobile-brake-repair",
@@ -221,7 +245,10 @@
     "live": true,
     "name": "Mobile Brake Repair",
     "primaryKeyword": "mobile brake repair near me",
-    "secondaryKeywords": ["brake pad replacement near me", "brake repair on-site"],
+    "secondaryKeywords": [
+      "brake pad replacement near me",
+      "brake repair on-site"
+    ],
     "eyebrow": "MOBILE BRAKE REPAIR — DISPATCHED IN {cityNameUpper}",
     "h1": "Mobile Brake Repair in {cityName}",
     "metaTitle": "Mobile Brake Repair Near Me in {cityFull} | {brandName}",
@@ -249,7 +276,8 @@
         "q": "What if my brake issue needs a full shop lift?",
         "a": "The tech will tell you upfront if that's the case and advise your best next step — no guesswork, no surprise bill."
       }
-    ]
+    ],
+    "icon": "brake"
   },
   {
     "slug": "247-mobile-auto-repair",
@@ -257,7 +285,10 @@
     "live": true,
     "name": "24/7 Mobile Auto Repair",
     "primaryKeyword": "24/7 mobile auto repair near me",
-    "secondaryKeywords": ["mobile auto repair near me", "late night car repair"],
+    "secondaryKeywords": [
+      "mobile auto repair near me",
+      "late night car repair"
+    ],
     "eyebrow": "24/7 MOBILE AUTO REPAIR — DISPATCHED IN {cityNameUpper}",
     "h1": "24/7 Mobile Auto Repair in {cityName}",
     "metaTitle": "24/7 Mobile Auto Repair in {cityFull} | {brandName}",
@@ -285,7 +316,8 @@
         "q": "Do late-night calls cost more?",
         "a": "No. Pricing is flat and upfront regardless of the hour — quoted before anyone rolls out."
       }
-    ]
+    ],
+    "icon": "car"
   },
   {
     "slug": "windshield-chip-repair",
@@ -293,7 +325,10 @@
     "live": true,
     "name": "Windshield Chip Repair",
     "primaryKeyword": "windshield chip repair near me",
-    "secondaryKeywords": ["rock chip repair", "windshield crack repair near me"],
+    "secondaryKeywords": [
+      "rock chip repair",
+      "windshield crack repair near me"
+    ],
     "eyebrow": "WINDSHIELD CHIP REPAIR — DISPATCHED IN {cityNameUpper}",
     "h1": "Windshield Chip Repair in {cityName}",
     "metaTitle": "Windshield Chip Repair Near Me in {cityFull} | {brandName}",
@@ -321,7 +356,8 @@
         "q": "Will the chip repair be invisible?",
         "a": "Repair significantly reduces visibility of the chip and stops it from spreading, though some faint mark can remain depending on size and location."
       }
-    ]
+    ],
+    "icon": "glass-chip"
   },
   {
     "slug": "windshield-replacement",
@@ -329,7 +365,10 @@
     "live": true,
     "name": "Windshield Replacement",
     "primaryKeyword": "windshield replacement near me",
-    "secondaryKeywords": ["mobile windshield replacement", "auto glass replacement near me"],
+    "secondaryKeywords": [
+      "mobile windshield replacement",
+      "auto glass replacement near me"
+    ],
     "eyebrow": "WINDSHIELD REPLACEMENT — DISPATCHED IN {cityNameUpper}",
     "h1": "Windshield Replacement in {cityName}",
     "metaTitle": "Windshield Replacement Near Me in {cityFull} | {brandName}",
@@ -357,7 +396,8 @@
         "q": "Does insurance cover windshield replacement?",
         "a": "In most cases, yes. Let dispatch know you're filing through insurance when you request service, and the provider can help coordinate billing."
       }
-    ]
+    ],
+    "icon": "glass-full"
   },
   {
     "slug": "mobile-auto-glass-repair",
@@ -365,7 +405,10 @@
     "live": true,
     "name": "Mobile Auto Glass Repair (Side & Rear Windows)",
     "primaryKeyword": "mobile auto glass repair near me",
-    "secondaryKeywords": ["side window replacement near me", "rear window repair"],
+    "secondaryKeywords": [
+      "side window replacement near me",
+      "rear window repair"
+    ],
     "eyebrow": "MOBILE AUTO GLASS REPAIR — SIDE & REAR WINDOWS IN {cityNameUpper}",
     "h1": "Mobile Auto Glass Repair in {cityName}",
     "metaTitle": "Mobile Auto Glass Repair in {cityFull} — Side & Rear Windows | {brandName}",
@@ -393,7 +436,8 @@
         "q": "Is auto glass repair covered by insurance?",
         "a": "Often, yes. Tell dispatch you're filing through insurance when you request service and the provider can help coordinate billing."
       }
-    ]
+    ],
+    "icon": "glass-side"
   },
   {
     "slug": "insurance-billed-windshield-service",
@@ -401,7 +445,10 @@
     "live": true,
     "name": "Insurance-Billed Windshield Service",
     "primaryKeyword": "windshield repair insurance near me",
-    "secondaryKeywords": ["insurance billed windshield replacement", "windshield claim near me"],
+    "secondaryKeywords": [
+      "insurance billed windshield replacement",
+      "windshield claim near me"
+    ],
     "eyebrow": "INSURANCE-BILLED WINDSHIELD SERVICE IN {cityNameUpper}",
     "h1": "Insurance-Billed Windshield Service in {cityName}",
     "metaTitle": "Insurance-Billed Windshield Service in {cityFull} | {brandName}",
@@ -429,6 +476,7 @@
         "q": "Does this work for both chip repair and full replacement claims?",
         "a": "Yes, insurance coordination is available for both chip repair and full windshield replacement service."
       }
-    ]
+    ],
+    "icon": "shield"
   }
 ]

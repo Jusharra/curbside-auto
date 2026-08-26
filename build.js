@@ -1,5 +1,5 @@
 // Zero-dependency static site builder.
-// Reads data/cities.json + data/site.json, writes finished pages to dist/.
+// Reads data/*.json, writes finished pages to dist/.
 // Run with: node build.js
 
 const fs = require('fs');
@@ -7,7 +7,10 @@ const path = require('path');
 const { renderCityPage } = require('./templates/city-page');
 const { renderHomePage } = require('./templates/home-page');
 const { renderServicePage } = require('./templates/service-page');
+const { renderServicesPage } = require('./templates/services-page');
 const { renderLocationsPage } = require('./templates/locations-page');
+const { renderAboutPage } = require('./templates/about-page');
+const { renderContactPage } = require('./templates/contact-page');
 
 const ROOT = __dirname;
 const DIST = path.join(ROOT, 'dist');
@@ -26,11 +29,42 @@ function copyDir(src, dest) {
   }
 }
 
+function writePage(dir, html) {
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(path.join(dir, 'index.html'), html);
+}
+
+// A city must not go publicly live with any service category lacking
+// confirmed provider coverage. Required categories are derived from LIVE
+// services only, so a draft category with zero live services can't block
+// every city from publishing.
+function requiredCategories(liveServices) {
+  return [...new Set(liveServices.map(s => s.category))];
+}
+
+function passesGate(city, required) {
+  if (!city.live) return false;
+  const confirmed = city.categoriesConfirmed || {};
+  return required.every(cat => confirmed[cat] === true);
+}
+
 function build() {
   const site = readJson('data/site.json');
   const cities = readJson('data/cities.json');
   const services = readJson('data/services.json');
   const config = readJson('data/config.json');
+
+  const liveServices = services.filter(s => s.live);
+  const required = requiredCategories(liveServices);
+
+  const publiclyLiveCities = cities.filter(c => passesGate(c, required));
+
+  const gatedOut = cities.filter(c => c.live && !passesGate(c, required));
+  for (const city of gatedOut) {
+    const confirmed = city.categoriesConfirmed || {};
+    const missing = required.filter(cat => confirmed[cat] !== true);
+    console.error(`  ⚠ ${city.cityName}, ${city.stateAbbr} is marked live but missing confirmed coverage for: ${missing.join(', ')} — excluded from build.`);
+  }
 
   // Clean dist/
   fs.rmSync(DIST, { recursive: true, force: true });
@@ -39,43 +73,46 @@ function build() {
   // Copy static assets (CSS, JS) as-is
   copyDir(path.join(ROOT, 'assets'), path.join(DIST, 'assets'));
 
-  // Homepage / hub
-  fs.writeFileSync(path.join(DIST, 'index.html'), renderHomePage(cities, site));
+  // Global Cities directory
+  fs.writeFileSync(path.join(DIST, 'index.html'), renderHomePage(publiclyLiveCities, site, config));
 
-  // Site-wide Locations page: network map + a coverage card per live city
-  const locationsDir = path.join(DIST, 'locations');
-  fs.mkdirSync(locationsDir, { recursive: true });
-  fs.writeFileSync(path.join(locationsDir, 'index.html'), renderLocationsPage(cities, site, config));
-
-  // One page per live city, at /{slug}/index.html so URLs are clean (curbsideauto.com/visalia-ca/)
-  // Plus one page per live service within that city, at /{city.slug}/{service.slug}/
+  // Five pages per city (Home/Services/Locations/About/Contact), plus one
+  // deep SEO page per live service within that city. `publiclyLiveCities`
+  // (never the raw `cities` array) is threaded through every render call so
+  // a gated-out city can never leak into another page's cross-links.
   let builtCities = 0;
   let builtServices = 0;
-  for (const city of cities) {
-    if (!city.live) continue;
+  for (const city of publiclyLiveCities) {
     const cityDir = path.join(DIST, city.slug);
-    fs.mkdirSync(cityDir, { recursive: true });
-    fs.writeFileSync(path.join(cityDir, 'index.html'), renderCityPage(city, site, cities, services, config));
+
+    writePage(cityDir, renderCityPage(city, site, publiclyLiveCities, liveServices, config));
+    writePage(path.join(cityDir, 'services'), renderServicesPage(city, site, liveServices, publiclyLiveCities));
+    writePage(path.join(cityDir, 'locations'), renderLocationsPage(city, site, publiclyLiveCities, config));
+    writePage(path.join(cityDir, 'about'), renderAboutPage(city, site, publiclyLiveCities));
+    writePage(path.join(cityDir, 'contact'), renderContactPage(city, site, liveServices, publiclyLiveCities));
     builtCities++;
 
-    for (const service of services) {
-      if (!service.live) continue;
-      const serviceDir = path.join(cityDir, service.slug);
-      fs.mkdirSync(serviceDir, { recursive: true });
-      fs.writeFileSync(path.join(serviceDir, 'index.html'), renderServicePage(service, city, site, services, cities));
+    for (const service of liveServices) {
+      writePage(path.join(cityDir, service.slug), renderServicePage(service, city, site, liveServices, publiclyLiveCities));
       builtServices++;
     }
   }
 
-  console.log(`Built ${builtCities} live city page(s), ${builtServices} service page(s), + homepage + locations page into dist/`);
+  if (builtCities === 0) {
+    console.error('BUILD FAILED: no cities passed the live + categoriesConfirmed gate. Nothing published.');
+    process.exit(1);
+  }
+
+  console.log(`Built ${builtCities} live city page(s) (Home/Services/Locations/About/Contact), ${builtServices} service page(s), + the global Cities directory into dist/`);
   if (config.googleMapsApiKey === 'YOUR_GOOGLE_MAPS_API_KEY') {
     console.log('  ⚠ data/config.json still has the placeholder Google Maps API key — maps will not render until you add a real one.');
   }
   for (const city of cities) {
-    console.log(`  ${city.live ? '\u2713' : '\u25CB'} ${city.cityName}, ${city.stateAbbr} \u2192 ${city.live ? `/${city.slug}/` : '(not live \u2014 set "live": true to publish)'}`);
+    const live = publiclyLiveCities.includes(city);
+    console.log(`  ${live ? '✓' : '○'} ${city.cityName}, ${city.stateAbbr} → ${live ? `/${city.slug}/` : '(not live)'}`);
   }
   for (const service of services) {
-    console.log(`    ${service.live ? '\u2713' : '\u25CB'} ${service.name} \u2192 ${service.live ? `/{city}/${service.slug}/` : '(not live)'}`);
+    console.log(`    ${service.live ? '✓' : '○'} ${service.name} → ${service.live ? `/{city}/${service.slug}/` : '(not live)'}`);
   }
 }
 

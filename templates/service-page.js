@@ -2,37 +2,17 @@
 // URL shape: /{city.slug}/{service.slug}/ — e.g. /visalia-ca/flat-tire-change-repair/
 // Tokens available in service copy: {cityName}, {cityNameUpper}, {cityFull}, {brandName}
 
-const CATEGORY_LABEL = {
-  roadside: 'Roadside Assistance & Mobile Mechanic',
-  windshield: 'Mobile Windshield Repair'
-};
+const { fill, renderServiceAreaSchema, icon, renderServiceSelect, renderHeader, renderFooter } = require('./partials');
 
-function fill(str, ctx) {
-  return str
-    .replace(/\{cityNameUpper\}/g, ctx.cityName.toUpperCase())
-    .replace(/\{cityFull\}/g, ctx.cityFull)
-    .replace(/\{cityName\}/g, ctx.cityName)
-    .replace(/\{brandName\}/g, ctx.brandName);
-}
-
-function renderServiceAreaSchema(city) {
-  if (typeof city.lat !== 'number' || typeof city.lng !== 'number') return '';
-  return `,
-  "serviceArea": {
-    "@type": "GeoCircle",
-    "geoMidpoint": { "@type": "GeoCoordinates", "latitude": ${city.lat}, "longitude": ${city.lng} },
-    "geoRadius": "${Math.round((city.serviceRadiusMiles || 25) * 1609.34)}"
-  }`;
-}
-
-function renderServiceSchema(service, site, city, ctx) {
+function renderServiceSchema(service, site, city) {
+  const cityFull = `${city.cityName}, ${city.stateAbbr}`;
   return `{
   "@context": "https://schema.org",
   "@type": "Service",
-  "serviceType": "${fill(service.name, ctx)}",
-  "name": "${fill(service.name, ctx)} in ${ctx.cityFull}",
-  "description": "${fill(service.intro, ctx)}",
-  "areaServed": "${ctx.cityFull}"${renderServiceAreaSchema(city)},
+  "serviceType": "${fill(service.name, city, site)}",
+  "name": "${fill(service.name, city, site)} in ${cityFull}",
+  "description": "${fill(service.intro, city, site)}",
+  "areaServed": "${cityFull}"${renderServiceAreaSchema(city)},
   "provider": {
     "@type": "LocalBusiness",
     "name": "${site.brandName}",
@@ -41,11 +21,11 @@ function renderServiceSchema(service, site, city, ctx) {
 }`;
 }
 
-function renderFaqSchema(service, ctx) {
+function renderFaqSchema(service, city, site) {
   const items = service.faq.map(f => `    {
       "@type": "Question",
-      "name": "${fill(f.q, ctx)}",
-      "acceptedAnswer": { "@type": "Answer", "text": "${fill(f.a, ctx)}" }
+      "name": "${fill(f.q, city, site)}",
+      "acceptedAnswer": { "@type": "Answer", "text": "${fill(f.a, city, site)}" }
     }`).join(',\n');
   return `{
   "@context": "https://schema.org",
@@ -56,40 +36,38 @@ ${items}
 }`;
 }
 
-function renderBreadcrumbSchema(service, city, ctx) {
+function renderBreadcrumbSchema(service, city, site) {
+  const cityFull = `${city.cityName}, ${city.stateAbbr}`;
   return `{
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://curbsideauto.com/" },
-    { "@type": "ListItem", "position": 2, "name": "${ctx.cityFull}", "item": "https://curbsideauto.com/${city.slug}/" },
-    { "@type": "ListItem", "position": 3, "name": "${fill(service.name, ctx)}", "item": "https://curbsideauto.com/${city.slug}/${service.slug}/" }
+    { "@type": "ListItem", "position": 2, "name": "${cityFull}", "item": "https://curbsideauto.com/${city.slug}/" },
+    { "@type": "ListItem", "position": 3, "name": "Services", "item": "https://curbsideauto.com/${city.slug}/services/" },
+    { "@type": "ListItem", "position": 4, "name": "${fill(service.name, city, site)}", "item": "https://curbsideauto.com/${city.slug}/${service.slug}/" }
   ]
 }`;
 }
 
-function renderFaqItem(f, ctx) {
+function renderFaqItem(f, city, site) {
   return `    <div class="faq-item">
-      <h3>${fill(f.q, ctx)}</h3>
-      <p>${fill(f.a, ctx)}</p>
+      <h3>${fill(f.q, city, site)}</h3>
+      <p>${fill(f.a, city, site)}</p>
     </div>`;
 }
 
 function renderRelatedTags(service, city, allServices) {
-  const siblings = allServices.filter(s => s.live && s.category === service.category && s.slug !== service.slug);
+  const siblings = allServices.filter(s => s.category === service.category && s.slug !== service.slug);
   return siblings.map(s => `      <a class="tag" href="/${city.slug}/${s.slug}/">${s.name}</a>`).join('\n');
 }
 
 function renderServicePage(service, city, site, allServices, allCities) {
-  const ctx = {
-    cityName: city.cityName,
-    cityFull: `${city.cityName}, ${city.stateAbbr}`,
-    brandName: site.brandName
-  };
-  const categoryLabel = CATEGORY_LABEL[service.category] || 'Services';
-  const otherCities = allCities.filter(c => c.slug !== city.slug && c.live);
+  const cityFull = `${city.cityName}, ${city.stateAbbr}`;
+  const categoryName = (site.offers.find(o => o.id === service.category) || {}).categoryName || 'Services';
+  const otherCities = allCities.filter(c => c.slug !== city.slug);
   const otherCityLinks = otherCities.length
-    ? `\n    <p style="margin-top:14px; font-size:13px; color:var(--ink-faint);">Also dispatching ${fill(service.name, ctx)} in: ${otherCities.map(c => `<a href="/${c.slug}/${service.slug}/" style="color:var(--ink-dim); text-decoration:underline;">${c.cityName}, ${c.stateAbbr}</a>`).join(', ')}</p>`
+    ? `\n    <p style="margin-top:14px; font-size:13px; color:var(--ink-faint);">Also dispatching ${fill(service.name, city, site)} in: ${otherCities.map(c => `<a href="/${c.slug}/${service.slug}/" style="color:var(--ink-dim); text-decoration:underline;">${c.cityName}, ${c.stateAbbr}</a>`).join(', ')}</p>`
     : '';
   const relatedTags = renderRelatedTags(service, city, allServices);
   const keywords = [service.primaryKeyword, ...(service.secondaryKeywords || [])].join(', ');
@@ -99,15 +77,15 @@ function renderServicePage(service, city, site, allServices, allCities) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${fill(service.metaTitle, ctx)}</title>
-<meta name="description" content="${fill(service.metaDescription, ctx)}">
+<title>${fill(service.metaTitle, city, site)}</title>
+<meta name="description" content="${fill(service.metaDescription, city, site)}">
 <meta name="keywords" content="${keywords}">
-<meta property="og:title" content="${fill(service.metaTitle, ctx)}">
-<meta property="og:description" content="${fill(service.metaDescription, ctx)}">
+<meta property="og:title" content="${fill(service.metaTitle, city, site)}">
+<meta property="og:description" content="${fill(service.metaDescription, city, site)}">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#14171C">
 ${typeof city.lat === 'number' ? `<meta name="geo.region" content="${city.stateCode || ('US-' + city.stateAbbr)}">
-<meta name="geo.placename" content="${ctx.cityFull}">
+<meta name="geo.placename" content="${cityFull}">
 <meta name="geo.position" content="${city.lat};${city.lng}">
 <meta name="ICBM" content="${city.lat}, ${city.lng}">
 ` : ''}<link rel="canonical" href="https://curbsideauto.com/${city.slug}/${service.slug}/">
@@ -116,46 +94,35 @@ ${typeof city.lat === 'number' ? `<meta name="geo.region" content="${city.stateC
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-${renderServiceSchema(service, site, city, ctx)}
+${renderServiceSchema(service, site, city)}
 </script>
 <script type="application/ld+json">
-${renderFaqSchema(service, ctx)}
+${renderFaqSchema(service, city, site)}
 </script>
 <script type="application/ld+json">
-${renderBreadcrumbSchema(service, city, ctx)}
+${renderBreadcrumbSchema(service, city, site)}
 </script>
 </head>
 <body>
 
 <div class="status-bar">
-  <span class="dot"></span><span class="mono">DISPATCH LINE OPEN — ${ctx.cityFull.toUpperCase()}</span>
+  <span class="dot"></span><span class="mono">DISPATCH LINE OPEN — ${cityFull.toUpperCase()}</span>
 </div>
 
-<header>
-  <div class="nav wrap">
-    <a class="logo" href="/">${site.logoMain}<span>${site.logoAccent}</span></a>
-    <nav class="nav-links">
-      <a href="/${city.slug}/">${ctx.cityFull} Hub</a>
-      <a href="/locations/">Locations</a>
-      <a href="#faq">FAQ</a>
-      <a href="#request">Request Help</a>
-    </nav>
-    <a class="call-btn" href="tel:${city.phoneTel}">Call Now</a>
-  </div>
-</header>
+${renderHeader('services', city, site)}
 
 <section class="hero">
   <div class="wrap">
-    <div class="hero-eyebrow">// ${fill(service.eyebrow, ctx)}</div>
-    <h1>${fill(service.h1, ctx)}</h1>
-    <p>${fill(service.intro, ctx)}</p>
+    <div class="hero-eyebrow">${icon(service.icon)} ${fill(service.eyebrow, city, site)}</div>
+    <h1>${fill(service.h1, city, site)}</h1>
+    <p>${fill(service.intro, city, site)}</p>
     <div class="hero-ctas">
-      <a class="btn-primary" href="tel:${city.phoneTel}">\u{1F4DE} ${service.callCta}</a>
+      <a class="btn-primary" href="tel:${city.phoneTel}">${icon('phone')}${service.callCta}</a>
       <a class="btn-ghost" href="#request">Request Online ↓</a>
     </div>
     <div class="marker-strip">
-      <div class="marker"><div class="num mono">CATEGORY</div><div class="label">${categoryLabel}</div></div>
-      <div class="marker"><div class="num mono">COVERAGE</div><div class="label">${ctx.cityFull}</div></div>
+      <div class="marker"><div class="num mono">CATEGORY</div><div class="label">${categoryName}</div></div>
+      <div class="marker"><div class="num mono">COVERAGE</div><div class="label">${cityFull}</div></div>
     </div>${otherCityLinks}
   </div>
 </section>
@@ -170,17 +137,17 @@ ${renderBreadcrumbSchema(service, city, ctx)}
     </div>
     <div class="ticket-grid" style="grid-template-columns:1fr; max-width:640px;">
       <div class="ticket">
-        <div class="ticket-num">DISPATCH / ${categoryLabel.toUpperCase()}</div>
-        <h3>${fill(service.name, ctx)}</h3>
-        <p class="promise">${fill(service.intro, ctx)}</p>
+        <div class="ticket-num">DISPATCH / ${categoryName.toUpperCase()}</div>
+        <h3>${fill(service.name, city, site)}</h3>
+        <p class="promise">${fill(service.intro, city, site)}</p>
         <hr class="divider">
         <ul class="stack">
 ${service.benefits.map(b => `          <li>${b}</li>`).join('\n')}
         </ul>
         <div class="risk"><b>Risk reversal:</b> ${service.risk}</div>
         <div class="ticket-ctas">
-          <a class="ticket-cta call" href="tel:${city.phoneTel}">\u{1F4DE} ${service.callCta}</a>
-          <a class="ticket-cta request" href="#request" data-service="${service.requestValue}">Request Online →</a>
+          <a class="ticket-cta call" href="tel:${city.phoneTel}">${icon('phone')}${service.callCta}</a>
+          <a class="ticket-cta request" href="#request" data-service="${service.slug}">Request Online →</a>
         </div>
       </div>
     </div>
@@ -194,21 +161,11 @@ ${service.benefits.map(b => `          <li>${b}</li>`).join('\n')}
       <h2>Three steps, no shop visit</h2>
     </div>
     <div class="how-grid">
-      <div class="how-step">
-        <div class="step-num mono">01</div>
-        <h3>Tell us what's wrong</h3>
-        <p>Call, text, or fill out the form below with your location in ${ctx.cityName} and what's going on.</p>
-      </div>
-      <div class="how-step">
-        <div class="step-num mono">02</div>
-        <h3>We dispatch a local pro</h3>
-        <p>You get matched with a vetted independent tech already near you in ${ctx.cityName} — not a call center queue.</p>
-      </div>
-      <div class="how-step">
-        <div class="step-num mono">03</div>
-        <h3>Help shows up</h3>
-        <p>Flat, upfront pricing for ${fill(service.name, ctx).toLowerCase()}. No shop drop-off, no waiting room, no surprise fees.</p>
-      </div>
+${site.howItWorks.map((s, i) => `      <div class="how-step">
+        <div class="step-num mono">0${i + 1}</div>
+        <h3>${s.title}</h3>
+        <p>${fill(s.text, city, site)}</p>
+      </div>`).join('\n')}
     </div>
   </div>
 </section>
@@ -219,13 +176,13 @@ ${relatedTags ? `<div class="stripe-rule"></div>
   <div class="wrap">
     <div class="coverage-box">
       <div>
-        <h3>More ${categoryLabel} in ${ctx.cityName}</h3>
-        <p>One dispatch line covers the whole category — here's everything else ${site.brandName} handles in ${ctx.cityName}.</p>
+        <h3>More ${categoryName} in ${city.cityName}</h3>
+        <p>One dispatch line covers the whole category — here's everything else ${site.brandName} handles in ${city.cityName}.</p>
       </div>
       <div class="coverage-tags">
 ${relatedTags}
-        <a class="tag" href="/${city.slug}/">All ${ctx.cityName} Services</a>
-        <a class="tag" href="/locations/">\u{1F4CD} Coverage Map</a>
+        <a class="tag" href="/${city.slug}/services/">All ${city.cityName} Services</a>
+        <a class="tag" href="/${city.slug}/locations/">${icon('pin')} Coverage Map</a>
       </div>
     </div>
   </div>
@@ -239,18 +196,18 @@ ${relatedTags}
       <div class="eyebrow">Common Questions</div>
       <h2>Before you call</h2>
     </div>
-${service.faq.map(f => renderFaqItem(f, ctx)).join('\n')}
+${service.faq.map(f => renderFaqItem(f, city, site)).join('\n')}
   </div>
 </section>
 
 <section class="request" id="request">
   <div class="wrap">
     <div class="request-box">
-      <h2>Request ${fill(service.name, ctx)}</h2>
-      <p>Tell us where you are in ${ctx.cityName} and what you need — dispatch will text you back with an ETA and price.</p>
+      <h2>Request ${fill(service.name, city, site)}</h2>
+      <p>Tell us where you are in ${city.cityName} and what you need — dispatch will text you back with an ETA and price.</p>
       <form name="service-request-${city.slug}-${service.slug}" method="POST" data-netlify="true" netlify-honeypot="bot-field">
         <input type="hidden" name="form-name" value="service-request-${city.slug}-${service.slug}">
-        <input type="hidden" name="city" value="${ctx.cityFull}">
+        <input type="hidden" name="city" value="${cityFull}">
         <p style="display:none">
           <label>Don't fill this out: <input name="bot-field"></label>
         </p>
@@ -267,31 +224,24 @@ ${service.faq.map(f => renderFaqItem(f, ctx)).join('\n')}
         <div>
           <label for="service">What do you need</label>
           <select id="service" name="service" required>
-            <option>${service.requestValue}</option>
-${site.offers.map(o => `            <option>${o.requestValue}</option>`).join('\n')}
-            <option>Not sure — help me figure it out</option>
+${renderServiceSelect(allServices, site, service.slug)}
           </select>
         </div>
         <div>
-          <label for="location">Your location in ${ctx.cityName}</label>
+          <label for="location">Your location in ${city.cityName}</label>
           <input type="text" id="location" name="location" placeholder="Address, cross streets, or freeway/mile marker" required>
         </div>
         <div>
           <label for="details">Anything dispatch should know</label>
-          <input type="text" id="details" name="details" placeholder="Vehicle, what happened, best callback time">
+          <textarea id="details" name="details" placeholder="Vehicle, what happened, best callback time"></textarea>
         </div>
-        <button class="submit-btn" type="submit">Send Request →</button>
+        <button class="submit-btn" type="submit">${icon('phone')}Send Request</button>
       </form>
     </div>
   </div>
 </section>
 
-<footer>
-  <div class="wrap" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; width:100%;">
-    <span>© <span id="year"></span> ${site.brandName}. Independent dispatch network — providers are independently owned and operated.</span>
-    <span><a href="tel:${city.phoneTel}">${city.phoneDisplay}</a> &nbsp;·&nbsp; <a href="mailto:${city.email}">${city.email}</a></span>
-  </div>
-</footer>
+${renderFooter(city, site, allCities)}
 
 <script src="/assets/main.js"></script>
 

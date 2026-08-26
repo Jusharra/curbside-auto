@@ -1,13 +1,33 @@
 {
-  "brandName": "Shay's Curbside Auto",
-  "logoMain": "Shay's Curbside ",
-  "logoAccent": "Auto",
+  "brandName": "24 Hour Roadside Assistance & Windshield Repair Service",
+  "logoMain": "Roadside & Windshield ",
+  "logoAccent": "24/7",
   "tagline": "We come to you.",
+  "trustBadges": [
+    "No Membership Required",
+    "Flat, Upfront Pricing",
+    "Vetted, Independent Providers"
+  ],
+  "howItWorks": [
+    {
+      "title": "Tell us what's wrong",
+      "text": "Call, text, or fill out the form below with your location in {cityName} and what's going on."
+    },
+    {
+      "title": "We dispatch a local pro",
+      "text": "You get matched with a vetted independent tech already near you in {cityName} — not a call center queue."
+    },
+    {
+      "title": "Help shows up",
+      "text": "Flat, upfront pricing. No shop drop-off, no waiting room, no surprise fees."
+    }
+  ],
   "offers": [
     {
       "id": "roadside",
       "ticketNo": "01",
       "label": "RESCUE + REPAIR",
+      "categoryName": "Roadside Assistance & Mobile Mechanic",
       "title": "Roadside Assistance Near Me & Mobile Mechanic",
       "promise": "24-hour roadside assistance and mobile mechanic service — jump start, flat tire, lockout, fuel delivery, or a real mechanic if it's more than a quick fix. Serving {cityName} day or night.",
       "stack": [
@@ -24,6 +44,7 @@
       "id": "windshield",
       "ticketNo": "02",
       "label": "WINDSHIELD",
+      "categoryName": "Mobile Windshield Repair",
       "title": "Mobile Windshield Repair Near Me",
       "promise": "Windshield repair and auto glass repair near you, without the drive to a shop. A tech comes to your home or office in {cityName} and fixes the chip or crack while you keep your day moving.",
       "stack": [
