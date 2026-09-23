@@ -151,6 +151,21 @@
   .trust-badges .badge{ display:flex; align-items:center; gap:8px; font-size:13px; color:var(--ink-dim); }
   .trust-badges .icon{ color:var(--amber); font-size:16px; }
 
+  /* one-tap category buttons — large, thumb-friendly, reachable without
+     first picking a city, so a mobile visitor can jump straight to what
+     they need from the hero */
+  .category-tap-row{ display:flex; gap:12px; margin-top:24px; flex-wrap:wrap; }
+  .category-tap-btn{
+    display:flex; align-items:center; gap:12px; flex:1 1 220px;
+    background:var(--panel); border:1px solid var(--panel-line); border-radius:var(--radius-pill);
+    padding:16px 22px; font-weight:600; font-size:15px; color:var(--ink);
+    transition:border-color .15s, box-shadow .15s, transform .15s;
+    min-height:56px;
+  }
+  .category-tap-btn:hover{ border-color:var(--amber); box-shadow:0 8px 24px var(--amber-glow-soft); transform:translateY(-1px); }
+  .category-tap-btn .icon{ color:var(--amber); flex-shrink:0; width:22px; height:22px; }
+  @media (max-width:600px){ .category-tap-btn{ flex:1 1 100%; } }
+
   /* split hero: headline column + floating quick-request form card */
   .hero-split{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:48px; align-items:start; }
   @media (max-width:900px){ .hero-split{ grid-template-columns:1fr; } }

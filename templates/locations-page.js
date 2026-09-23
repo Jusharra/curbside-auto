@@ -5,14 +5,14 @@
 
 const { icon, renderHeader, renderFooter } = require('./partials');
 
-function renderBreadcrumbSchema(city, cityFull) {
+function renderBreadcrumbSchema(city, cityFull, site) {
   return `{
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://curbsideauto.com/" },
-    { "@type": "ListItem", "position": 2, "name": "${cityFull}", "item": "https://curbsideauto.com/${city.slug}/" },
-    { "@type": "ListItem", "position": 3, "name": "Locations", "item": "https://curbsideauto.com/${city.slug}/locations/" }
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "${site.siteUrl}/" },
+    { "@type": "ListItem", "position": 2, "name": "${cityFull}", "item": "${site.siteUrl}/${city.slug}/" },
+    { "@type": "ListItem", "position": 3, "name": "Locations", "item": "${site.siteUrl}/${city.slug}/locations/" }
   ]
 }`;
 }
@@ -43,7 +43,7 @@ ${hasGeo ? `<meta name="geo.region" content="${city.stateCode || ('US-' + city.s
 <meta name="geo.placename" content="${cityFull}">
 <meta name="geo.position" content="${city.lat};${city.lng}">
 <meta name="ICBM" content="${city.lat}, ${city.lng}">
-` : ''}<link rel="canonical" href="https://curbsideauto.com/${city.slug}/locations/">
+` : ''}<link rel="canonical" href="${site.siteUrl}/${city.slug}/locations/">
 <link rel="stylesheet" href="/assets/styles.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,7 +57,7 @@ ${hasGeo ? `<meta name="geo.region" content="${city.stateCode || ('US-' + city.s
 }
 </script>
 <script type="application/ld+json">
-${renderBreadcrumbSchema(city, cityFull)}
+${renderBreadcrumbSchema(city, cityFull, site)}
 </script>
 </head>
 <body>

@@ -42,10 +42,10 @@ function renderBreadcrumbSchema(service, city, site) {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://curbsideauto.com/" },
-    { "@type": "ListItem", "position": 2, "name": "${cityFull}", "item": "https://curbsideauto.com/${city.slug}/" },
-    { "@type": "ListItem", "position": 3, "name": "Services", "item": "https://curbsideauto.com/${city.slug}/services/" },
-    { "@type": "ListItem", "position": 4, "name": "${fill(service.name, city, site)}", "item": "https://curbsideauto.com/${city.slug}/${service.slug}/" }
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "${site.siteUrl}/" },
+    { "@type": "ListItem", "position": 2, "name": "${cityFull}", "item": "${site.siteUrl}/${city.slug}/" },
+    { "@type": "ListItem", "position": 3, "name": "Services", "item": "${site.siteUrl}/${city.slug}/services/" },
+    { "@type": "ListItem", "position": 4, "name": "${fill(service.name, city, site)}", "item": "${site.siteUrl}/${city.slug}/${service.slug}/" }
   ]
 }`;
 }
@@ -88,7 +88,7 @@ ${typeof city.lat === 'number' ? `<meta name="geo.region" content="${city.stateC
 <meta name="geo.placename" content="${cityFull}">
 <meta name="geo.position" content="${city.lat};${city.lng}">
 <meta name="ICBM" content="${city.lat}, ${city.lng}">
-` : ''}<link rel="canonical" href="https://curbsideauto.com/${city.slug}/${service.slug}/">
+` : ''}<link rel="canonical" href="${site.siteUrl}/${city.slug}/${service.slug}/">
 <link rel="stylesheet" href="/assets/styles.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -4,14 +4,14 @@
 
 const { fill, icon, renderHeader, renderFooter } = require('./partials');
 
-function renderBreadcrumbSchema(city, cityFull) {
+function renderBreadcrumbSchema(city, cityFull, site) {
   return `{
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://curbsideauto.com/" },
-    { "@type": "ListItem", "position": 2, "name": "${cityFull}", "item": "https://curbsideauto.com/${city.slug}/" },
-    { "@type": "ListItem", "position": 3, "name": "Services", "item": "https://curbsideauto.com/${city.slug}/services/" }
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "${site.siteUrl}/" },
+    { "@type": "ListItem", "position": 2, "name": "${cityFull}", "item": "${site.siteUrl}/${city.slug}/" },
+    { "@type": "ListItem", "position": 3, "name": "Services", "item": "${site.siteUrl}/${city.slug}/services/" }
   ]
 }`;
 }
@@ -23,7 +23,7 @@ function renderItemListSchema(services, city, site, cityFull) {
       "item": {
         "@type": "Service",
         "name": "${fill(s.name, city, site)}",
-        "url": "https://curbsideauto.com/${city.slug}/${s.slug}/",
+        "url": "${site.siteUrl}/${city.slug}/${s.slug}/",
         "areaServed": "${cityFull}"
       }
     }`).join(',\n');
@@ -72,7 +72,7 @@ function renderServicesPage(city, site, services, allCities) {
 <meta property="og:title" content="Mobile Auto Services in ${cityFull} | ${site.brandName}">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#14171C">
-<link rel="canonical" href="https://curbsideauto.com/${city.slug}/services/">
+<link rel="canonical" href="${site.siteUrl}/${city.slug}/services/">
 <link rel="stylesheet" href="/assets/styles.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -81,7 +81,7 @@ function renderServicesPage(city, site, services, allCities) {
 ${renderItemListSchema(services, city, site, cityFull)}
 </script>
 <script type="application/ld+json">
-${renderBreadcrumbSchema(city, cityFull)}
+${renderBreadcrumbSchema(city, cityFull, site)}
 </script>
 </head>
 <body>

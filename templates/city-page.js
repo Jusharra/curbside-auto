@@ -91,7 +91,7 @@ ${hasGeo ? `<meta name="geo.region" content="${city.stateCode || ('US-' + city.s
 <meta name="geo.placename" content="${cityFull}">
 <meta name="geo.position" content="${city.lat};${city.lng}">
 <meta name="ICBM" content="${city.lat}, ${city.lng}">
-` : ''}<link rel="canonical" href="https://curbsideauto.com/${city.slug}/">
+` : ''}<link rel="canonical" href="${site.siteUrl}/${city.slug}/">
 <link rel="stylesheet" href="/assets/styles.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

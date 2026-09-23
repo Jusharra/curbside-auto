@@ -5,14 +5,14 @@
 
 const { fill, icon, renderHeader, renderFooter } = require('./partials');
 
-function renderBreadcrumbSchema(city, cityFull) {
+function renderBreadcrumbSchema(city, cityFull, site) {
   return `{
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://curbsideauto.com/" },
-    { "@type": "ListItem", "position": 2, "name": "${cityFull}", "item": "https://curbsideauto.com/${city.slug}/" },
-    { "@type": "ListItem", "position": 3, "name": "About", "item": "https://curbsideauto.com/${city.slug}/about/" }
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "${site.siteUrl}/" },
+    { "@type": "ListItem", "position": 2, "name": "${cityFull}", "item": "${site.siteUrl}/${city.slug}/" },
+    { "@type": "ListItem", "position": 3, "name": "About", "item": "${site.siteUrl}/${city.slug}/about/" }
   ]
 }`;
 }
@@ -36,13 +36,13 @@ function renderAboutPage(city, site, publiclyLiveCities) {
 <title>About Us in ${cityFull} | ${site.brandName}</title>
 <meta name="description" content="How ${site.brandName} works in ${cityFull} — no membership, flat pricing, vetted independent local providers.">
 <meta name="theme-color" content="#14171C">
-<link rel="canonical" href="https://curbsideauto.com/${city.slug}/about/">
+<link rel="canonical" href="${site.siteUrl}/${city.slug}/about/">
 <link rel="stylesheet" href="/assets/styles.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-${renderBreadcrumbSchema(city, cityFull)}
+${renderBreadcrumbSchema(city, cityFull, site)}
 </script>
 </head>
 <body>

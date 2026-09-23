@@ -5,14 +5,14 @@
 
 const { renderServiceAreaSchema, icon, renderServiceSelect, renderHeader, renderFooter } = require('./partials');
 
-function renderBreadcrumbSchema(city, cityFull) {
+function renderBreadcrumbSchema(city, cityFull, site) {
   return `{
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://curbsideauto.com/" },
-    { "@type": "ListItem", "position": 2, "name": "${cityFull}", "item": "https://curbsideauto.com/${city.slug}/" },
-    { "@type": "ListItem", "position": 3, "name": "Contact", "item": "https://curbsideauto.com/${city.slug}/contact/" }
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "${site.siteUrl}/" },
+    { "@type": "ListItem", "position": 2, "name": "${cityFull}", "item": "${site.siteUrl}/${city.slug}/" },
+    { "@type": "ListItem", "position": 3, "name": "Contact", "item": "${site.siteUrl}/${city.slug}/contact/" }
   ]
 }`;
 }
@@ -28,7 +28,7 @@ function renderContactPage(city, site, services, publiclyLiveCities) {
 <title>Contact & Request Service in ${cityFull} | ${site.brandName}</title>
 <meta name="description" content="Call, email, or send a request to ${site.brandName} in ${cityFull} — we'll text back with an ETA and price.">
 <meta name="theme-color" content="#14171C">
-<link rel="canonical" href="https://curbsideauto.com/${city.slug}/contact/">
+<link rel="canonical" href="${site.siteUrl}/${city.slug}/contact/">
 <link rel="stylesheet" href="/assets/styles.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,7 +44,7 @@ function renderContactPage(city, site, services, publiclyLiveCities) {
 }
 </script>
 <script type="application/ld+json">
-${renderBreadcrumbSchema(city, cityFull)}
+${renderBreadcrumbSchema(city, cityFull, site)}
 </script>
 </head>
 <body>

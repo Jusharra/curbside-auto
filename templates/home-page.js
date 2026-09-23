@@ -3,7 +3,7 @@
 // intra-city areas (with its own keyless map embed); this page is "Cities",
 // the inter-city index.
 
-const { icon } = require('./partials');
+const { icon, renderServiceSelect } = require('./partials');
 
 function renderCityListSchema(cities, site) {
   const items = cities.map((c, i) => {
@@ -16,7 +16,7 @@ function renderCityListSchema(cities, site) {
         "@type": "LocalBusiness",
         "name": "${site.brandName} — ${cityFull}",
         "telephone": "${c.phoneTel}",
-        "url": "https://curbsideauto.com/${c.slug}/",
+        "url": "${site.siteUrl}/${c.slug}/",
         "areaServed": "${cityFull}"${hasGeo ? `,
         "serviceArea": {
           "@type": "GeoCircle",
@@ -55,7 +55,27 @@ function renderCityCard(c) {
       </div>`;
 }
 
-function renderHomePage(cities, site) {
+// Large, thumb-friendly category buttons so a mobile visitor can reach
+// "what do we actually do" without first picking a city. With exactly one
+// live city, each button can link straight to that city's filtered
+// Services section; once multiple cities are live there's no single city
+// to guess, so the buttons fall back to scrolling to the city picker.
+function renderCategoryTapRow(offers, liveCities) {
+  const singleCity = liveCities.length === 1 ? liveCities[0] : null;
+  return offers.map(o => {
+    const href = singleCity ? `/${singleCity.slug}/services/#${o.id}` : '#cities';
+    return `      <a class="category-tap-btn" href="${href}">${icon(o.icon || 'wrench')}<span>${o.categoryName}</span></a>`;
+  }).join('\n');
+}
+
+function renderCitySelect(liveCities) {
+  const options = liveCities.map(c =>
+    `      <option value="${c.slug}">${c.cityName}, ${c.stateAbbr}</option>`
+  ).join('\n');
+  return `    <option value="" selected>Select a city</option>\n${options}`;
+}
+
+function renderHomePage(cities, site, services) {
   const liveCities = cities;
 
   return `<!DOCTYPE html>
@@ -66,7 +86,7 @@ function renderHomePage(cities, site) {
 <title>24 Hour Roadside Assistance & Windshield Repair Service</title>
 <meta name="description" content="${site.brandName} connects you with vetted local pros for 24/7 roadside assistance, mobile mechanic service, and mobile windshield repair. Pick your city to get started.">
 <meta name="theme-color" content="#14171C">
-<link rel="canonical" href="https://curbsideauto.com/">
+<link rel="canonical" href="${site.siteUrl}/">
 <link rel="stylesheet" href="/assets/styles.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -93,11 +113,56 @@ ${renderCityListSchema(liveCities, site)}
 
 <section class="hero">
   <div class="wrap">
-    <div class="hero-eyebrow">${icon('beacon')} NATIONWIDE SERVICE NETWORK</div>
-    <h1>Find <em>${site.logoMain.trim()}</em> near you.</h1>
-    <p>${site.brandName} connects you with vetted local pros for roadside assistance, mobile mechanic service, and mobile windshield repair. Choose your city below.</p>
-    <div class="hero-ctas">
-      <a class="btn-primary" href="#cities">See All Cities ↓</a>
+    <div class="hero-split">
+      <div>
+        <div class="hero-eyebrow">${icon('beacon')} NATIONWIDE SERVICE NETWORK</div>
+        <h1>Find <em>${site.logoMain.trim()}</em> near you.</h1>
+        <p>${site.brandName} connects you with vetted local pros for roadside assistance, mobile mechanic service, and mobile windshield repair. Tell us what you need below, or pick your city.</p>
+        <div class="hero-ctas">
+          <a class="btn-primary" href="#cities">See All Cities ↓</a>
+        </div>
+        <div class="category-tap-row">
+${renderCategoryTapRow(site.offers, liveCities)}
+        </div>
+      </div>
+      <div class="hero-form-card">
+        <div class="hero-eyebrow">${icon('beacon')} GET A QUOTE</div>
+        <h2>Request Service</h2>
+        <p class="avg-response">Tell us what's going on — we'll route you to the right local team.</p>
+        <form name="quote-request" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="quote-request">
+          <p style="display:none">
+            <label>Don't fill this out: <input name="bot-field"></label>
+          </p>
+          <div class="row2">
+            <div>
+              <label for="home-name">Name</label>
+              <input type="text" id="home-name" name="name" placeholder="Name" required>
+            </div>
+            <div>
+              <label for="home-phone">Phone</label>
+              <input type="tel" id="home-phone" name="phone" placeholder="Phone Number" required>
+            </div>
+          </div>
+          <div>
+            <label for="home-city">City</label>
+            <select id="home-city" name="city" required>
+${renderCitySelect(liveCities)}
+            </select>
+          </div>
+          <div>
+            <label for="service">Service Needed</label>
+            <select id="service" name="service" required>
+${renderServiceSelect(services, site)}
+            </select>
+          </div>
+          <div>
+            <label for="home-details">Description</label>
+            <textarea id="home-details" name="details" placeholder="Describe the issue (optional)"></textarea>
+          </div>
+          <button class="submit-btn" type="submit">${icon('phone')}Request Help</button>
+        </form>
+      </div>
     </div>
   </div>
 </section>

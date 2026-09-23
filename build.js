@@ -73,7 +73,7 @@ function build() {
   copyDir(path.join(ROOT, 'assets'), path.join(DIST, 'assets'));
 
   // Global Cities directory
-  fs.writeFileSync(path.join(DIST, 'index.html'), renderHomePage(publiclyLiveCities, site));
+  fs.writeFileSync(path.join(DIST, 'index.html'), renderHomePage(publiclyLiveCities, site, liveServices));
 
   // Five pages per city (Home/Services/Locations/About/Contact), plus one
   // deep SEO page per live service within that city. `publiclyLiveCities`
