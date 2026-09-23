@@ -41,5 +41,48 @@
         "description": "Full coverage of the downtown core, including nearby residential streets."
       }
     ]
+  },
+  {
+    "slug": "fresno-ca",
+    "cityName": "Fresno",
+    "stateAbbr": "CA",
+    "stateFull": "California",
+    "region": "the San Joaquin Valley",
+    "phoneDisplay": "(559) 555-0100",
+    "phoneTel": "+15595550100",
+    "email": "dispatch@curbsideauto.com",
+    "live": true,
+    "launchNote": "Now serving Fresno, CA",
+    "lat": 36.7378,
+    "lng": -119.7871,
+    "serviceRadiusMiles": 30,
+    "stateCode": "US-CA",
+    "categoriesConfirmed": {
+      "roadside": true,
+      "windshield": true,
+      "carb": true
+    },
+    "areas": [
+      {
+        "name": "Downtown Fresno",
+        "description": "Full coverage of the downtown core and surrounding business district."
+      },
+      {
+        "name": "Tower District",
+        "description": "Covers the Tower District and adjacent residential blocks."
+      },
+      {
+        "name": "Fig Garden / North Fresno",
+        "description": "Covers the Fig Garden and North Fresno residential and retail corridors."
+      },
+      {
+        "name": "Clovis Border / Northeast Fresno",
+        "description": "A regularly serviced corridor along the northeast edge of Fresno toward Clovis."
+      },
+      {
+        "name": "Airport Corridor",
+        "description": "Covers the industrial and commercial area surrounding Fresno Yosemite International Airport."
+      }
+    ]
   }
 ]
