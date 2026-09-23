@@ -82,9 +82,9 @@ function renderCityPage(city, site, allCities, services) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Roadside & Windshield Repair in ${cityFull}</title>
-<meta name="description" content="Need roadside assistance, a mobile mechanic, or mobile windshield repair near you in ${cityFull}? ${site.brandName} dispatches a vetted local pro to your exact location, 24/7.">
-<meta property="og:title" content="${site.brandName} ${cityFull} — Roadside Assistance, Mobile Repair & Windshield, Dispatched to You">
-<meta property="og:description" content="24/7 roadside assistance, mobile mechanic, and mobile windshield repair in ${cityFull} — one dispatch line.">
+<meta name="description" content="Need roadside assistance, a mobile mechanic, or mobile windshield repair near you in ${cityFull}? ${site.brandName} sends a vetted local pro to your exact location, 24/7.">
+<meta property="og:title" content="${site.brandName} ${cityFull} — Roadside Assistance, Mobile Repair & Windshield, Sent to You">
+<meta property="og:description" content="24/7 roadside assistance, mobile mechanic, and mobile windshield repair in ${cityFull} — one call away.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#14171C">
 ${hasGeo ? `<meta name="geo.region" content="${city.stateCode || ('US-' + city.stateAbbr)}">
@@ -101,7 +101,7 @@ ${hasGeo ? `<meta name="geo.region" content="${city.stateCode || ('US-' + city.s
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "${site.brandName}",
-  "description": "On-demand dispatch for 24/7 roadside assistance, mobile mechanic, and mobile windshield repair in ${cityFull}.",
+  "description": "On-demand service for 24/7 roadside assistance, mobile mechanic, and mobile windshield repair in ${cityFull}.",
   "areaServed": "${cityFull}"${renderServiceAreaSchema(city)},
   "makesOffer": [
 ${renderOfferSchema(site, city)}
@@ -121,7 +121,7 @@ ${renderFaqSchema(site, city)}
 <body>
 
 <div class="status-bar">
-  <span class="dot"></span><span class="mono">DISPATCH LINE OPEN — ${cityFull.toUpperCase()}</span>
+  <span class="dot"></span><span class="mono">SERVICE LINE OPEN — ${cityFull.toUpperCase()}</span>
 </div>
 
 ${renderHeader('home', city, site)}
@@ -131,7 +131,7 @@ ${renderHeader('home', city, site)}
   <div class="wrap">
     <div class="hero-split">
       <div>
-        <div class="hero-eyebrow">${icon('beacon')} 24/7 EMERGENCY DISPATCH • ${city.cityName.toUpperCase()}, ${city.stateAbbr}</div>
+        <div class="hero-eyebrow">${icon('beacon')} 24/7 EMERGENCY SERVICE • ${city.cityName.toUpperCase()}, ${city.stateAbbr}</div>
         <h1>Stranded doesn't<br>mean <em>stuck.</em></h1>
         <p>Search no further than one call: a vetted local mobile mechanic or windshield repair pro headed your way, anywhere in ${cityFull}.</p>
         <div class="hero-ctas">
@@ -143,9 +143,9 @@ ${renderTrustBadges(site)}
         </div>
       </div>
       <div class="hero-form-card">
-        <div class="hero-eyebrow">${icon('beacon')} EMERGENCY DISPATCH</div>
+        <div class="hero-eyebrow">${icon('beacon')} EMERGENCY SERVICE</div>
         <h2>Get Roadside Help Now</h2>
-        <p class="avg-response">Tell us where you are in ${city.cityName} — dispatch responds fast.</p>
+        <p class="avg-response">Tell us where you are in ${city.cityName} — we respond fast.</p>
         <form name="quick-request-${city.slug}" method="POST" data-netlify="true" netlify-honeypot="bot-field">
           <input type="hidden" name="form-name" value="quick-request-${city.slug}">
           <input type="hidden" name="city" value="${cityFull}">
@@ -214,7 +214,7 @@ ${site.faq.map(f => renderFaqItem(f, city, site)).join('\n')}
     <div class="coverage-box">
       <div>
         <h3>Need something more specific?</h3>
-        <p>Full request form, click-to-call, and email — the fastest way to reach dispatch directly.</p>
+        <p>Full request form, click-to-call, and email — the fastest way to reach us directly.</p>
       </div>
       <div class="coverage-tags">
         <a class="btn-primary" href="/${city.slug}/contact/">${icon('phone')}Go to Contact</a>

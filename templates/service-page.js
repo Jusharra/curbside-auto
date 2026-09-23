@@ -67,7 +67,7 @@ function renderServicePage(service, city, site, allServices, allCities) {
   const categoryName = (site.offers.find(o => o.id === service.category) || {}).categoryName || 'Services';
   const otherCities = allCities.filter(c => c.slug !== city.slug);
   const otherCityLinks = otherCities.length
-    ? `\n    <p style="margin-top:14px; font-size:13px; color:var(--ink-faint);">Also dispatching ${fill(service.name, city, site)} in: ${otherCities.map(c => `<a href="/${c.slug}/${service.slug}/" style="color:var(--ink-dim); text-decoration:underline;">${c.cityName}, ${c.stateAbbr}</a>`).join(', ')}</p>`
+    ? `\n    <p style="margin-top:14px; font-size:13px; color:var(--ink-faint);">Also serving ${fill(service.name, city, site)} in: ${otherCities.map(c => `<a href="/${c.slug}/${service.slug}/" style="color:var(--ink-dim); text-decoration:underline;">${c.cityName}, ${c.stateAbbr}</a>`).join(', ')}</p>`
     : '';
   const relatedTags = renderRelatedTags(service, city, allServices);
   const keywords = [service.primaryKeyword, ...(service.secondaryKeywords || [])].join(', ');
@@ -106,7 +106,7 @@ ${renderBreadcrumbSchema(service, city, site)}
 <body>
 
 <div class="status-bar">
-  <span class="dot"></span><span class="mono">DISPATCH LINE OPEN — ${cityFull.toUpperCase()}</span>
+  <span class="dot"></span><span class="mono">SERVICE LINE OPEN — ${cityFull.toUpperCase()}</span>
 </div>
 
 ${renderHeader('services', city, site)}
@@ -137,7 +137,7 @@ ${renderHeader('services', city, site)}
     </div>
     <div class="ticket-grid" style="grid-template-columns:1fr; max-width:640px;">
       <div class="ticket">
-        <div class="ticket-num">DISPATCH / ${categoryName.toUpperCase()}</div>
+        <div class="ticket-num">SERVICE / ${categoryName.toUpperCase()}</div>
         <h3>${fill(service.name, city, site)}</h3>
         <p class="promise">${fill(service.intro, city, site)}</p>
         <hr class="divider">
@@ -177,7 +177,7 @@ ${relatedTags ? `<div class="stripe-rule"></div>
     <div class="coverage-box">
       <div>
         <h3>More ${categoryName} in ${city.cityName}</h3>
-        <p>One dispatch line covers the whole category — here's everything else ${site.brandName} handles in ${city.cityName}.</p>
+        <p>One call covers the whole category — here's everything else ${site.brandName} handles in ${city.cityName}.</p>
       </div>
       <div class="coverage-tags">
 ${relatedTags}
@@ -204,7 +204,7 @@ ${service.faq.map(f => renderFaqItem(f, city, site)).join('\n')}
   <div class="wrap">
     <div class="request-box">
       <h2>Request ${fill(service.name, city, site)}</h2>
-      <p>Tell us where you are in ${city.cityName} and what you need — dispatch will text you back with an ETA and price.</p>
+      <p>Tell us where you are in ${city.cityName} and what you need — we'll text you back with an ETA and price.</p>
       <form name="service-request-${city.slug}-${service.slug}" method="POST" data-netlify="true" netlify-honeypot="bot-field">
         <input type="hidden" name="form-name" value="service-request-${city.slug}-${service.slug}">
         <input type="hidden" name="city" value="${cityFull}">
@@ -232,7 +232,7 @@ ${renderServiceSelect(allServices, site, service.slug)}
           <input type="text" id="location" name="location" placeholder="Address, cross streets, or freeway/mile marker" required>
         </div>
         <div>
-          <label for="details">Anything dispatch should know</label>
+          <label for="details">Anything we should know</label>
           <textarea id="details" name="details" placeholder="Vehicle, what happened, best callback time"></textarea>
         </div>
         <button class="submit-btn" type="submit">${icon('phone')}Send Request</button>

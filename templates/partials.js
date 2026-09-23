@@ -112,7 +112,7 @@ function renderFooter(city, site, publiclyLiveCities) {
   return `<footer>
   <div class="wrap footer-inner">
     <div>
-      <span>© <span id="year"></span> ${site.brandName}. Independent dispatch network — providers are independently owned and operated.</span>
+      <span>© <span id="year"></span> ${site.brandName}. We work with independently owned and operated local service providers.</span>
       ${crossLinks}
     </div>
     <span><a href="tel:${city.phoneTel}">${city.phoneDisplay}</a> &nbsp;·&nbsp; <a href="mailto:${city.email}">${city.email}</a></span>

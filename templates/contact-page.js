@@ -26,7 +26,7 @@ function renderContactPage(city, site, services, publiclyLiveCities) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact & Request Service in ${cityFull} | ${site.brandName}</title>
-<meta name="description" content="Call, email, or send a request to ${site.brandName} in ${cityFull} — dispatch texts back with an ETA and price.">
+<meta name="description" content="Call, email, or send a request to ${site.brandName} in ${cityFull} — we'll text back with an ETA and price.">
 <meta name="theme-color" content="#14171C">
 <link rel="canonical" href="https://curbsideauto.com/${city.slug}/contact/">
 <link rel="stylesheet" href="/assets/styles.css">
@@ -50,15 +50,15 @@ ${renderBreadcrumbSchema(city, cityFull)}
 <body>
 
 <div class="status-bar">
-  <span class="dot"></span><span class="mono">DISPATCH LINE OPEN — ${cityFull.toUpperCase()}</span>
+  <span class="dot"></span><span class="mono">SERVICE LINE OPEN — ${cityFull.toUpperCase()}</span>
 </div>
 
 ${renderHeader('contact', city, site)}
 
 <section class="hero">
   <div class="wrap">
-    <div class="hero-eyebrow">${icon('phone')} REACH DISPATCH DIRECTLY</div>
-    <h1>Contact <em>Dispatch.</em></h1>
+    <div class="hero-eyebrow">${icon('phone')} REACH US DIRECTLY</div>
+    <h1>Contact <em>Us.</em></h1>
     <p>Call, email, or send a request below — tell us where you are in ${city.cityName} and what you need.</p>
     <div class="hero-ctas">
       <a class="btn-primary" href="tel:${city.phoneTel}">${icon('phone')}${city.phoneDisplay}</a>
@@ -73,7 +73,7 @@ ${renderHeader('contact', city, site)}
   <div class="wrap">
     <div class="request-box">
       <h2>Request Service</h2>
-      <p>Tell us where you are in ${city.cityName} and what you need — dispatch will text you back with an ETA and price.</p>
+      <p>Tell us where you are in ${city.cityName} and what you need — we'll text you back with an ETA and price.</p>
       <form name="service-request-${city.slug}" method="POST" data-netlify="true" netlify-honeypot="bot-field">
         <input type="hidden" name="form-name" value="service-request-${city.slug}">
         <input type="hidden" name="city" value="${cityFull}">
@@ -101,7 +101,7 @@ ${renderServiceSelect(services, site)}
           <input type="text" id="location" name="location" placeholder="Address, cross streets, or freeway/mile marker" required>
         </div>
         <div>
-          <label for="details">Anything dispatch should know</label>
+          <label for="details">Anything we should know</label>
           <textarea id="details" name="details" placeholder="Vehicle, what happened, best callback time"></textarea>
         </div>
         <button class="submit-btn" type="submit">${icon('phone')}Send Request</button>

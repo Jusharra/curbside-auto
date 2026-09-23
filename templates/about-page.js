@@ -34,7 +34,7 @@ function renderAboutPage(city, site, publiclyLiveCities) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About Us in ${cityFull} | ${site.brandName}</title>
-<meta name="description" content="How ${site.brandName}'s dispatch model works in ${cityFull} — no membership, flat pricing, vetted independent local providers.">
+<meta name="description" content="How ${site.brandName} works in ${cityFull} — no membership, flat pricing, vetted independent local providers.">
 <meta name="theme-color" content="#14171C">
 <link rel="canonical" href="https://curbsideauto.com/${city.slug}/about/">
 <link rel="stylesheet" href="/assets/styles.css">
@@ -48,14 +48,14 @@ ${renderBreadcrumbSchema(city, cityFull)}
 <body>
 
 <div class="status-bar">
-  <span class="dot"></span><span class="mono">DISPATCH LINE OPEN — ${cityFull.toUpperCase()}</span>
+  <span class="dot"></span><span class="mono">SERVICE LINE OPEN — ${cityFull.toUpperCase()}</span>
 </div>
 
 ${renderHeader('about', city, site)}
 
 <section class="hero">
   <div class="wrap">
-    <div class="hero-eyebrow">${icon('shield')} ABOUT THE DISPATCH LINE</div>
+    <div class="hero-eyebrow">${icon('shield')} ABOUT US</div>
     <h1>One call, <em>no guesswork.</em></h1>
     <p>How ${site.brandName} gets a vetted local pro to you in ${city.cityName} — without a membership, a shop drop-off, or a surprise bill.</p>
   </div>
@@ -66,10 +66,10 @@ ${renderHeader('about', city, site)}
 <section class="offers">
   <div class="wrap about-body">
     <h2>What we actually do</h2>
-    <p>${site.brandName} isn't a repair shop, and we don't send our own trucks. We run the dispatch line — the single number you call in ${city.cityName} when something's wrong with your car, day or night. When you call, we route your request to a vetted, independently-owned local provider who handles the actual roadside call or windshield job, and we stay on your side of that call the whole time: one number, one flat price quoted upfront, one point of contact if anything needs to be sorted out.</p>
-    <p>That's also why you won't see a provider's name anywhere on this site. You're calling ${site.brandName} — the dispatch line, the pricing, and the guarantee are ours. The technician who shows up is a vetted local professional, independently owned and operated, matched to your job and your location in ${city.cityName}.</p>
+    <p>${site.brandName} isn't a repair shop, and we don't send our own trucks. We're the single number you call in ${city.cityName} when something's wrong with your car, day or night. When you call, we connect you with a vetted, independently-owned local provider who handles the actual roadside call or windshield job, and we stay on your side of that call the whole time: one number, one flat price quoted upfront, one point of contact if anything needs to be sorted out.</p>
+    <p>That's also why you won't see a provider's name anywhere on this site. You're calling ${site.brandName} — the service, the pricing, and the guarantee are ours. The technician who shows up is a vetted local professional, independently owned and operated, matched to your job and your location in ${city.cityName}.</p>
     <h2>Why call before you tow</h2>
-    <p>A lot of roadside problems — a dead battery, a flat, a lockout, a chip in the windshield — don't need a tow at all. They need someone to show up where you already are. That's the whole model: no membership to sign up for, no annual fee sitting unused in your wallet, no drive to a shop for something that can be fixed at the curb. Call, tell us what's going on, and we dispatch the right kind of help to your exact location.</p>
+    <p>A lot of roadside problems — a dead battery, a flat, a lockout, a chip in the windshield — don't need a tow at all. They need someone to show up where you already are. That's the whole model: no membership to sign up for, no annual fee sitting unused in your wallet, no drive to a shop for something that can be fixed at the curb. Call, tell us what's going on, and we send the right kind of help to your exact location.</p>
   </div>
 </section>
 
@@ -92,7 +92,7 @@ ${site.howItWorks.map((s, i) => renderHowStep(s, i, city, site)).join('\n')}
     <div class="coverage-box">
       <div>
         <h3>Ready when you are</h3>
-        <p>Call now or send a request online — dispatch will text you back with an ETA and price.</p>
+        <p>Call now or send a request online — we'll text you back with an ETA and price.</p>
       </div>
       <div class="coverage-tags">
         <a class="btn-primary" href="tel:${city.phoneTel}">${icon('phone')}Call ${city.phoneDisplay}</a>

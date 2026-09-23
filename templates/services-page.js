@@ -68,7 +68,7 @@ function renderServicesPage(city, site, services, allCities) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>All Services in ${cityFull} | ${site.brandName}</title>
-<meta name="description" content="Every roadside assistance, mobile mechanic, and mobile windshield repair service ${site.brandName} dispatches in ${cityFull} — pick what you need, call now.">
+<meta name="description" content="Every roadside assistance, mobile mechanic, and mobile windshield repair service ${site.brandName} offers in ${cityFull} — pick what you need, call now.">
 <meta property="og:title" content="Mobile Auto Services in ${cityFull} | ${site.brandName}">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#14171C">
@@ -87,7 +87,7 @@ ${renderBreadcrumbSchema(city, cityFull)}
 <body>
 
 <div class="status-bar">
-  <span class="dot"></span><span class="mono">DISPATCH LINE OPEN — ${cityFull.toUpperCase()}</span>
+  <span class="dot"></span><span class="mono">SERVICE LINE OPEN — ${cityFull.toUpperCase()}</span>
 </div>
 
 ${renderHeader('services', city, site)}
@@ -96,7 +96,7 @@ ${renderHeader('services', city, site)}
   <div class="wrap" style="text-align:center; max-width:760px;">
     <div class="hero-eyebrow" style="justify-content:center;">${city.cityName.toUpperCase()} MOBILE SERVICES</div>
     <h1>Fast Help, Any Time, <em>Anywhere</em> in ${city.cityName}</h1>
-    <p style="margin-left:auto; margin-right:auto;">Pick the service you need — we'll dispatch a local ${city.cityName} technician right now.</p>
+    <p style="margin-left:auto; margin-right:auto;">Pick the service you need — we'll send a local ${city.cityName} technician right now.</p>
     <div class="hero-ctas" style="justify-content:center; margin-top:30px;">
       <a class="btn-primary" href="tel:${city.phoneTel}">${icon('phone')}Call ${city.phoneDisplay}</a>
     </div>

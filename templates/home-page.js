@@ -64,7 +64,7 @@ function renderHomePage(cities, site) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>24 Hour Roadside Assistance & Windshield Repair Service</title>
-<meta name="description" content="${site.brandName} dispatches vetted local pros for 24/7 roadside assistance, mobile mechanic service, and mobile windshield repair. Pick your city to get started.">
+<meta name="description" content="${site.brandName} connects you with vetted local pros for 24/7 roadside assistance, mobile mechanic service, and mobile windshield repair. Pick your city to get started.">
 <meta name="theme-color" content="#14171C">
 <link rel="canonical" href="https://curbsideauto.com/">
 <link rel="stylesheet" href="/assets/styles.css">
@@ -78,7 +78,7 @@ ${renderCityListSchema(liveCities, site)}
 <body>
 
 <div class="status-bar">
-  <span class="dot"></span><span class="mono">DISPATCH NETWORK — ${liveCities.length} CIT${liveCities.length === 1 ? 'Y' : 'IES'} LIVE</span>
+  <span class="dot"></span><span class="mono">SERVICE NETWORK — ${liveCities.length} CIT${liveCities.length === 1 ? 'Y' : 'IES'} LIVE</span>
 </div>
 
 <header>
@@ -93,9 +93,9 @@ ${renderCityListSchema(liveCities, site)}
 
 <section class="hero">
   <div class="wrap">
-    <div class="hero-eyebrow">${icon('beacon')} NATIONWIDE DISPATCH NETWORK</div>
+    <div class="hero-eyebrow">${icon('beacon')} NATIONWIDE SERVICE NETWORK</div>
     <h1>Find <em>${site.logoMain.trim()}</em> near you.</h1>
-    <p>${site.brandName} dispatches vetted local pros for roadside assistance, mobile mechanic service, and mobile windshield repair. Choose your city below.</p>
+    <p>${site.brandName} connects you with vetted local pros for roadside assistance, mobile mechanic service, and mobile windshield repair. Choose your city below.</p>
     <div class="hero-ctas">
       <a class="btn-primary" href="#cities">See All Cities ↓</a>
     </div>
@@ -108,7 +108,7 @@ ${renderCityListSchema(liveCities, site)}
   <div class="wrap">
     <div class="section-head">
       <div class="eyebrow">Now Serving</div>
-      <h2>Where we dispatch</h2>
+      <h2>Where we serve</h2>
     </div>
     <div class="location-grid">
 ${liveCities.map(renderCityCard).join('\n')}
@@ -119,7 +119,7 @@ ${liveCities.map(renderCityCard).join('\n')}
 
 <footer>
   <div class="wrap footer-inner">
-    <span>© <span id="year"></span> ${site.brandName}. Independent dispatch network — providers are independently owned and operated.</span>
+    <span>© <span id="year"></span> ${site.brandName}. We work with independently owned and operated local service providers.</span>
   </div>
 </footer>
 

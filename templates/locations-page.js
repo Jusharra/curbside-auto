@@ -37,7 +37,7 @@ function renderLocationsPage(city, site, publiclyLiveCities) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Areas We Cover in ${cityFull} | ${site.brandName}</title>
-<meta name="description" content="See every neighborhood and corridor ${site.brandName} dispatches to in ${cityFull} — coverage map and area list.">
+<meta name="description" content="See every neighborhood and corridor ${site.brandName} covers in ${cityFull} — coverage map and area list.">
 <meta name="theme-color" content="#14171C">
 ${hasGeo ? `<meta name="geo.region" content="${city.stateCode || ('US-' + city.stateAbbr)}">
 <meta name="geo.placename" content="${cityFull}">
@@ -63,7 +63,7 @@ ${renderBreadcrumbSchema(city, cityFull)}
 <body>
 
 <div class="status-bar">
-  <span class="dot"></span><span class="mono">DISPATCH LINE OPEN — ${cityFull.toUpperCase()}</span>
+  <span class="dot"></span><span class="mono">SERVICE LINE OPEN — ${cityFull.toUpperCase()}</span>
 </div>
 
 ${renderHeader('locations', city, site)}
@@ -72,7 +72,7 @@ ${renderHeader('locations', city, site)}
   <div class="wrap">
     <div class="hero-eyebrow">${icon('pin')} COVERAGE AREAS — ${city.cityName.toUpperCase()}</div>
     <h1>Where We Cover <em>${city.cityName}</em></h1>
-    <p>Neighborhoods, corridors, and growth areas we dispatch to across ${cityFull} — day or night.</p>
+    <p>Neighborhoods, corridors, and growth areas we cover across ${cityFull} — day or night.</p>
   </div>
 </section>
 
@@ -82,12 +82,12 @@ ${hasGeo ? `<section class="map-section" style="padding-top:60px;">
   <div class="wrap">
     <div class="section-head">
       <div class="eyebrow">Coverage Map</div>
-      <h2>~${city.serviceRadiusMiles || 25}-mile dispatch radius</h2>
+      <h2>~${city.serviceRadiusMiles || 25}-mile service radius</h2>
     </div>
     <div class="map-embed" style="height:360px;">
       <iframe src="https://www.google.com/maps?q=${mapQuery}&output=embed" title="Map of ${cityFull}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
-    <p class="map-note">Map centered on ${city.cityName} — we dispatch to an approximate ${city.serviceRadiusMiles || 25}-mile radius around it, exact coverage can vary by tech availability.</p>
+    <p class="map-note">Map centered on ${city.cityName} — we cover an approximate ${city.serviceRadiusMiles || 25}-mile radius around it, exact coverage can vary by tech availability.</p>
   </div>
 </section>
 
