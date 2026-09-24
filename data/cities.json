@@ -84,5 +84,48 @@
         "description": "Covers the industrial and commercial area surrounding Fresno Yosemite International Airport."
       }
     ]
+  },
+  {
+    "slug": "madera-ca",
+    "cityName": "Madera",
+    "stateAbbr": "CA",
+    "stateFull": "California",
+    "region": "the Central Valley",
+    "phoneDisplay": "(559) 555-0100",
+    "phoneTel": "+15595550100",
+    "email": "dispatch@curbsideauto.com",
+    "live": true,
+    "launchNote": "Now serving Madera, CA",
+    "lat": 36.9613,
+    "lng": -120.0607,
+    "serviceRadiusMiles": 25,
+    "stateCode": "US-CA",
+    "categoriesConfirmed": {
+      "roadside": true,
+      "windshield": true,
+      "carb": true
+    },
+    "areas": [
+      {
+        "name": "Downtown Madera",
+        "description": "Full coverage of the downtown core and surrounding business district."
+      },
+      {
+        "name": "Madera Ranchos",
+        "description": "Covers the Madera Ranchos residential area southeast of the city."
+      },
+      {
+        "name": "North Madera / Gateway",
+        "description": "Covers the North Madera and Gateway Square retail corridor."
+      },
+      {
+        "name": "Parkwood",
+        "description": "Covers the Parkwood residential neighborhoods on the east side of the city."
+      },
+      {
+        "name": "Airport Corridor",
+        "description": "Covers the industrial and commercial area surrounding Madera Municipal Airport."
+      }
+    ]
   }
 ]
