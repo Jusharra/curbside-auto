@@ -2,7 +2,7 @@
 // Split hero (headline + embedded quick-request form), trust badges,
 // a 2-card category preview linking to /services/, FAQ, and a contact teaser.
 
-const { fill, renderServiceAreaSchema, icon, renderServiceSelect, renderHeader, renderFooter } = require('./partials');
+const { fill, renderServiceAreaSchema, icon, renderServiceSelect, renderHoneypot, renderVehicleFields, renderHeader, renderFooter } = require('./partials');
 
 function renderOfferSchema(site, city) {
   return site.offers.map(o => `    {
@@ -149,9 +149,7 @@ ${renderTrustBadges(site)}
         <form name="quick-request-${city.slug}" method="POST" data-netlify="true" netlify-honeypot="bot-field">
           <input type="hidden" name="form-name" value="quick-request-${city.slug}">
           <input type="hidden" name="city" value="${cityFull}">
-          <p style="display:none">
-            <label>Don't fill this out: <input name="bot-field"></label>
-          </p>
+          ${renderHoneypot()}
           <div class="row2">
             <div>
               <label for="hero-name">Name</label>
@@ -172,6 +170,7 @@ ${renderTrustBadges(site)}
 ${renderServiceSelect(services, site)}
             </select>
           </div>
+          ${renderVehicleFields(services)}
           <div>
             <label for="hero-details">Description</label>
             <textarea id="hero-details" name="details" placeholder="Describe the issue (optional)"></textarea>
@@ -214,7 +213,7 @@ ${site.faq.map(f => renderFaqItem(f, city, site)).join('\n')}
     <div class="coverage-box">
       <div>
         <h3>Need something more specific?</h3>
-        <p>Full request form, click-to-call, and email — the fastest way to reach us directly.</p>
+        <p>Full request form${city.email ? ', click-to-call, and email' : ' and click-to-call'} — the fastest way to reach us directly.</p>
       </div>
       <div class="coverage-tags">
         <a class="btn-primary" href="/${city.slug}/contact/">${icon('phone')}Go to Contact</a>

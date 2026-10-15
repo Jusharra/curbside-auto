@@ -33,7 +33,7 @@ dist/            ← generated output (not committed — Netlify builds this aut
 /{slug}/services/          → Services — atomic card grid, one card per service, grouped by category
 /{slug}/locations/         → Locations — neighborhoods/corridors THIS city covers, + coverage-radius map
 /{slug}/about/             → About — how the dispatch model works, How It Works steps
-/{slug}/contact/           → Contact — full detailed request form, click-to-call, email
+/{slug}/contact/           → Contact — full detailed request form, click-to-call (email only if the city has one)
 /{slug}/{service-slug}/    → deep SEO landing page for one individual service in this city
 ```
 
@@ -53,7 +53,6 @@ dist/            ← generated output (not committed — Netlify builds this aut
   "region": "the Central Valley",
   "phoneDisplay": "(559) 340-2999",
   "phoneTel": "+15593402999",
-  "email": "dispatch@curbsideauto.com",
   "live": true,
   "launchNote": "Now serving Madera, CA",
   "lat": 36.9613,
@@ -122,8 +121,8 @@ This is a dispatch/middleman business — providers are never named anywhere on 
 
 ## Before going live, still swap:
 
-- Real phone number(s) and email in `data/cities.json` (currently placeholders per city).
-- Domain in the `canonical`/schema URLs across `templates/*.js` (currently `curbsideauto.com` as a placeholder).
+- Real phone number(s) in `data/cities.json`. `email` is optional: leave it out and no email is shown anywhere; add `"email": "..."` to a city and it appears in the footer, city card, and Contact page.
+- The live domain lives in one place — `siteUrl` in `data/site.json`. Every canonical tag, JSON-LD URL, `sitemap.xml`, and `robots.txt` is built from it, so a custom domain later is a one-line change.
 - Double-check `lat`/`lng`/`serviceRadiusMiles` and `areas[]` per city in `data/cities.json` reflect where you actually dispatch.
 - Confirm `categoriesConfirmed` is genuinely true before flipping a city `live` — see "Live-gating" above.
 
@@ -140,6 +139,8 @@ Then open `dist/index.html` or `dist/visalia-ca/index.html` in a browser to prev
 ## Form submissions
 
 There are two Netlify Forms per city: a **quick** hero form on Home (`quick-request-{slug}`) and the **full** form on Contact (`service-request-{slug}`), plus one per individual service page (`service-request-{slug}-{service-slug}`). All use `data-netlify="true"` — once deployed, submissions land in your Netlify dashboard under Site → Forms, tagged by which form/city they came from. Turn on **email notifications** in Netlify (Site settings → Forms → Form notifications) so a submission never gets missed.
+
+Every request form collects **Year / Make / Model** (required) and posts them as `vehicle_year`, `vehicle_make`, `vehicle_model`, so they show up in Netlify's form notification email. Two optional fields appear only for matching services, controlled by `"extraField"` on a service in `data/services.json`: `"tire"` (tire size) and `"adas"` (lane-assist/ADAS question). Forms submit in place via `fetch` (see the bottom of `assets/main.js`) and show "Got it. We'll text or call you shortly with your quote." — no price or estimate is displayed. The spam-trap field is hidden with `.hp-field`.
 
 Clicking "Request Online" on a service card carries the selected service through as a `?service={slug}` query param to the Contact page, which pre-selects it in the dropdown — see `prefillServiceFromQuery()` in `assets/main.js`.
 

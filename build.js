@@ -81,8 +81,10 @@ function build() {
   // a gated-out city can never leak into another page's cross-links.
   let builtCities = 0;
   let builtServices = 0;
+  const urlPaths = ['/'];
   for (const city of publiclyLiveCities) {
     const cityDir = path.join(DIST, city.slug);
+    urlPaths.push(`/${city.slug}/`, `/${city.slug}/services/`, `/${city.slug}/locations/`, `/${city.slug}/about/`, `/${city.slug}/contact/`);
 
     writePage(cityDir, renderCityPage(city, site, publiclyLiveCities, liveServices));
     writePage(path.join(cityDir, 'services'), renderServicesPage(city, site, liveServices, publiclyLiveCities));
@@ -93,6 +95,7 @@ function build() {
 
     for (const service of liveServices) {
       writePage(path.join(cityDir, service.slug), renderServicePage(service, city, site, liveServices, publiclyLiveCities));
+      urlPaths.push(`/${city.slug}/${service.slug}/`);
       builtServices++;
     }
   }
@@ -101,6 +104,17 @@ function build() {
     console.error('BUILD FAILED: no cities passed the live + categoriesConfirmed gate. Nothing published.');
     process.exit(1);
   }
+
+  // sitemap.xml + robots.txt, built from the same live-URL base (site.siteUrl)
+  // as every canonical tag and JSON-LD url, so they can never disagree.
+  const today = new Date().toISOString().slice(0, 10);
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urlPaths.map(p => `  <url><loc>${site.siteUrl}${p}</loc><lastmod>${today}</lastmod></url>`).join('\n')}
+</urlset>
+`;
+  fs.writeFileSync(path.join(DIST, 'sitemap.xml'), sitemap);
+  fs.writeFileSync(path.join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${site.siteUrl}/sitemap.xml\n`);
 
   console.log(`Built ${builtCities} live city page(s) (Home/Services/Locations/About/Contact), ${builtServices} service page(s), + the global Cities directory into dist/`);
   for (const city of cities) {

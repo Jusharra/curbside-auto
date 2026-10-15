@@ -57,7 +57,7 @@ function renderServiceSelect(services, site, selectedSlug) {
     const catServices = services.filter(s => s.category === o.id);
     if (!catServices.length) return '';
     const options = catServices.map(s =>
-      `      <option value="${s.slug}"${s.slug === selectedSlug ? ' selected' : ''}>${s.name}</option>`
+      `      <option value="${s.slug}"${s.extraField ? ` data-extra="${s.extraField}"` : ''}${s.slug === selectedSlug ? ' selected' : ''}>${s.name}</option>`
     ).join('\n');
     return `    <optgroup label="${o.categoryName}">\n${options}\n    </optgroup>`;
   }).filter(Boolean).join('\n');
@@ -65,6 +65,56 @@ function renderServiceSelect(services, site, selectedSlug) {
   return `    <option value=""${selectedSlug ? '' : ' selected'}>Select a service</option>
 ${groups}
     <option value="not-sure">Not sure — help me figure it out</option>`;
+}
+
+// ---------- request-form pieces shared by every form ----------
+// Spam-trap field. Must stay in the DOM (Netlify checks it) but never be
+// visible, focusable, or announced to customers.
+function renderHoneypot() {
+  return `<div class="hp-field" hidden aria-hidden="true">
+          <label>Leave this field empty <input type="text" name="bot-field" tabindex="-1" autocomplete="off"></label>
+        </div>`;
+}
+
+const MIN_VEHICLE_YEAR = 1995;
+
+// Year / Make / Model (required) plus two optional fields that only show
+// for the matching service (a service's `extraField` in services.json:
+// "tire" -> tire size, "adas" -> lane-assist/ADAS question). main.js
+// toggles them as the service dropdown changes; when a service is already
+// selected at build time (service pages) its field is rendered visible.
+function renderVehicleFields(services, selectedSlug) {
+  const maxYear = new Date().getFullYear() + 1;
+  const selected = (services || []).find(s => s.slug === selectedSlug);
+  const extra = selected && selected.extraField;
+  const tireOn = extra === 'tire';
+  const adasOn = extra === 'adas';
+  return `<div class="row3">
+          <div>
+            <label for="vehicle-year">Year</label>
+            <input type="number" id="vehicle-year" name="vehicle_year" inputmode="numeric" min="${MIN_VEHICLE_YEAR}" max="${maxYear}" placeholder="Year" required>
+          </div>
+          <div>
+            <label for="vehicle-make">Make</label>
+            <input type="text" id="vehicle-make" name="vehicle_make" placeholder="e.g. Toyota" autocomplete="off" required>
+          </div>
+          <div>
+            <label for="vehicle-model">Model</label>
+            <input type="text" id="vehicle-model" name="vehicle_model" placeholder="e.g. Camry" autocomplete="off" required>
+          </div>
+        </div>
+        <div data-extra-field="tire"${tireOn ? '' : ' hidden'}>
+          <label for="tire-size">Tire size (optional)</label>
+          <input type="text" id="tire-size" name="tire_size" placeholder="e.g. 215/55R17"${tireOn ? '' : ' disabled'}>
+        </div>
+        <div data-extra-field="adas"${adasOn ? '' : ' hidden'}>
+          <label for="adas-sensors">Does your car have lane-assist/ADAS sensors?</label>
+          <select id="adas-sensors" name="adas_sensors"${adasOn ? '' : ' disabled'}>
+            <option value="">Not sure</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </div>`;
 }
 
 // ---------- header ----------
@@ -115,9 +165,9 @@ function renderFooter(city, site, publiclyLiveCities) {
       <span>© <span id="year"></span> ${site.brandName}. We work with independently owned and operated local service providers.</span>
       ${crossLinks}
     </div>
-    <span><a href="tel:${city.phoneTel}">${city.phoneDisplay}</a> &nbsp;·&nbsp; <a href="mailto:${city.email}">${city.email}</a></span>
+    <span><a href="tel:${city.phoneTel}">${city.phoneDisplay}</a>${city.email ? ` &nbsp;·&nbsp; <a href="mailto:${city.email}">${city.email}</a>` : ''}</span>
   </div>
 </footer>`;
 }
 
-module.exports = { fill, renderServiceAreaSchema, icon, renderServiceSelect, renderHeader, renderFooter };
+module.exports = { fill, renderServiceAreaSchema, icon, renderServiceSelect, renderHoneypot, renderVehicleFields, renderHeader, renderFooter };

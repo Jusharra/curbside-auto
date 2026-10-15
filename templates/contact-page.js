@@ -3,7 +3,7 @@
 // plus click-to-call and email. Supports ?service={slug} prefill from a
 // service card's "Request Online" link (see assets/main.js).
 
-const { renderServiceAreaSchema, icon, renderServiceSelect, renderHeader, renderFooter } = require('./partials');
+const { renderServiceAreaSchema, icon, renderServiceSelect, renderHoneypot, renderVehicleFields, renderHeader, renderFooter } = require('./partials');
 
 function renderBreadcrumbSchema(city, cityFull, site) {
   return `{
@@ -26,7 +26,7 @@ function renderContactPage(city, site, services, publiclyLiveCities) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact & Request Service in ${cityFull} | ${site.brandName}</title>
-<meta name="description" content="Call, email, or send a request to ${site.brandName} in ${cityFull} — we'll text back with an ETA and price.">
+<meta name="description" content="Call${city.email ? ', email,' : ''} or send a request to ${site.brandName} in ${cityFull} — we'll text back with an ETA and price.">
 <meta name="theme-color" content="#14171C">
 <link rel="canonical" href="${site.siteUrl}/${city.slug}/contact/">
 <link rel="stylesheet" href="/assets/styles.css">
@@ -39,8 +39,8 @@ function renderContactPage(city, site, services, publiclyLiveCities) {
   "@type": "LocalBusiness",
   "name": "${site.brandName}",
   "telephone": "${city.phoneTel}",
-  "email": "${city.email}",
-  "areaServed": "${cityFull}"${renderServiceAreaSchema(city)}
+${city.email ? `  "email": "${city.email}",
+` : ''}  "areaServed": "${cityFull}"${renderServiceAreaSchema(city)}
 }
 </script>
 <script type="application/ld+json">
@@ -59,11 +59,11 @@ ${renderHeader('contact', city, site)}
   <div class="wrap">
     <div class="hero-eyebrow">${icon('phone')} REACH US DIRECTLY</div>
     <h1>Contact <em>Us.</em></h1>
-    <p>Call, email, or send a request below — tell us where you are in ${city.cityName} and what you need.</p>
+    <p>Call${city.email ? ', email,' : ''} or send a request below — tell us where you are in ${city.cityName} and what you need.</p>
     <div class="hero-ctas">
       <a class="btn-primary" href="tel:${city.phoneTel}">${icon('phone')}${city.phoneDisplay}</a>
-      <a class="btn-ghost" href="mailto:${city.email}">${icon('tag')}${city.email}</a>
-    </div>
+${city.email ? `      <a class="btn-ghost" href="mailto:${city.email}">${icon('tag')}${city.email}</a>
+` : ''}    </div>
   </div>
 </section>
 
@@ -77,9 +77,7 @@ ${renderHeader('contact', city, site)}
       <form name="service-request-${city.slug}" method="POST" data-netlify="true" netlify-honeypot="bot-field">
         <input type="hidden" name="form-name" value="service-request-${city.slug}">
         <input type="hidden" name="city" value="${cityFull}">
-        <p style="display:none">
-          <label>Don't fill this out: <input name="bot-field"></label>
-        </p>
+        ${renderHoneypot()}
         <div class="row2">
           <div>
             <label for="name">Name</label>
@@ -100,9 +98,10 @@ ${renderServiceSelect(services, site)}
           <label for="location">Your location in ${city.cityName}</label>
           <input type="text" id="location" name="location" placeholder="Address, cross streets, or freeway/mile marker" required>
         </div>
+        ${renderVehicleFields(services)}
         <div>
           <label for="details">Anything we should know</label>
-          <textarea id="details" name="details" placeholder="Vehicle, what happened, best callback time"></textarea>
+          <textarea id="details" name="details" placeholder="What happened, best callback time"></textarea>
         </div>
         <button class="submit-btn" type="submit">${icon('phone')}Send Request</button>
       </form>

@@ -2,7 +2,7 @@
 // URL shape: /{city.slug}/{service.slug}/ — e.g. /visalia-ca/flat-tire-change-repair/
 // Tokens available in service copy: {cityName}, {cityNameUpper}, {cityFull}, {brandName}
 
-const { fill, renderServiceAreaSchema, icon, renderServiceSelect, renderHeader, renderFooter } = require('./partials');
+const { fill, renderServiceAreaSchema, icon, renderServiceSelect, renderHoneypot, renderVehicleFields, renderHeader, renderFooter } = require('./partials');
 
 function renderServiceSchema(service, site, city) {
   const cityFull = `${city.cityName}, ${city.stateAbbr}`;
@@ -208,9 +208,7 @@ ${service.faq.map(f => renderFaqItem(f, city, site)).join('\n')}
       <form name="service-request-${city.slug}-${service.slug}" method="POST" data-netlify="true" netlify-honeypot="bot-field">
         <input type="hidden" name="form-name" value="service-request-${city.slug}-${service.slug}">
         <input type="hidden" name="city" value="${cityFull}">
-        <p style="display:none">
-          <label>Don't fill this out: <input name="bot-field"></label>
-        </p>
+        ${renderHoneypot()}
         <div class="row2">
           <div>
             <label for="name">Name</label>
@@ -231,9 +229,10 @@ ${renderServiceSelect(allServices, site, service.slug)}
           <label for="location">Your location in ${city.cityName}</label>
           <input type="text" id="location" name="location" placeholder="Address, cross streets, or freeway/mile marker" required>
         </div>
+        ${renderVehicleFields(allServices, service.slug)}
         <div>
           <label for="details">Anything we should know</label>
-          <textarea id="details" name="details" placeholder="Vehicle, what happened, best callback time"></textarea>
+          <textarea id="details" name="details" placeholder="What happened, best callback time"></textarea>
         </div>
         <button class="submit-btn" type="submit">${icon('phone')}Send Request</button>
       </form>

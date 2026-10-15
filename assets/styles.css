@@ -93,7 +93,7 @@
   }
   @media (max-width:520px){ .logo-sub{ display:none; } .logo{ font-size:16px; } .call-btn span.call-btn-label{ display:none; } }
 
-  /* ---------- dispatch status bar ---------- */
+  /* ---------- service status bar ---------- */
   .status-bar{
     background:#0F1216; border-bottom:1px solid var(--panel-line);
     padding:8px 24px; text-align:center; font-size:12px;
@@ -367,6 +367,16 @@
   input:focus, select:focus, textarea:focus{ outline:2px solid var(--amber); outline-offset:1px; border-color:var(--amber); }
   .row2{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
   @media (max-width:520px){ .row2{ grid-template-columns:1fr; } }
+  /* vehicle Year / Make / Model */
+  .row3{ display:grid; grid-template-columns:0.7fr 1fr 1fr; gap:12px; }
+  @media (max-width:520px){ .row3{ grid-template-columns:1fr 1fr; } .row3 > div:first-child{ grid-column:1 / -1; } }
+  /* spam-trap field: in the DOM for Netlify, never visible or focusable */
+  .hp-field{ display:none !important; }
+  /* inline result shown in place of the form after submit */
+  .form-result{ padding:12px 0; }
+  .form-result p{ color:var(--ink); font-size:18px; font-weight:600; line-height:1.4; }
+  .form-result.is-error p{ color:var(--rescue); font-size:15px; }
+  .form-result a{ color:var(--amber); text-decoration:underline; }
   .submit-btn{
     background:var(--amber); color:#14171C; font-weight:700; padding:16px; border:none;
     border-radius:var(--radius-pill); text-transform:uppercase; letter-spacing:0.04em; font-size:14.5px;

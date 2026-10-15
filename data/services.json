@@ -157,7 +157,8 @@
         "a": "Yes, as long as it's safe to work on. Give us your exact location, including mile marker or cross streets, when you call."
       }
     ],
-    "icon": "tire"
+    "icon": "tire",
+    "extraField": "tire"
   },
   {
     "slug": "car-lockout-service",
@@ -357,7 +358,8 @@
         "a": "Repair significantly reduces visibility of the chip and stops it from spreading, though some faint mark can remain depending on size and location."
       }
     ],
-    "icon": "glass-chip"
+    "icon": "glass-chip",
+    "extraField": "adas"
   },
   {
     "slug": "windshield-replacement",
@@ -397,7 +399,8 @@
         "a": "In most cases, yes. Let us know you're filing through insurance when you request service, and the provider can help coordinate billing."
       }
     ],
-    "icon": "glass-full"
+    "icon": "glass-full",
+    "extraField": "adas"
   },
   {
     "slug": "mobile-auto-glass-repair",
@@ -477,7 +480,8 @@
         "a": "Yes, insurance coordination is available for both chip repair and full windshield replacement service."
       }
     ],
-    "icon": "shield"
+    "icon": "shield",
+    "extraField": "adas"
   },
   {
     "slug": "mobile-carb-testing",

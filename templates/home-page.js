@@ -3,7 +3,7 @@
 // intra-city areas (with its own keyless map embed); this page is "Cities",
 // the inter-city index.
 
-const { icon, renderServiceSelect } = require('./partials');
+const { icon, renderServiceSelect, renderHoneypot, renderVehicleFields } = require('./partials');
 
 function renderCityListSchema(cities, site) {
   const items = cities.map((c, i) => {
@@ -47,7 +47,7 @@ function renderCityCard(c) {
         <h3>${cityFull}</h3>
         <p class="region">${c.region}</p>
         ${hasGeo ? `<span class="radius">~${c.serviceRadiusMiles || 25} mi coverage radius</span>` : ''}
-        <p class="contact"><a href="tel:${c.phoneTel}">${c.phoneDisplay}</a> &nbsp;·&nbsp; <a href="mailto:${c.email}">${c.email}</a></p>
+        <p class="contact"><a href="tel:${c.phoneTel}">${c.phoneDisplay}</a>${c.email ? ` &nbsp;·&nbsp; <a href="mailto:${c.email}">${c.email}</a>` : ''}</p>
         <div class="location-links">
           <a class="ticket-cta request" href="/${c.slug}/">${c.cityName} Hub →</a>
           <a class="ticket-cta request" href="/${c.slug}/services/">Browse Services →</a>
@@ -131,9 +131,7 @@ ${renderCategoryTapRow(site.offers, liveCities)}
         <p class="avg-response">Tell us what's going on — we'll route you to the right local team.</p>
         <form name="quote-request" method="POST" data-netlify="true" netlify-honeypot="bot-field">
           <input type="hidden" name="form-name" value="quote-request">
-          <p style="display:none">
-            <label>Don't fill this out: <input name="bot-field"></label>
-          </p>
+          ${renderHoneypot()}
           <div class="row2">
             <div>
               <label for="home-name">Name</label>
@@ -156,6 +154,7 @@ ${renderCitySelect(liveCities)}
 ${renderServiceSelect(services, site)}
             </select>
           </div>
+          ${renderVehicleFields(services)}
           <div>
             <label for="home-details">Description</label>
             <textarea id="home-details" name="details" placeholder="Describe the issue (optional)"></textarea>
