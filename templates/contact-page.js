@@ -3,7 +3,7 @@
 // plus click-to-call and email. Supports ?service={slug} prefill from a
 // service card's "Request Online" link (see assets/main.js).
 
-const { renderServiceAreaSchema, icon, renderServiceSelect, renderHoneypot, renderVehicleFields, renderHeader, renderFooter } = require('./partials');
+const { renderServiceAreaSchema, icon, renderServiceSelect, renderFormHidden, renderVehicleFields, renderHeader, renderFooter } = require('./partials');
 
 function renderBreadcrumbSchema(city, cityFull, site) {
   return `{
@@ -76,32 +76,32 @@ ${city.email ? `      <a class="btn-ghost" href="mailto:${city.email}">${icon('t
       <p>Tell us where you are in ${city.cityName} and what you need — we'll text you back with an ETA and price.</p>
       <form name="service-request-${city.slug}" method="POST" data-netlify="true" netlify-honeypot="bot-field">
         <input type="hidden" name="form-name" value="service-request-${city.slug}">
-        <input type="hidden" name="city" value="${cityFull}">
-        ${renderHoneypot()}
+        <input type="hidden" name="City" value="${cityFull}">
+        ${renderFormHidden()}
         <div class="row2">
           <div>
             <label for="name">Name</label>
-            <input type="text" id="name" name="name" required>
+            <input type="text" id="name" name="Name" required>
           </div>
           <div>
             <label for="phone">Phone</label>
-            <input type="tel" id="phone" name="phone" required>
+            <input type="tel" id="phone" name="Phone" required>
           </div>
         </div>
         <div>
           <label for="service">What do you need</label>
-          <select id="service" name="service" required>
+          <select id="service" name="Service" required>
 ${renderServiceSelect(services, site)}
           </select>
         </div>
         <div>
           <label for="location">Your location in ${city.cityName}</label>
-          <input type="text" id="location" name="location" placeholder="Address, cross streets, or freeway/mile marker" required>
+          <input type="text" id="location" name="Location" placeholder="Address, cross streets, or freeway/mile marker" required>
         </div>
         ${renderVehicleFields(services)}
         <div>
           <label for="details">Anything we should know</label>
-          <textarea id="details" name="details" placeholder="What happened, best callback time"></textarea>
+          <textarea id="details" name="Details" placeholder="What happened, best callback time"></textarea>
         </div>
         <button class="submit-btn" type="submit">${icon('phone')}Send Request</button>
       </form>

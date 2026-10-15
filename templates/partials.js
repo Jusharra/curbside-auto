@@ -68,10 +68,13 @@ ${groups}
 }
 
 // ---------- request-form pieces shared by every form ----------
-// Spam-trap field. Must stay in the DOM (Netlify checks it) but never be
+// Hidden form plumbing: "Page" (filled by main.js with the page the request
+// came from, so each email says where it originated) and the spam-trap
+// field, which must stay in the DOM (Netlify checks it) but never be
 // visible, focusable, or announced to customers.
-function renderHoneypot() {
-  return `<div class="hp-field" hidden aria-hidden="true">
+function renderFormHidden() {
+  return `<input type="hidden" name="Page" value="">
+        <div class="hp-field" hidden aria-hidden="true">
           <label>Leave this field empty <input type="text" name="bot-field" tabindex="-1" autocomplete="off"></label>
         </div>`;
 }
@@ -92,27 +95,27 @@ function renderVehicleFields(services, selectedSlug) {
   return `<div class="row3">
           <div>
             <label for="vehicle-year">Year</label>
-            <input type="number" id="vehicle-year" name="vehicle_year" inputmode="numeric" min="${MIN_VEHICLE_YEAR}" max="${maxYear}" placeholder="Year" required>
+            <input type="number" id="vehicle-year" name="Year" inputmode="numeric" min="${MIN_VEHICLE_YEAR}" max="${maxYear}" placeholder="Year" required>
           </div>
           <div>
             <label for="vehicle-make">Make</label>
-            <input type="text" id="vehicle-make" name="vehicle_make" placeholder="e.g. Toyota" autocomplete="off" required>
+            <input type="text" id="vehicle-make" name="Make" placeholder="e.g. Toyota" autocomplete="off" required>
           </div>
           <div>
             <label for="vehicle-model">Model</label>
-            <input type="text" id="vehicle-model" name="vehicle_model" placeholder="e.g. Camry" autocomplete="off" required>
+            <input type="text" id="vehicle-model" name="Model" placeholder="e.g. Camry" autocomplete="off" required>
           </div>
         </div>
         <div data-extra-field="tire"${tireOn ? '' : ' hidden'}>
           <label for="tire-size">Tire size (optional)</label>
-          <input type="text" id="tire-size" name="tire_size" placeholder="e.g. 215/55R17"${tireOn ? '' : ' disabled'}>
+          <input type="text" id="tire-size" name="Tire Size" placeholder="e.g. 215/55R17"${tireOn ? '' : ' disabled'}>
         </div>
         <div data-extra-field="adas"${adasOn ? '' : ' hidden'}>
           <label for="adas-sensors">Does your car have lane-assist/ADAS sensors?</label>
-          <select id="adas-sensors" name="adas_sensors"${adasOn ? '' : ' disabled'}>
+          <select id="adas-sensors" name="ADAS Sensors"${adasOn ? '' : ' disabled'}>
             <option value="">Not sure</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
           </select>
         </div>`;
 }
@@ -170,4 +173,4 @@ function renderFooter(city, site, publiclyLiveCities) {
 </footer>`;
 }
 
-module.exports = { fill, renderServiceAreaSchema, icon, renderServiceSelect, renderHoneypot, renderVehicleFields, renderHeader, renderFooter };
+module.exports = { fill, renderServiceAreaSchema, icon, renderServiceSelect, renderFormHidden, renderVehicleFields, renderHeader, renderFooter };

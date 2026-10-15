@@ -2,7 +2,7 @@
 // Split hero (headline + embedded quick-request form), trust badges,
 // a 2-card category preview linking to /services/, FAQ, and a contact teaser.
 
-const { fill, renderServiceAreaSchema, icon, renderServiceSelect, renderHoneypot, renderVehicleFields, renderHeader, renderFooter } = require('./partials');
+const { fill, renderServiceAreaSchema, icon, renderServiceSelect, renderFormHidden, renderVehicleFields, renderHeader, renderFooter } = require('./partials');
 
 function renderOfferSchema(site, city) {
   return site.offers.map(o => `    {
@@ -148,32 +148,32 @@ ${renderTrustBadges(site)}
         <p class="avg-response">Tell us where you are in ${city.cityName} — we respond fast.</p>
         <form name="quick-request-${city.slug}" method="POST" data-netlify="true" netlify-honeypot="bot-field">
           <input type="hidden" name="form-name" value="quick-request-${city.slug}">
-          <input type="hidden" name="city" value="${cityFull}">
-          ${renderHoneypot()}
+          <input type="hidden" name="City" value="${cityFull}">
+          ${renderFormHidden()}
           <div class="row2">
             <div>
               <label for="hero-name">Name</label>
-              <input type="text" id="hero-name" name="name" placeholder="Name" required>
+              <input type="text" id="hero-name" name="Name" placeholder="Name" required>
             </div>
             <div>
               <label for="hero-phone">Phone</label>
-              <input type="tel" id="hero-phone" name="phone" placeholder="Phone Number" required>
+              <input type="tel" id="hero-phone" name="Phone" placeholder="Phone Number" required>
             </div>
           </div>
           <div>
             <label for="hero-location">Location</label>
-            <input type="text" id="hero-location" name="location" placeholder="Your Location" required>
+            <input type="text" id="hero-location" name="Location" placeholder="Your Location" required>
           </div>
           <div>
             <label for="service">Service Needed</label>
-            <select id="service" name="service" required>
+            <select id="service" name="Service" required>
 ${renderServiceSelect(services, site)}
             </select>
           </div>
           ${renderVehicleFields(services)}
           <div>
             <label for="hero-details">Description</label>
-            <textarea id="hero-details" name="details" placeholder="Describe the issue (optional)"></textarea>
+            <textarea id="hero-details" name="Details" placeholder="Describe the issue (optional)"></textarea>
           </div>
           <button class="submit-btn" type="submit">${icon('phone')}Request Help</button>
         </form>

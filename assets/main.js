@@ -69,6 +69,35 @@ document.querySelectorAll('.ticket-cta.request').forEach(function (link) {
   if (year) { year.max = new Date().getFullYear() + 1; }
 })();
 
+// Build the form-encoded body Netlify turns into the notification email:
+// dropdowns send their readable label (not the internal slug), fields go
+// out in lead-sheet order, and empty optional fields are left out.
+var EMAIL_FIELD_ORDER = ['form-name', 'Service', 'Name', 'Phone', 'City', 'Location',
+  'Year', 'Make', 'Model', 'Tire Size', 'ADAS Sensors', 'Details', 'Page'];
+
+function buildSubmission(form) {
+  var data = new FormData(form);
+  ['Service', 'City'].forEach(function (field) {
+    var el = form.elements[field];
+    if (el && el.tagName === 'SELECT' && el.value) {
+      data.set(field, el.options[el.selectedIndex].text.trim());
+    }
+  });
+  if (form.elements['Page']) { data.set('Page', window.location.pathname); }
+
+  var params = new URLSearchParams();
+  EMAIL_FIELD_ORDER.forEach(function (key) {
+    var value = data.get(key);
+    if (value !== null && String(value).trim() !== '') { params.append(key, value); }
+    data.delete(key);
+  });
+  data.forEach(function (value, key) {
+    if (key === 'bot-field' && !String(value).trim()) { return; }
+    params.append(key, value);
+  });
+  return params.toString();
+}
+
 // Submit request forms in place (Netlify Forms via fetch) so the customer
 // stays on the page and sees a confirmation instead of a redirect. No price
 // or estimate is ever shown here.
@@ -81,7 +110,7 @@ document.querySelectorAll('form[data-netlify="true"]').forEach(function (form) {
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(new FormData(form)).toString()
+      body: buildSubmission(form)
     }).then(function (res) {
       if (!res.ok) { throw new Error('bad status ' + res.status); }
       var done = document.createElement('div');

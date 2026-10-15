@@ -3,7 +3,7 @@
 // intra-city areas (with its own keyless map embed); this page is "Cities",
 // the inter-city index.
 
-const { icon, renderServiceSelect, renderHoneypot, renderVehicleFields } = require('./partials');
+const { icon, renderServiceSelect, renderFormHidden, renderVehicleFields } = require('./partials');
 
 function renderCityListSchema(cities, site) {
   const items = cities.map((c, i) => {
@@ -131,33 +131,33 @@ ${renderCategoryTapRow(site.offers, liveCities)}
         <p class="avg-response">Tell us what's going on — we'll route you to the right local team.</p>
         <form name="quote-request" method="POST" data-netlify="true" netlify-honeypot="bot-field">
           <input type="hidden" name="form-name" value="quote-request">
-          ${renderHoneypot()}
+          ${renderFormHidden()}
           <div class="row2">
             <div>
               <label for="home-name">Name</label>
-              <input type="text" id="home-name" name="name" placeholder="Name" required>
+              <input type="text" id="home-name" name="Name" placeholder="Name" required>
             </div>
             <div>
               <label for="home-phone">Phone</label>
-              <input type="tel" id="home-phone" name="phone" placeholder="Phone Number" required>
+              <input type="tel" id="home-phone" name="Phone" placeholder="Phone Number" required>
             </div>
           </div>
           <div>
             <label for="home-city">City</label>
-            <select id="home-city" name="city" required>
+            <select id="home-city" name="City" required>
 ${renderCitySelect(liveCities)}
             </select>
           </div>
           <div>
             <label for="service">Service Needed</label>
-            <select id="service" name="service" required>
+            <select id="service" name="Service" required>
 ${renderServiceSelect(services, site)}
             </select>
           </div>
           ${renderVehicleFields(services)}
           <div>
             <label for="home-details">Description</label>
-            <textarea id="home-details" name="details" placeholder="Describe the issue (optional)"></textarea>
+            <textarea id="home-details" name="Details" placeholder="Describe the issue (optional)"></textarea>
           </div>
           <button class="submit-btn" type="submit">${icon('phone')}Request Help</button>
         </form>

@@ -2,7 +2,7 @@
 // URL shape: /{city.slug}/{service.slug}/ — e.g. /visalia-ca/flat-tire-change-repair/
 // Tokens available in service copy: {cityName}, {cityNameUpper}, {cityFull}, {brandName}
 
-const { fill, renderServiceAreaSchema, icon, renderServiceSelect, renderHoneypot, renderVehicleFields, renderHeader, renderFooter } = require('./partials');
+const { fill, renderServiceAreaSchema, icon, renderServiceSelect, renderFormHidden, renderVehicleFields, renderHeader, renderFooter } = require('./partials');
 
 function renderServiceSchema(service, site, city) {
   const cityFull = `${city.cityName}, ${city.stateAbbr}`;
@@ -207,32 +207,32 @@ ${service.faq.map(f => renderFaqItem(f, city, site)).join('\n')}
       <p>Tell us where you are in ${city.cityName} and what you need — we'll text you back with an ETA and price.</p>
       <form name="service-request-${city.slug}-${service.slug}" method="POST" data-netlify="true" netlify-honeypot="bot-field">
         <input type="hidden" name="form-name" value="service-request-${city.slug}-${service.slug}">
-        <input type="hidden" name="city" value="${cityFull}">
-        ${renderHoneypot()}
+        <input type="hidden" name="City" value="${cityFull}">
+        ${renderFormHidden()}
         <div class="row2">
           <div>
             <label for="name">Name</label>
-            <input type="text" id="name" name="name" required>
+            <input type="text" id="name" name="Name" required>
           </div>
           <div>
             <label for="phone">Phone</label>
-            <input type="tel" id="phone" name="phone" required>
+            <input type="tel" id="phone" name="Phone" required>
           </div>
         </div>
         <div>
           <label for="service">What do you need</label>
-          <select id="service" name="service" required>
+          <select id="service" name="Service" required>
 ${renderServiceSelect(allServices, site, service.slug)}
           </select>
         </div>
         <div>
           <label for="location">Your location in ${city.cityName}</label>
-          <input type="text" id="location" name="location" placeholder="Address, cross streets, or freeway/mile marker" required>
+          <input type="text" id="location" name="Location" placeholder="Address, cross streets, or freeway/mile marker" required>
         </div>
         ${renderVehicleFields(allServices, service.slug)}
         <div>
           <label for="details">Anything we should know</label>
-          <textarea id="details" name="details" placeholder="What happened, best callback time"></textarea>
+          <textarea id="details" name="Details" placeholder="What happened, best callback time"></textarea>
         </div>
         <button class="submit-btn" type="submit">${icon('phone')}Send Request</button>
       </form>
