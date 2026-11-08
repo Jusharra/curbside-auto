@@ -2,7 +2,7 @@
 // Grouped by category, one card per live service, each card links through
 // to that service's full deep-dive SEO landing page.
 
-const { fill, icon, renderHeader, renderFooter } = require('./partials');
+const { fill, icon, renderHeader, renderFooter, renderFavicons } = require('./partials');
 
 function renderBreadcrumbSchema(city, cityFull, site) {
   return `{
@@ -74,6 +74,7 @@ function renderServicesPage(city, site, services, allCities) {
 <meta name="theme-color" content="#14171C">
 <link rel="canonical" href="${site.siteUrl}/${city.slug}/services/">
 <link rel="stylesheet" href="/assets/styles.css">
+${renderFavicons()}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">

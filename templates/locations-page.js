@@ -3,7 +3,7 @@
 // keyless Google Maps embed (the free `maps.google.com/?output=embed`
 // iframe — no API key, no Cloud Console setup, no billing account).
 
-const { icon, renderHeader, renderFooter } = require('./partials');
+const { icon, renderHeader, renderFooter, renderFavicons } = require('./partials');
 
 function renderBreadcrumbSchema(city, cityFull, site) {
   return `{
@@ -45,6 +45,7 @@ ${hasGeo ? `<meta name="geo.region" content="${city.stateCode || ('US-' + city.s
 <meta name="ICBM" content="${city.lat}, ${city.lng}">
 ` : ''}<link rel="canonical" href="${site.siteUrl}/${city.slug}/locations/">
 <link rel="stylesheet" href="/assets/styles.css">
+${renderFavicons()}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">

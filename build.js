@@ -71,6 +71,8 @@ function build() {
 
   // Copy static assets (CSS, JS) as-is
   copyDir(path.join(ROOT, 'assets'), path.join(DIST, 'assets'));
+  // Root-level static files (favicon.ico, favicon.svg, apple-touch-icon.png)
+  if (fs.existsSync(path.join(ROOT, 'public'))) copyDir(path.join(ROOT, 'public'), DIST);
 
   // Global Cities directory
   fs.writeFileSync(path.join(DIST, 'index.html'), renderHomePage(publiclyLiveCities, site, liveServices));

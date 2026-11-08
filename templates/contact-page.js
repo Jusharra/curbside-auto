@@ -3,7 +3,7 @@
 // plus click-to-call and email. Supports ?service={slug} prefill from a
 // service card's "Request Online" link (see assets/main.js).
 
-const { renderServiceAreaSchema, icon, renderServiceSelect, renderFormHidden, renderVehicleFields, renderHeader, renderFooter } = require('./partials');
+const { renderServiceAreaSchema, icon, renderServiceSelect, renderFormHidden, renderVehicleFields, renderHeader, renderFooter, renderFavicons } = require('./partials');
 
 function renderBreadcrumbSchema(city, cityFull, site) {
   return `{
@@ -30,6 +30,7 @@ function renderContactPage(city, site, services, publiclyLiveCities) {
 <meta name="theme-color" content="#14171C">
 <link rel="canonical" href="${site.siteUrl}/${city.slug}/contact/">
 <link rel="stylesheet" href="/assets/styles.css">
+${renderFavicons()}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">

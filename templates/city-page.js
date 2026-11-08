@@ -2,7 +2,7 @@
 // Split hero (headline + embedded quick-request form), trust badges,
 // a 2-card category preview linking to /services/, FAQ, and a contact teaser.
 
-const { fill, renderServiceAreaSchema, icon, renderServiceSelect, renderFormHidden, renderVehicleFields, renderHeader, renderFooter } = require('./partials');
+const { fill, renderServiceAreaSchema, icon, renderServiceSelect, renderFormHidden, renderVehicleFields, renderHeader, renderFooter, renderFavicons } = require('./partials');
 
 function renderOfferSchema(site, city) {
   return site.offers.map(o => `    {
@@ -93,6 +93,7 @@ ${hasGeo ? `<meta name="geo.region" content="${city.stateCode || ('US-' + city.s
 <meta name="ICBM" content="${city.lat}, ${city.lng}">
 ` : ''}<link rel="canonical" href="${site.siteUrl}/${city.slug}/">
 <link rel="stylesheet" href="/assets/styles.css">
+${renderFavicons()}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">

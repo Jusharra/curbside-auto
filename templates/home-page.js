@@ -3,7 +3,7 @@
 // intra-city areas (with its own keyless map embed); this page is "Cities",
 // the inter-city index.
 
-const { icon, renderServiceSelect, renderFormHidden, renderVehicleFields } = require('./partials');
+const { icon, renderServiceSelect, renderFormHidden, renderVehicleFields, renderFavicons } = require('./partials');
 
 function renderCityListSchema(cities, site) {
   const items = cities.map((c, i) => {
@@ -88,6 +88,7 @@ function renderHomePage(cities, site, services) {
 <meta name="theme-color" content="#14171C">
 <link rel="canonical" href="${site.siteUrl}/">
 <link rel="stylesheet" href="/assets/styles.css">
+${renderFavicons()}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">

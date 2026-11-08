@@ -120,6 +120,16 @@ function renderVehicleFields(services, selectedSlug) {
         </div>`;
 }
 
+// ---------- favicon ----------
+// Files live in /public and are copied to the site root by build.js.
+// SVG for modern browsers, .ico (16/32/48) as the fallback browsers and
+// Google search request by default, and an opaque 180px iOS home-screen icon.
+function renderFavicons() {
+  return `<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">`;
+}
+
 // ---------- header ----------
 function renderHeader(activePath, city, site) {
   const cityFull = `${city.cityName}, ${city.stateAbbr}`;
@@ -173,4 +183,4 @@ function renderFooter(city, site, publiclyLiveCities) {
 </footer>`;
 }
 
-module.exports = { fill, renderServiceAreaSchema, icon, renderServiceSelect, renderFormHidden, renderVehicleFields, renderHeader, renderFooter };
+module.exports = { fill, renderServiceAreaSchema, icon, renderServiceSelect, renderFormHidden, renderVehicleFields, renderFavicons, renderHeader, renderFooter };
