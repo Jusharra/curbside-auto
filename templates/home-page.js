@@ -116,7 +116,7 @@ ${renderCityListSchema(liveCities, site)}
     <div class="hero-split">
       <div>
         <div class="hero-eyebrow">${icon('beacon')} NATIONWIDE SERVICE NETWORK</div>
-        <h1>Get Back To <em>Action.</em><span class="h1-sub">24-Hour Roadside Assistance &amp; Windshield Repair Near You</span></h1>
+        <h1>Get Back To Action <em>Roadside.</em><span class="h1-sub">24-Hour Roadside Assistance &amp; Windshield Repair Near You</span></h1>
         <p>${site.brandName} connects you with vetted local pros for roadside assistance, mobile mechanic service, and mobile windshield repair. Tell us what you need below, or pick your city.</p>
         <div class="hero-ctas">
           <a class="btn-primary" href="#cities">See All Cities ↓</a>
