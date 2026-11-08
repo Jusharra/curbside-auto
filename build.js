@@ -11,6 +11,7 @@ const { renderServicesPage } = require('./templates/services-page');
 const { renderLocationsPage } = require('./templates/locations-page');
 const { renderAboutPage } = require('./templates/about-page');
 const { renderContactPage } = require('./templates/contact-page');
+const { renderTermsPage } = require('./templates/terms-page');
 
 const ROOT = __dirname;
 const DIST = path.join(ROOT, 'dist');
@@ -52,6 +53,7 @@ function build() {
   const site = readJson('data/site.json');
   const cities = readJson('data/cities.json');
   const services = readJson('data/services.json');
+  const terms = readJson('data/terms.json');
 
   const liveServices = services.filter(s => s.live);
   const required = requiredCategories(liveServices);
@@ -77,13 +79,16 @@ function build() {
   // Global Cities directory
   fs.writeFileSync(path.join(DIST, 'index.html'), renderHomePage(publiclyLiveCities, site, liveServices));
 
+  // Site-wide Terms and Conditions & Partnership Policy
+  writePage(path.join(DIST, 'terms'), renderTermsPage(site, terms));
+
   // Five pages per city (Home/Services/Locations/About/Contact), plus one
   // deep SEO page per live service within that city. `publiclyLiveCities`
   // (never the raw `cities` array) is threaded through every render call so
   // a gated-out city can never leak into another page's cross-links.
   let builtCities = 0;
   let builtServices = 0;
-  const urlPaths = ['/'];
+  const urlPaths = ['/', '/terms/'];
   for (const city of publiclyLiveCities) {
     const cityDir = path.join(DIST, city.slug);
     urlPaths.push(`/${city.slug}/`, `/${city.slug}/services/`, `/${city.slug}/locations/`, `/${city.slug}/about/`, `/${city.slug}/contact/`);

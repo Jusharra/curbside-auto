@@ -3,7 +3,7 @@
 // intra-city areas (with its own keyless map embed); this page is "Cities",
 // the inter-city index.
 
-const { icon, renderServiceSelect, renderFormHidden, renderVehicleFields, renderFavicons } = require('./partials');
+const { icon, renderServiceSelect, renderFormHidden, renderVehicleFields, renderFavicons, renderTermsNote, renderTermsLink } = require('./partials');
 
 function renderCityListSchema(cities, site) {
   const items = cities.map((c, i) => {
@@ -161,6 +161,7 @@ ${renderServiceSelect(services, site)}
             <textarea id="home-details" name="Details" placeholder="Describe the issue (optional)"></textarea>
           </div>
           <button class="submit-btn" type="submit">${icon('phone')}Request Help</button>
+          ${renderTermsNote()}
         </form>
       </div>
     </div>
@@ -184,7 +185,10 @@ ${liveCities.map(renderCityCard).join('\n')}
 
 <footer>
   <div class="wrap footer-inner">
-    <span>© <span id="year"></span> ${site.brandName}. We work with independently owned and operated local service providers.</span>
+    <div>
+      <span>© <span id="year"></span> ${site.brandName}. We work with independently owned and operated local service providers.</span>
+      ${renderTermsLink()}
+    </div>
   </div>
 </footer>
 

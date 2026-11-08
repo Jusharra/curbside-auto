@@ -120,6 +120,17 @@ function renderVehicleFields(services, selectedSlug) {
         </div>`;
 }
 
+// ---------- terms & conditions ----------
+// Footer link (every page) and the consent line shown beside every form's
+// submit button. Informational only; deliberately not a required checkbox.
+function renderTermsLink() {
+  return `<p class="footer-cross-links footer-legal"><a href="/terms">Terms and Conditions</a></p>`;
+}
+
+function renderTermsNote() {
+  return `<p class="terms-note">By submitting this request you agree to our <a href="/terms" target="_blank" rel="noopener">Terms and Conditions</a>.</p>`;
+}
+
 // ---------- favicon ----------
 // Files live in /public and are copied to the site root by build.js.
 // SVG for modern browsers, .ico (16/32/48) as the fallback browsers and
@@ -177,10 +188,11 @@ function renderFooter(city, site, publiclyLiveCities) {
     <div>
       <span>© <span id="year"></span> ${site.brandName}. We work with independently owned and operated local service providers.</span>
       ${crossLinks}
+      ${renderTermsLink()}
     </div>
     <span><a href="tel:${city.phoneTel}">${city.phoneDisplay}</a>${city.email ? ` &nbsp;·&nbsp; <a href="mailto:${city.email}">${city.email}</a>` : ''}</span>
   </div>
 </footer>`;
 }
 
-module.exports = { fill, renderServiceAreaSchema, icon, renderServiceSelect, renderFormHidden, renderVehicleFields, renderFavicons, renderHeader, renderFooter };
+module.exports = { fill, renderServiceAreaSchema, icon, renderServiceSelect, renderFormHidden, renderVehicleFields, renderFavicons, renderTermsLink, renderTermsNote, renderHeader, renderFooter };

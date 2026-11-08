@@ -2,7 +2,7 @@
 // Split hero (headline + embedded quick-request form), trust badges,
 // a 2-card category preview linking to /services/, FAQ, and a contact teaser.
 
-const { fill, renderServiceAreaSchema, icon, renderServiceSelect, renderFormHidden, renderVehicleFields, renderHeader, renderFooter, renderFavicons } = require('./partials');
+const { fill, renderServiceAreaSchema, icon, renderServiceSelect, renderFormHidden, renderVehicleFields, renderHeader, renderFooter, renderFavicons, renderTermsNote } = require('./partials');
 
 function renderOfferSchema(site, city) {
   return site.offers.map(o => `    {
@@ -177,6 +177,7 @@ ${renderServiceSelect(services, site)}
             <textarea id="hero-details" name="Details" placeholder="Describe the issue (optional)"></textarea>
           </div>
           <button class="submit-btn" type="submit">${icon('phone')}Request Help</button>
+          ${renderTermsNote()}
         </form>
       </div>
     </div>

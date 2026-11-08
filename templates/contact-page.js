@@ -3,7 +3,7 @@
 // plus click-to-call and email. Supports ?service={slug} prefill from a
 // service card's "Request Online" link (see assets/main.js).
 
-const { renderServiceAreaSchema, icon, renderServiceSelect, renderFormHidden, renderVehicleFields, renderHeader, renderFooter, renderFavicons } = require('./partials');
+const { renderServiceAreaSchema, icon, renderServiceSelect, renderFormHidden, renderVehicleFields, renderHeader, renderFooter, renderFavicons, renderTermsNote } = require('./partials');
 
 function renderBreadcrumbSchema(city, cityFull, site) {
   return `{
@@ -105,6 +105,7 @@ ${renderServiceSelect(services, site)}
           <textarea id="details" name="Details" placeholder="What happened, best callback time"></textarea>
         </div>
         <button class="submit-btn" type="submit">${icon('phone')}Send Request</button>
+        ${renderTermsNote()}
       </form>
     </div>
   </div>

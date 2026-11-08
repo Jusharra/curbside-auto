@@ -2,7 +2,7 @@
 // URL shape: /{city.slug}/{service.slug}/ — e.g. /visalia-ca/flat-tire-change-repair/
 // Tokens available in service copy: {cityName}, {cityNameUpper}, {cityFull}, {brandName}
 
-const { fill, renderServiceAreaSchema, icon, renderServiceSelect, renderFormHidden, renderVehicleFields, renderHeader, renderFooter, renderFavicons } = require('./partials');
+const { fill, renderServiceAreaSchema, icon, renderServiceSelect, renderFormHidden, renderVehicleFields, renderHeader, renderFooter, renderFavicons, renderTermsNote } = require('./partials');
 
 function renderServiceSchema(service, site, city) {
   const cityFull = `${city.cityName}, ${city.stateAbbr}`;
@@ -236,6 +236,7 @@ ${renderServiceSelect(allServices, site, service.slug)}
           <textarea id="details" name="Details" placeholder="What happened, best callback time"></textarea>
         </div>
         <button class="submit-btn" type="submit">${icon('phone')}Send Request</button>
+        ${renderTermsNote()}
       </form>
     </div>
   </div>
