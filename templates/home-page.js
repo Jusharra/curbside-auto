@@ -83,7 +83,7 @@ function renderHomePage(cities, site, services) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>24 Hour Roadside Assistance & Windshield Repair Service</title>
+<title>Back To Action Roadside — 24 Hour Roadside & Windshield Repair</title>
 <meta name="description" content="${site.brandName} connects you with vetted local pros for 24/7 roadside assistance, mobile mechanic service, and mobile windshield repair. Pick your city to get started.">
 <meta name="theme-color" content="#14171C">
 <link rel="canonical" href="${site.siteUrl}/">
@@ -116,7 +116,7 @@ ${renderCityListSchema(liveCities, site)}
     <div class="hero-split">
       <div>
         <div class="hero-eyebrow">${icon('beacon')} NATIONWIDE SERVICE NETWORK</div>
-        <h1>Find <em>${site.logoMain.trim()}</em> near you.</h1>
+        <h1>Find <em>${site.brandName}</em> near you.</h1>
         <p>${site.brandName} connects you with vetted local pros for roadside assistance, mobile mechanic service, and mobile windshield repair. Tell us what you need below, or pick your city.</p>
         <div class="hero-ctas">
           <a class="btn-primary" href="#cities">See All Cities ↓</a>

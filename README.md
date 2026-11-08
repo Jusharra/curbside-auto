@@ -1,4 +1,4 @@
-# 24 Hour Roadside Assistance & Windshield Repair Service — Multi-City Site
+# Back To Action Roadside — Multi-City Site
 
 This is a small, zero-dependency site generator. One set of templates, one data file per concept (cities, services, shared copy) — add a city or a service by editing data, not by touching HTML.
 
@@ -107,7 +107,7 @@ Both are built from `city.cityName`/`city.stateAbbr` in `data/cities.json` — n
 ## Editing shared copy (brand, offers, FAQ, trust badges, how-it-works)
 
 Everything that's the same across every city lives in `data/site.json`:
-- `brandName` / `logoMain` / `logoAccent` — the legal name (used in schema, footer, title tags) vs. the compact header wordmark (the full name is long, so the header shows a shorter lockup)
+- `brandName` / `logoMain` / `logoAccent` — the full name (used in schema, footer, title tags) vs. the two-tone header wordmark (`logoMain` in white, `logoAccent` in amber)
 - `offers[]` — the two broad categories (Roadside/Mechanic, Windshield), each with a `categoryName` used for section headers on the Services page
 - `trustBadges[]` — shown under the Home hero CTAs; keep these to claims you can actually stand behind (no "Licensed & Insured" or specific response-time promises unless they're verified facts)
 - `howItWorks[]` — the shared 3-step block, shown on the About page and on every service page
